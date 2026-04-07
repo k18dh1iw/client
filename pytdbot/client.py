@@ -122,6 +122,8 @@ class Client(Decorators, Methods):
         default_parse_mode: str | None = None,
         system_language_code: str = "en",
         device_model: str | None = None,
+        system_version: str = None,
+        application_version: str = None,
         files_directory: str | None = None,
         database_encryption_key: str | bytes | None = None,
         use_test_dc: bool = False,
@@ -158,6 +160,8 @@ class Client(Decorators, Methods):
         )
         self.system_language_code = system_language_code
         self.device_model = device_model
+        self.system_version = system_version
+        self.application_version = application_version
         self.use_test_dc = use_test_dc
         self.use_file_database = use_file_database
         self.use_chat_info_database = use_chat_info_database
@@ -1004,16 +1008,16 @@ class Client(Decorators, Methods):
             api_id=self.__api_id,
             api_hash=self.__api_hash,
             system_language_code=self.system_language_code,
-            device_model=f"{python_implementation()} {python_version()}",
+            device_model=self.device_model,
+            system_version=self.system_version,
+            application_version=self.application_version,
             use_file_database=self.use_file_database,
             use_chat_info_database=self.use_chat_info_database,
             use_message_database=self.use_message_database,
             use_secret_chats=False,
-            system_version=None,
             files_directory=self.files_directory,
             database_encryption_key=self.__database_encryption_key,
             database_directory=join_path(self.files_directory, "database"),
-            application_version=f"Pytdbot {pytdbot.__version__}",
         )
         if isinstance(res, types.Error):
             await self.stop()
