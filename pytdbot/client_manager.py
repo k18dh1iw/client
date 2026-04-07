@@ -48,7 +48,7 @@ class ClientManager:
         if clients and not isinstance(clients, (list, pytdbot.Client)):
             raise TypeError("clients must be a list of pytdbot.Client")
 
-        self.loop = loop or pytdbot.utils.get_running_loop()
+        self.loop = asyncio.get_running_loop()
         self.__tdjson = TdJson(lib_path, verbosity)
         self.check_tdlib_version()
 
