@@ -2,6 +2,7 @@ from ..types import (
     ChatTypeSupergroup,
     Error,
     FormattedText,
+    HttpUrl,
     InputFile,
     InputFileRemote,
     InputMessageAnimation,
@@ -9,6 +10,7 @@ from ..types import (
     InputMessageContent,
     InputMessageDocument,
     InputMessageForwarded,
+    InputMessageInvoice,
     InputMessagePhoto,
     InputMessageReplyTo,
     InputMessageReplyToMessage,
@@ -19,6 +21,8 @@ from ..types import (
     InputMessageVoiceNote,
     InputTextQuote,
     InputThumbnail,
+    Invoice,
+    LabeledPricePart,
     LinkPreviewOptions,
     Message,
     MessageCopyOptions,
@@ -573,6 +577,105 @@ class Methods(TDLibFunctions):
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
             reply_markup=reply_markup,
+        )
+
+    async def sendInvoice(
+        self,
+        *,
+        chat_id: int,
+        title: str,
+        amount: int,
+        payload: bytes,
+        description: str = "",
+        subscription_period: int = 0,
+        start_parameter: str = "",
+        photo_url: str = "",
+        photo_size: int = 0,
+        photo_width: int = 0,
+        photo_height: int = 0,
+        recurring_payment_terms_of_service_url: str = "",
+        terms_of_service_url: str = "",
+        reply_to: InputMessageReplyTo | None = None,
+        reply_to_message_id: int = 0,
+    ) -> Error | Message:
+        r"""Send invoice to chat
+
+        Parameters:
+            chat_id (``int``):
+                Target chat
+
+            title (``str``):
+                Product title; 1-32 characters
+
+            amount (``int``):
+                Amount of Telegram Stars to be paid
+
+            payload (``bytes``):
+                The invoice payload
+
+            description (``str``, *optional*):
+                Product description; 0-255 characters
+
+            subscription_period (``int``, *optional*):
+                The number of seconds between consecutive Telegram Star debiting for subscription invoices; 0 if the invoice doesn't create subscription
+
+            start_parameter (``str``, *optional*):
+                Unique invoice bot deep link parameter for the generation of this invoice. If empty, it would be possible to pay directly from forwards of the invoice message
+
+            photo_url (``str``, *optional*):
+                Product photo URL; optional
+
+            photo_size (``int``, *optional*):
+                Product photo size
+
+            photo_width (``int``, *optional*):
+                Product photo width
+
+            photo_height (``int``, *optional*):
+                Product photo height
+
+            recurring_payment_terms_of_service_url (``str``, *optional*):
+                An HTTP URL with terms of service for recurring payments. If non-empty, the invoice payment will result in recurring payments and the user must accept the terms of service before allowed to pay
+
+            terms_of_service_url (``str``, *optional*):
+                An HTTP URL with terms of service for non-recurring payments. If non-empty, then the user must accept the terms of service before allowed to pay
+
+            reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):
+                Information about the message or the story this message is replying to; may be null if none
+
+            reply_to_message_id (``int``, *optional*):
+                Identifier of the message to reply. Ignored if ``reply_to`` is specified
+
+        Returns:
+            :class:`~pytdbot.types.Message`
+        """
+
+        return await self.sendMessageWithContent(
+            chat_id=chat_id,
+            content=InputMessageInvoice(
+                invoice=Invoice(
+                    currency="XTR",
+                    price_parts=[
+                        LabeledPricePart(
+                            label="",
+                            amount=amount,
+                        )
+                    ],
+                    subscription_period=subscription_period,
+                    recurring_payment_terms_of_service_url=recurring_payment_terms_of_service_url,
+                    terms_of_service_url=terms_of_service_url,
+                ),
+                title=title,
+                description=description,
+                photo_url=photo_url,
+                photo_size=photo_size,
+                photo_width=photo_width,
+                photo_height=photo_height,
+                payload=payload,
+                start_parameter=start_parameter,
+            ),
+            reply_to=reply_to,
+            reply_to_message_id=reply_to_message_id,
         )
 
     async def sendPhoto(
@@ -1409,3 +1512,86 @@ class Methods(TDLibFunctions):
             return res
 
         return await self._create_request_future(None, f"{res.chat_id}:{res.id}")
+
+    async def createStarsInvoice(
+        self,
+        title: str,
+        amount: int,
+        payload: bytes,
+        description: str = "",
+        subscription_period: int = 0,
+        start_parameter: str = "",
+        photo_url: str = "",
+        photo_size: int = 0,
+        photo_width: int = 0,
+        photo_height: int = 0,
+        recurring_payment_terms_of_service_url: str = "",
+        terms_of_service_url: str = "",
+    ) -> Error | HttpUrl:
+        r"""Create an invoice link for Telegram Stars
+
+        Parameters:
+            title (``str``):
+                Product title; 1-32 characters
+
+            amount (``int``):
+                Amount of Telegram Stars to be paid
+
+            payload (``bytes``):
+                The invoice payload
+
+            description (``str``, *optional*):
+                Product description; 0-255 characters
+
+            subscription_period (``int``, *optional*):
+                The number of seconds between consecutive Telegram Star debiting for subscription invoices; 0 if the invoice doesn't create subscription
+
+            start_parameter (``str``, *optional*):
+                Unique invoice bot deep link parameter for the generation of this invoice. If empty, it would be possible to pay directly from forwards of the invoice message
+
+            photo_url (``str``, *optional*):
+                Product photo URL; optional
+
+            photo_size (``int``, *optional*):
+                Product photo size
+
+            photo_width (``int``, *optional*):
+                Product photo width
+
+            photo_height (``int``, *optional*):
+                Product photo height
+
+            recurring_payment_terms_of_service_url (``str``, *optional*):
+                An HTTP URL with terms of service for recurring payments. If non-empty, the invoice payment will result in recurring payments and the user must accept the terms of service before allowed to pay
+
+            terms_of_service_url (``str``, *optional*):
+                An HTTP URL with terms of service for non-recurring payments. If non-empty, then the user must accept the terms of service before allowed to pay
+
+        Returns:
+            :class:`~pytdbot.types.HttpUrl`
+        """
+
+        return await self.createInvoiceLink(
+            invoice=InputMessageInvoice(
+                invoice=Invoice(
+                    currency="XTR",
+                    price_parts=[
+                        LabeledPricePart(
+                            label="",
+                            amount=amount,
+                        )
+                    ],
+                    subscription_period=subscription_period,
+                    recurring_payment_terms_of_service_url=recurring_payment_terms_of_service_url,
+                    terms_of_service_url=terms_of_service_url,
+                ),
+                title=title,
+                description=description,
+                photo_url=photo_url,
+                photo_size=photo_size,
+                photo_width=photo_width,
+                photo_height=photo_height,
+                payload=payload,
+                start_parameter=start_parameter,
+            )
+        )
