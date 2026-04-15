@@ -583,9 +583,7 @@ class Client(Decorators, Methods):
                         )
 
                     continue
-                else:
-                    self.logger.error(f"Couldn't load chat {chat_id}")
-
+                
             break
 
         return result
