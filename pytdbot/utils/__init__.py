@@ -1,4 +1,5 @@
 __all__ = [
+    "MediaAlbumFuture",
     "escape_html",
     "escape_markdown",
     "JSON_ENCODER",
@@ -35,6 +36,7 @@ __all__ = [
 ]
 
 
+from .albums import MediaAlbumFuture
 from .escape import escape_html, escape_markdown
 from .json_utils import (
     JSON_ENCODER,

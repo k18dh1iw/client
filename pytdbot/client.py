@@ -1110,7 +1110,9 @@ class Client(Decorators, Methods):
         m_id = f"{update.message.chat_id}:{update.old_message_id}"
 
         if result := self._results.pop(m_id, None):
-            result.set_result(update.error)
+            result.set_result(
+                update.error if not update.message.media_album_id else update.message
+            )
 
     async def __handle_update_option(self, update: types.UpdateOption):
         if isinstance(update.value, types.OptionValueBoolean):

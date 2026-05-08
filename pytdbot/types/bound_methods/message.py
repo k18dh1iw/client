@@ -134,6 +134,50 @@ class MessageBoundMethods:
 
         return unique_file_id
 
+    @property
+    @lru_cache(1)
+    def remote_file_size(self) -> int:
+        r"""Remote file size in bytes; 0 if unknown"""
+
+        file_size = 0
+        if isinstance(self.content, pytdbot.types.MessagePhoto):
+            file_size = self.content.photo.sizes[-1].photo.remote.uploaded_size
+        elif isinstance(self.content, pytdbot.types.MessageVideo):
+            file_size = self.content.video.video.remote.uploaded_size
+        elif isinstance(self.content, pytdbot.types.MessageSticker):
+            file_size = self.content.sticker.sticker.remote.uploaded_size
+        elif isinstance(self.content, pytdbot.types.MessageAnimation):
+            file_size = self.content.animation.animation.remote.uploaded_size
+        elif isinstance(self.content, pytdbot.types.MessageAudio):
+            file_size = self.content.audio.audio.remote.uploaded_size
+        elif isinstance(self.content, pytdbot.types.MessageDocument):
+            file_size = self.content.document.document.remote.uploaded_size
+        elif isinstance(self.content, pytdbot.types.MessageVoiceNote):
+            file_size = self.content.voice_note.voice.remote.uploaded_size
+        elif isinstance(self.content, pytdbot.types.MessageVideoNote):
+            file_size = self.content.video_note.video.remote.uploaded_size
+
+        return file_size
+
+    @property
+    @lru_cache(1)
+    def remote_duration(self) -> int:
+        r"""Remote media file duration in seconds as defined by the sender; 0 if unknown"""
+
+        duration = 0
+        if isinstance(self.content, pytdbot.types.MessageVideo):
+            duration = self.content.video.duration
+        elif isinstance(self.content, pytdbot.types.MessageAnimation):
+            duration = self.content.animation.duration
+        elif isinstance(self.content, pytdbot.types.MessageAudio):
+            duration = self.content.audio.duration
+        elif isinstance(self.content, pytdbot.types.MessageVoiceNote):
+            duration = self.content.voice_note.duration
+        elif isinstance(self.content, pytdbot.types.MessageVideoNote):
+            duration = self.content.video_note.duration
+
+        return duration
+
     async def mention(self, parse_mode: str = "html") -> str | None:
         r"""Get the text_mention of the message sender
 
@@ -449,6 +493,35 @@ class MessageBoundMethods:
             chat_id=self.chat_id,
             action=action,
             topic_id=topic_id,
+        )
+
+    async def reply_album(
+        self,
+        contents: list[
+            pytdbot.types.InputMessageAnimation
+            | pytdbot.types.InputMessageAudio
+            | pytdbot.types.InputMessageDocument
+            | pytdbot.types.InputMessagePhoto
+            | pytdbot.types.InputMessageVideo
+        ],
+        disable_notification: bool = False,
+        protect_content: bool = False,
+        allow_paid_broadcast: bool = False,
+        topic_id: pytdbot.types.MessageTopic = None,
+        quote: pytdbot.types.InputTextQuote = None,
+        no_reply: bool = False,
+    ):
+        r"""Reply to the message with media album. Shortcut for :meth:`~pytdbot.Client.sendAlbum`."""
+
+        return await self._client.sendAlbum(
+            chat_id=self.chat_id,
+            contents=contents,
+            disable_notification=disable_notification,
+            protect_content=protect_content,
+            allow_paid_broadcast=allow_paid_broadcast,
+            topic_id=topic_id,
+            quote=quote,
+            reply_to_message_id=self.id if not no_reply else None,
         )
 
     async def reply_text(

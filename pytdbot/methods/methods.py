@@ -26,6 +26,7 @@ from ..types import (
     LinkPreviewOptions,
     Message,
     MessageCopyOptions,
+    Messages,
     MessageSelfDestructType,
     MessageSendOptions,
     MessageTopic,
@@ -38,6 +39,7 @@ from ..types import (
     TextParseModeHTML,
     TextParseModeMarkdown,
 )
+from ..utils import MediaAlbumFuture
 from .td_functions import TDLibFunctions
 
 
@@ -102,6 +104,89 @@ class Methods(TDLibFunctions):
             return chat_info.type.supergroup_id
 
         return None
+
+    async def sendAlbum(
+        self,
+        chat_id: int,
+        contents: list[
+            InputMessageAnimation
+            | InputMessageAudio
+            | InputMessageDocument
+            | InputMessagePhoto
+            | InputMessageVideo
+        ],
+        disable_notification: bool = False,
+        protect_content: bool = False,
+        allow_paid_broadcast: bool = False,
+        topic_id: MessageTopic = None,
+        quote: InputTextQuote = None,
+        reply_to: InputMessageReplyTo = None,
+        reply_to_message_id: int = 0,
+    ) -> Error | Messages:
+        r"""Sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages
+
+        Parameters:
+            chat_id (``int``):
+                Target chat
+
+            contents (:class:`~pytdbot.types.InputMessageAnimation` | :class:`~pytdbot.types.InputMessageAudio` | :class:`~pytdbot.types.InputMessageDocument` | :class:`~pytdbot.types.InputMessagePhoto` | :class:`~pytdbot.types.InputMessageVideo`, *optional*):
+                Contents of messages to be sent. At most 10 messages can be added to an album. All messages must have the same value of show_caption_above_media
+
+            disable_notification (``bool``, *optional*):
+                If True, disable notification for the message. Default is ``None``
+
+            protect_content (``bool``, *optional*):
+                If True, the content of the message must be protected from forwarding and saving
+
+            allow_paid_broadcast (``bool``, *optional*):
+                Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``
+
+            topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):
+                Topic in which the message will be sent; pass null if none
+
+            quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):
+                Chosen quote from the replied message; may be null if none
+
+            reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):
+                Information about the message or the story this message is replying to; may be null if none
+
+            reply_to_message_id (``int``, *optional*):
+                Identifier of the message to reply. Ignored if ``reply_to`` is specified
+
+        Returns:
+            :class:`~pytdbot.types.Messages`
+        """
+
+        if isinstance(reply_to_message_id, int) and reply_to_message_id > 0:
+            reply_to = InputMessageReplyToMessage(
+                message_id=reply_to_message_id, quote=quote
+            )
+
+        if self.load_messages_before_reply and isinstance(
+            reply_to, InputMessageReplyToMessage
+        ):
+            await self.getMessage(chat_id=chat_id, message_id=reply_to.message_id)
+
+        res = await self.sendMessageAlbum(
+            chat_id=chat_id,
+            topic_id=topic_id,
+            reply_to=reply_to,
+            options=MessageSendOptions(
+                disable_notification=disable_notification,
+                protect_content=protect_content,
+                allow_paid_broadcast=allow_paid_broadcast,
+            ),
+            input_message_contents=contents,
+        )
+
+        if not res:
+            return res
+
+        album_future = MediaAlbumFuture(res)
+        for message in res.messages:
+            self._results[f"{message.chat_id}:{message.id}"] = album_future
+
+        return await album_future
 
     async def sendTextMessage(
         self,
@@ -1342,6 +1427,7 @@ class Methods(TDLibFunctions):
         chat_id: int,
         from_chat_id: int,
         message_id: int,
+        topic_id: MessageTopic = None,
         in_game_share: bool = False,
         disable_notification: bool = False,
     ):
@@ -1356,6 +1442,9 @@ class Methods(TDLibFunctions):
 
             message_id (``int``):
                 Identifier of the message to forward
+
+            topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):
+                Topic in which the message will be sent; pass null if none
 
             in_game_share (``bool``, *optional*):
                 True, if a game message is being shared from a launched game; applies only to game messages
@@ -1374,6 +1463,7 @@ class Methods(TDLibFunctions):
                 message_id=message_id,
                 in_game_share=in_game_share,
             ),
+            topic_id=topic_id,
             disable_notification=disable_notification,
         )
 
