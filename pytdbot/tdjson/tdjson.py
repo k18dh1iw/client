@@ -1,7 +1,4 @@
-try:
-    import tdjson
-except ImportError:
-    tdjson = None
+import tdjson
 
 import sys
 from ctypes import CDLL, c_char_p, c_double, c_int
