@@ -1,7 +1,7 @@
 {
     "name": "Auto-generated JSON TDLib API for Pytdbot ~ https://github.com/pytdbot/client",
-    "version": "1.8.65",
-    "commit_hash": "a8f21f5230172634becc1739050ef23ecd6ea291",
+    "version": "1.8.66",
+    "commit_hash": "a9966eb3704a3351568c28013fed67d797c17828",
     "classes": {
         "AuthenticationCodeType": {
             "description": "Provides information about the method by which an authentication code is delivered to the user",
@@ -39,6 +39,7 @@
         "RichMessageSource": {
             "description": "Describes source of a rich message",
             "types": [
+                "richMessageSourceBlocks",
                 "richMessageSourceMarkdown",
                 "richMessageSourceHtml"
             ],
@@ -225,7 +226,7 @@
             "description": "Describes price of a resold gift",
             "types": [
                 "giftResalePriceStar",
-                "giftResalePriceTon"
+                "giftResalePriceGram"
             ],
             "functions": []
         },
@@ -242,7 +243,7 @@
             "description": "Describes price of a suggested post",
             "types": [
                 "suggestedPostPriceStar",
-                "suggestedPostPriceTon"
+                "suggestedPostPriceGram"
             ],
             "functions": []
         },
@@ -439,7 +440,7 @@
             "functions": []
         },
         "TonTransactionType": {
-            "description": "Describes type of transaction with Toncoins",
+            "description": "Describes type of transaction with TON Grams",
             "types": [
                 "tonTransactionTypeFragmentDeposit",
                 "tonTransactionTypeFragmentWithdrawal",
@@ -488,6 +489,17 @@
             "types": [
                 "giveawayPrizePremium",
                 "giveawayPrizeStars"
+            ],
+            "functions": []
+        },
+        "CommunityMemberStatus": {
+            "description": "Provides information about the status of a member in a community",
+            "types": [
+                "communityMemberStatusCreator",
+                "communityMemberStatusAdministrator",
+                "communityMemberStatusMember",
+                "communityMemberStatusLeft",
+                "communityMemberStatusBanned"
             ],
             "functions": []
         },
@@ -668,7 +680,8 @@
             "types": [
                 "inputMessageReplyToMessage",
                 "inputMessageReplyToExternalMessage",
-                "inputMessageReplyToStory"
+                "inputMessageReplyToStory",
+                "inputMessageReplyToEphemeralMessage"
             ],
             "functions": []
         },
@@ -885,23 +898,24 @@
                 "richTextUnderline",
                 "richTextStrikethrough",
                 "richTextSpoiler",
+                "richTextSubscript",
+                "richTextSuperscript",
+                "richTextMarked",
                 "richTextDateTime",
                 "richTextMention",
                 "richTextHashtag",
                 "richTextCashtag",
+                "richTextBankCardNumber",
                 "richTextBotCommand",
                 "richTextFixed",
                 "richTextMentionName",
                 "richTextUrl",
                 "richTextEmailAddress",
-                "richTextBankCardNumber",
-                "richTextSubscript",
-                "richTextSuperscript",
-                "richTextMarked",
                 "richTextPhoneNumber",
                 "richTextCustomEmoji",
                 "richTextIcon",
                 "richTextMathematicalExpression",
+                "richTextDiff",
                 "richTextReference",
                 "richTextReferenceLink",
                 "richTextAnchor",
@@ -929,7 +943,7 @@
             "functions": []
         },
         "PageBlock": {
-            "description": "Describes a block of an instant view for a web page",
+            "description": "Describes a block of an instant view for a web page or a block of a rich message",
             "types": [
                 "pageBlockTitle",
                 "pageBlockSubtitle",
@@ -1239,6 +1253,8 @@
                 "messageChatJoinByLink",
                 "messageChatJoinByRequest",
                 "messageChatDeleteMember",
+                "messageChatAddedToCommunity",
+                "messageChatRemovedFromCommunity",
                 "messageChatUpgradeTo",
                 "messageChatUpgradeFrom",
                 "messagePinMessage",
@@ -1352,7 +1368,7 @@
             "functions": []
         },
         "InputPaidMediaType": {
-            "description": "Describes type of paid media to sent",
+            "description": "Describes type of paid media to send",
             "types": [
                 "inputPaidMediaTypePhoto",
                 "inputPaidMediaTypeVideo"
@@ -1388,6 +1404,33 @@
                 "inputPollMediaSticker",
                 "inputPollMediaVenue",
                 "inputPollMediaVideo"
+            ],
+            "functions": []
+        },
+        "InputPageBlock": {
+            "description": "Describes a block of a rich message to send",
+            "types": [
+                "inputPageBlockSectionHeading",
+                "inputPageBlockParagraph",
+                "inputPageBlockPreformatted",
+                "inputPageBlockFooter",
+                "inputPageBlockThinking",
+                "inputPageBlockDivider",
+                "inputPageBlockMathematicalExpression",
+                "inputPageBlockAnchor",
+                "inputPageBlockList",
+                "inputPageBlockBlockQuote",
+                "inputPageBlockPullQuote",
+                "inputPageBlockAnimation",
+                "inputPageBlockAudio",
+                "inputPageBlockPhoto",
+                "inputPageBlockVideo",
+                "inputPageBlockVoiceNote",
+                "inputPageBlockCollage",
+                "inputPageBlockSlideshow",
+                "inputPageBlockTable",
+                "inputPageBlockDetails",
+                "inputPageBlockMap"
             ],
             "functions": []
         },
@@ -1944,7 +1987,8 @@
                 "premiumFeatureChecklists",
                 "premiumFeaturePaidMessages",
                 "premiumFeatureProtectPrivateChatContent",
-                "premiumFeatureTextComposition"
+                "premiumFeatureTextComposition",
+                "premiumFeatureRichMessages"
             ],
             "functions": []
         },
@@ -2414,7 +2458,7 @@
                 "settingsSectionInAppBrowser",
                 "settingsSectionLanguage",
                 "settingsSectionMyStars",
-                "settingsSectionMyToncoins",
+                "settingsSectionMyGrams",
                 "settingsSectionNotifications",
                 "settingsSectionPowerSaving",
                 "settingsSectionPremium",
@@ -2799,6 +2843,7 @@
                 "updateDeleteMessages",
                 "updateChatAction",
                 "updatePendingMessage",
+                "updateCommunity",
                 "updateUserStatus",
                 "updateUser",
                 "updateBasicGroup",
@@ -2871,10 +2916,10 @@
                 "updateSavedMessagesTags",
                 "updateActiveLiveLocationMessages",
                 "updateOwnedStarCount",
-                "updateOwnedTonCount",
+                "updateOwnedGramCount",
                 "updateChatRevenueAmount",
                 "updateStarRevenueStatus",
-                "updateTonRevenueStatus",
+                "updateGramRevenueStatus",
                 "updateSpeechRecognitionTrial",
                 "updateGroupCallMessageLevels",
                 "updateDiceEmojis",
@@ -2900,6 +2945,7 @@
                 "updateNewPreCheckoutQuery",
                 "updateNewCustomEvent",
                 "updateNewCustomQuery",
+                "updateUserSubscription",
                 "updatePoll",
                 "updatePollAnswer",
                 "updateManagedBot",
@@ -3249,6 +3295,33 @@
             },
             "type": "RichMessage"
         },
+        "inputRichMessageMedia": {
+            "description": "Describes a media to be used in a sent rich message",
+            "args": {
+                "id": {
+                    "description": "Unique identifier of the media; 1-64 base64url characters",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "media": {
+                    "description": "The media to send. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessagePhoto, inputMessageVideo, or inputMessageVoiceNote",
+                    "is_optional": false,
+                    "type": "InputMessageContent"
+                }
+            },
+            "type": "InputRichMessageMedia"
+        },
+        "richMessageSourceBlocks": {
+            "description": "A rich message defined by blocks",
+            "args": {
+                "blocks": {
+                    "description": "Content of the message",
+                    "is_optional": false,
+                    "type": "vector<InputPageBlock>"
+                }
+            },
+            "type": "RichMessageSource"
+        },
         "richMessageSourceMarkdown": {
             "description": "A Markdown-formatted rich message; for bots only",
             "args": {
@@ -3256,6 +3329,11 @@
                     "description": "Markdown-formatted text of the message",
                     "is_optional": false,
                     "type": "string"
+                },
+                "media": {
+                    "description": "Media used in the message",
+                    "is_optional": false,
+                    "type": "vector<inputRichMessageMedia>"
                 }
             },
             "type": "RichMessageSource"
@@ -3267,12 +3345,17 @@
                     "description": "HTML-formatted text of the message",
                     "is_optional": false,
                     "type": "string"
+                },
+                "media": {
+                    "description": "Media used in the message",
+                    "is_optional": false,
+                    "type": "vector<inputRichMessageMedia>"
                 }
             },
             "type": "RichMessageSource"
         },
         "inputRichMessage": {
-            "description": "A rich message to send",
+            "description": "A rich message to send. Total length of all texts, including custom emoji alternative text and formula source, must not exceed getOption(\"rich_message_text_length_max\"). The total number of all blocks, list items and table rows must not exceed getOption(\"rich_message_block_count_max\"). The maximum allowed depth of nested blocks and rich texts is getOption(\"rich_message_depth_max\"). The total number of media in all blocks must not exceed getOption(\"rich_message_media_count_max\"). The maximum allowed number of table columns is getOption(\"rich_message_table_column_count_max\")",
             "args": {
                 "source": {
                     "description": "Source of the rich message",
@@ -3400,7 +3483,7 @@
                     "type": "string"
                 },
                 "creator_user_id": {
-                    "description": "User identifier of the creator of the style; 0 if none of unknown",
+                    "description": "User identifier of the creator of the style; 0 if none or unknown",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -4443,7 +4526,7 @@
                     "type": "string"
                 },
                 "has_stickers": {
-                    "description": "True, if stickers were added to the animation. The list of corresponding sticker set can be received using getAttachedStickerSets",
+                    "description": "True, if stickers were added to the animation. The list of corresponding sticker sets can be received using getAttachedStickerSets",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -4957,13 +5040,13 @@
                     "is_optional": true,
                     "type": "string"
                 },
-                "stake_toncoin_amount": {
-                    "description": "The Toncoin amount that was staked in the previous roll; in the smallest units of the currency",
+                "stake_gram_amount": {
+                    "description": "The amount of TON Grams staked in the previous roll; in the smallest units of the currency",
                     "is_optional": false,
                     "type": "int53"
                 },
-                "suggested_stake_toncoin_amounts": {
-                    "description": "The amounts of Toncoins that are suggested to be staked; in the smallest units of the currency",
+                "suggested_stake_gram_amounts": {
+                    "description": "The amounts of Grams that are suggested to be staked; in the smallest units of the currency",
                     "is_optional": false,
                     "type": "vector<int53>"
                 },
@@ -4973,12 +5056,12 @@
                     "type": "int32"
                 },
                 "prize_per_mille": {
-                    "description": "The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user",
+                    "description": "The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 1-6 correspondingly; may be empty if the stake dice can't be sent by the current user",
                     "is_optional": true,
                     "type": "vector<int32>"
                 },
                 "streak_prize_per_mille": {
-                    "description": "The number of Toncoins received by the user for each 1000 Toncoins staked if the dice outcome is 6 three times in a row with the same stake",
+                    "description": "The number of Grams received by the user for each 1000 Grams staked if the dice outcome is 6 three times in a row with the same stake",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -5452,6 +5535,11 @@
                     "description": "Description of the bot command",
                     "is_optional": false,
                     "type": "string"
+                },
+                "is_ephemeral": {
+                    "description": "True, if the command must send an ephemeral message instead of a regular one",
+                    "is_optional": false,
+                    "type": "Bool"
                 }
             },
             "type": "BotCommand"
@@ -5753,7 +5841,7 @@
                     "type": "businessRecipients"
                 },
                 "inactivity_days": {
-                    "description": "The number of days after which a chat will be considered as inactive; currently, must be on of 7, 14, 21, or 28",
+                    "description": "The number of days after which a chat will be considered as inactive; currently, must be one of 7, 14, 21, or 28",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -5966,12 +6054,12 @@
                     "type": "businessLocation"
                 },
                 "opening_hours": {
-                    "description": "Opening hours of the business; may be null if none. The hours are guaranteed to be valid and has already been split by week days",
+                    "description": "Opening hours of the business; may be null if none. The hours are guaranteed to be valid and have already been split by week days",
                     "is_optional": true,
                     "type": "businessOpeningHours"
                 },
                 "local_opening_hours": {
-                    "description": "Opening hours of the business in the local time; may be null if none. The hours are guaranteed to be valid and has already been split by week days. Local time zone identifier will be empty. An updateUserFullInfo update is not triggered when value of this field changes",
+                    "description": "Opening hours of the business in the local time; may be null if none. The hours are guaranteed to be valid and have already been split by week days. Local time zone identifier will be empty. An updateUserFullInfo update is not triggered when value of this field changes",
                     "is_optional": true,
                     "type": "businessOpeningHours"
                 },
@@ -6377,7 +6465,7 @@
                     "type": "Bool"
                 },
                 "can_promote_members": {
-                    "description": "True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them",
+                    "description": "True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them; applicable to supergroups and channels only",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -6616,11 +6704,11 @@
             },
             "type": "GiftResalePrice"
         },
-        "giftResalePriceTon": {
-            "description": "Describes price of a resold gift in Toncoins",
+        "giftResalePriceGram": {
+            "description": "Describes price of a resold gift in TON Grams",
             "args": {
-                "toncoin_cent_count": {
-                    "description": "The amount of 1/100 of Toncoin expected to be paid for the gift. Must be in the range getOption(\"gift_resale_toncoin_cent_count_min\")-getOption(\"gift_resale_toncoin_cent_count_max\")",
+                "gram_cent_count": {
+                    "description": "The amount of 1/100 of Gram expected to be paid for the gift. Must be in the range getOption(\"gift_resale_gram_cent_count_min\")-getOption(\"gift_resale_gram_cent_count_max\")",
                     "is_optional": false,
                     "type": "int53"
                 }
@@ -6653,11 +6741,11 @@
             },
             "type": "SuggestedPostPrice"
         },
-        "suggestedPostPriceTon": {
-            "description": "Describes price of a suggested post in Toncoins",
+        "suggestedPostPriceGram": {
+            "description": "Describes price of a suggested post in TON Grams",
             "args": {
-                "toncoin_cent_count": {
-                    "description": "The amount of 1/100 of Toncoin expected to be paid for the post; getOption(\"suggested_post_toncoin_cent_count_min\")-getOption(\"suggested_post_toncoin_cent_count_max\")",
+                "gram_cent_count": {
+                    "description": "The amount of 1/100 of Gram expected to be paid for the post; getOption(\"suggested_post_gram_cent_count_min\")-getOption(\"suggested_post_gram_cent_count_max\")",
                     "is_optional": false,
                     "type": "int53"
                 }
@@ -6714,7 +6802,7 @@
             "description": "Contains information about a post to suggest",
             "args": {
                 "price": {
-                    "description": "Price of the suggested post; pass null to suggest a post without payment. If the current user isn't an administrator of the channel direct messages chat and has no enough funds to pay for the post, then the error \"BALANCE_TOO_LOW\" will be returned immediately",
+                    "description": "Price of the suggested post; pass null to suggest a post without payment. If the current user isn't an administrator of the channel direct messages chat and doesn't have enough funds to pay for the post, then the error \"BALANCE_TOO_LOW\" will be returned immediately",
                     "is_optional": true,
                     "type": "SuggestedPostPrice"
                 },
@@ -6761,7 +6849,7 @@
                     "type": "Bool"
                 },
                 "invite_link": {
-                    "description": "The invite link that can be used to renew the subscription if it has been expired; may be empty, if the link isn't available anymore",
+                    "description": "The invite link that can be used to renew the subscription if it has expired; may be empty if the link isn't available anymore",
                     "is_optional": true,
                     "type": "string"
                 }
@@ -6834,7 +6922,7 @@
                     "type": "Bool"
                 },
                 "is_expiring": {
-                    "description": "True, if the subscription expires soon and there are no enough Telegram Stars on the user's balance to extend it",
+                    "description": "True, if the subscription expires soon and there aren't enough Telegram Stars on the user's balance to extend it",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -7537,13 +7625,13 @@
                     "is_optional": false,
                     "type": "int53"
                 },
-                "toncoin_cent_count": {
-                    "description": "Resale price of the gift in 1/100 of Toncoin",
+                "gram_cent_count": {
+                    "description": "Resale price of the gift in 1/100 of TON Gram",
                     "is_optional": false,
                     "type": "int53"
                 },
-                "toncoin_only": {
-                    "description": "True, if the gift can be bought only using Toncoins",
+                "gram_only": {
+                    "description": "True, if the gift can be bought only using Grams",
                     "is_optional": false,
                     "type": "Bool"
                 }
@@ -7636,7 +7724,7 @@
             "type": "UpgradedGiftOrigin"
         },
         "upgradedGiftOriginPrepaidUpgrade": {
-            "description": "The sender or receiver of the message has paid for upgraid of the gift, which has been completed",
+            "description": "The sender or receiver of the message has paid for upgrade of the gift, which has been completed",
             "args": {},
             "type": "UpgradedGiftOrigin"
         },
@@ -7922,7 +8010,7 @@
                     "type": "giftPurchaseLimits"
                 },
                 "overall_limits": {
-                    "description": "Number of times the gift can be purchased all users; may be null if not limited",
+                    "description": "Number of times the gift can be purchased by all users; may be null if not limited",
                     "is_optional": true,
                     "type": "giftPurchaseLimits"
                 },
@@ -7932,12 +8020,12 @@
                     "type": "giftBackground"
                 },
                 "first_send_date": {
-                    "description": "Point in time (Unix timestamp) when the gift was send for the first time; for sold out gifts only",
+                    "description": "Point in time (Unix timestamp) when the gift was sent for the first time; for sold out gifts only",
                     "is_optional": false,
                     "type": "int32"
                 },
                 "last_send_date": {
-                    "description": "Point in time (Unix timestamp) when the gift was send for the last time; for sold out gifts only",
+                    "description": "Point in time (Unix timestamp) when the gift was sent for the last time; for sold out gifts only",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -7993,7 +8081,7 @@
                     "type": "Bool"
                 },
                 "is_crafted": {
-                    "description": "True, if the gift was craft from another gifts",
+                    "description": "True, if the gift was crafted from other gifts",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -8618,7 +8706,7 @@
                     "type": "string"
                 },
                 "craft_date": {
-                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift can be in the past; only for the receiver of the gift",
+                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift; can be in the past; only for the receiver of the gift",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -9754,7 +9842,7 @@
             "type": "StarTransactions"
         },
         "tonTransactionTypeFragmentDeposit": {
-            "description": "The transaction is a deposit of Toncoins from Fragment",
+            "description": "The transaction is a deposit of Grams from Fragment",
             "args": {
                 "is_gift": {
                     "description": "True, if the transaction is a gift from another user",
@@ -9770,7 +9858,7 @@
             "type": "TonTransactionType"
         },
         "tonTransactionTypeFragmentWithdrawal": {
-            "description": "The transaction is a withdrawal of earned Toncoins to Fragment",
+            "description": "The transaction is a withdrawal of earned Grams to Fragment",
             "args": {
                 "withdrawal_state": {
                     "description": "State of the withdrawal; may be null for refunds from Fragment",
@@ -9832,12 +9920,12 @@
                     "type": "upgradedGift"
                 },
                 "commission_per_mille": {
-                    "description": "The number of Toncoins received by the Telegram for each 1000 Toncoins received by the seller of the gift",
+                    "description": "The number of Grams received by the Telegram for each 1000 Grams received by the seller of the gift",
                     "is_optional": false,
                     "type": "int32"
                 },
-                "commission_toncoin_amount": {
-                    "description": "The Toncoin amount that was received by the Telegram; in the smallest units of the currency",
+                "commission_gram_amount": {
+                    "description": "The Gram amount that was received by the Telegram; in the smallest units of the currency",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -9865,15 +9953,15 @@
             "type": "TonTransactionType"
         },
         "tonTransaction": {
-            "description": "Represents a transaction changing the amount of owned Toncoins",
+            "description": "Represents a transaction changing the amount of owned TON Grams",
             "args": {
                 "id": {
                     "description": "Unique identifier of the transaction",
                     "is_optional": false,
                     "type": "string"
                 },
-                "ton_amount": {
-                    "description": "The amount of added owned Toncoins; negative for outgoing transactions",
+                "gram_amount": {
+                    "description": "The amount of added owned Grams, in the smallest units of the cryptocurrency; negative for outgoing transactions",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -9896,15 +9984,15 @@
             "type": "TonTransaction"
         },
         "tonTransactions": {
-            "description": "Represents a list of Toncoin transactions",
+            "description": "Represents a list of TON Gram transactions",
             "args": {
-                "ton_amount": {
-                    "description": "The total amount of owned Toncoins",
+                "gram_amount": {
+                    "description": "The total amount of owned Grams, in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int53"
                 },
                 "transactions": {
-                    "description": "List of Toncoin transactions",
+                    "description": "List of Gram transactions",
                     "is_optional": false,
                     "type": "vector<tonTransaction>"
                 },
@@ -10182,6 +10270,125 @@
                 }
             },
             "type": "ProfileAccentColor"
+        },
+        "communityPermissions": {
+            "description": "Describes actions that a user is allowed to take in a community",
+            "args": {
+                "can_edit_chat_list": {
+                    "description": "True, if the user can change the chats added to the community",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "CommunityPermissions"
+        },
+        "communityAdministratorRights": {
+            "description": "Describes rights of the administrator in a community",
+            "args": {
+                "can_manage_community": {
+                    "description": "True, if the user is an administrator. Implied by any other privilege",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_change_info": {
+                    "description": "True, if the administrator can change the community name, photo, and other settings",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_edit_chat_list": {
+                    "description": "True, if the user can change the chats added to the community",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_promote_members": {
+                    "description": "True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "can_ban_members": {
+                    "description": "True, if the administrator can ban, or unban community members",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "CommunityAdministratorRights"
+        },
+        "communityMemberStatusCreator": {
+            "description": "The user is the owner of the community and has all the administrator privileges",
+            "args": {},
+            "type": "CommunityMemberStatus"
+        },
+        "communityMemberStatusAdministrator": {
+            "description": "The user is a member of the community and has some additional privileges",
+            "args": {
+                "can_be_edited": {
+                    "description": "True, if the current user can edit the administrator privileges for the called user",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "rights": {
+                    "description": "Rights of the administrator",
+                    "is_optional": false,
+                    "type": "communityAdministratorRights"
+                }
+            },
+            "type": "CommunityMemberStatus"
+        },
+        "communityMemberStatusMember": {
+            "description": "The user is a member of the community, without any additional privileges or restrictions",
+            "args": {},
+            "type": "CommunityMemberStatus"
+        },
+        "communityMemberStatusLeft": {
+            "description": "The user or the chat is not a community member",
+            "args": {},
+            "type": "CommunityMemberStatus"
+        },
+        "communityMemberStatusBanned": {
+            "description": "The user or the chat was banned in the community; implies ban in all chats in the community",
+            "args": {},
+            "type": "CommunityMemberStatus"
+        },
+        "community": {
+            "description": "Represents a community consisting of supergroup chats, channel chats and chats with bots",
+            "args": {
+                "id": {
+                    "description": "Community identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "have_access": {
+                    "description": "If false, the community is inaccessible, and the only information known about the community is inside this class. Identifier of the community can't be passed to any method",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "name": {
+                    "description": "Community name",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "photo": {
+                    "description": "Community photo; may be null",
+                    "is_optional": true,
+                    "type": "chatPhotoInfo"
+                },
+                "date": {
+                    "description": "Point in time (Unix timestamp) when the community was joined, or the point in time when the community was created, in case the user is not a member of any chat in the community",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "status": {
+                    "description": "Status of the current user in the community",
+                    "is_optional": false,
+                    "type": "CommunityMemberStatus"
+                },
+                "permissions": {
+                    "description": "Actions that non-administrator community members are allowed to take in the community",
+                    "is_optional": false,
+                    "type": "communityPermissions"
+                }
+            },
+            "type": "Community"
         },
         "userRating": {
             "description": "Contains description of user rating",
@@ -10621,6 +10828,11 @@
                     "is_optional": true,
                     "type": "chatPhoto"
                 },
+                "community_id": {
+                    "description": "Identifier of the community to which chat with the bot was added; for bots only",
+                    "is_optional": false,
+                    "type": "int53"
+                },
                 "block_list": {
                     "description": "Block list to which the user is added; may be null if none",
                     "is_optional": true,
@@ -10850,7 +11062,7 @@
             "type": "ChatMemberStatus"
         },
         "chatMemberStatusAdministrator": {
-            "description": "The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges",
+            "description": "The user is a member of the chat and has some additional privileges. In basic groups, administrators have all applicable rights. In supergroups and channels, any subset of the rights can be chosen for an administrator",
             "args": {
                 "can_be_edited": {
                     "description": "True, if the current user can edit the administrator privileges for the called user",
@@ -11100,15 +11312,10 @@
                     "is_optional": false,
                     "type": "int53"
                 },
-                "url": {
-                    "description": "The URL of the Web App to open",
-                    "is_optional": false,
-                    "type": "webAppUrl"
-                },
                 "query_id": {
-                    "description": "Unique identifier of the join request, which will be used in updateChatJoinResult",
+                    "description": "Unique identifier of the join request, which will be used in getGuardBotWebAppUrl and updateChatJoinResult",
                     "is_optional": false,
-                    "type": "int53"
+                    "type": "int64"
                 }
             },
             "type": "ChatJoinResult"
@@ -11124,7 +11331,7 @@
             "type": "ChatJoinRequestResult"
         },
         "chatJoinRequestResultDeclined": {
-            "description": "The request was decline",
+            "description": "The request was declined",
             "args": {},
             "type": "ChatJoinRequestResult"
         },
@@ -11537,7 +11744,7 @@
             "type": "BasicGroupFullInfo"
         },
         "supergroup": {
-            "description": "Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers",
+            "description": "Represents a supergroup or channel with zero or more members (subscribers in the case of channels)",
             "args": {
                 "id": {
                     "description": "Supergroup or channel identifier",
@@ -11610,7 +11817,7 @@
                     "type": "Bool"
                 },
                 "is_channel": {
-                    "description": "True, if the supergroup is a channel",
+                    "description": "True, if the supergroup is a channel, which can have an unlimited number of subscribers, but only administrators can post there and see the list of subscribers",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -11674,6 +11881,11 @@
                     "description": "Chat photo; may be null if empty or unknown. If non-null, then it is the same photo as in chat.photo",
                     "is_optional": true,
                     "type": "chatPhoto"
+                },
+                "community_id": {
+                    "description": "Identifier of the community to which the corresponding chat was added",
+                    "is_optional": false,
+                    "type": "int53"
                 },
                 "description": {
                     "description": "Supergroup or channel description",
@@ -12808,6 +13020,17 @@
             },
             "type": "InputMessageReplyTo"
         },
+        "inputMessageReplyToEphemeralMessage": {
+            "description": "Describes an ephemeral message to be replied; for bots only",
+            "args": {
+                "ephemeral_message_id": {
+                    "description": "The identifier of the ephemeral message to be replied",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputMessageReplyTo"
+        },
         "factCheck": {
             "description": "Describes a fact-check added to the message by an independent checker",
             "args": {
@@ -12835,6 +13058,11 @@
                 "sender_id": {
                     "description": "Identifier of the sender of the message",
                     "is_optional": false,
+                    "type": "MessageSender"
+                },
+                "receiver_id": {
+                    "description": "Identifier of the user or the chat which received the ephemeral message; may be null. Always null for non-ephemeral messages",
+                    "is_optional": true,
                     "type": "MessageSender"
                 },
                 "chat_id": {
@@ -12887,8 +13115,8 @@
                     "is_optional": false,
                     "type": "Bool"
                 },
-                "is_paid_ton_suggested_post": {
-                    "description": "True, if the message is a suggested channel post which was paid in Toncoins; a warning must be shown if the message is deleted in less than getOption(\"suggested_post_lifetime_min\") seconds after sending",
+                "is_paid_gram_suggested_post": {
+                    "description": "True, if the message is a suggested channel post which was paid in TON Grams; a warning must be shown if the message is deleted in less than getOption(\"suggested_post_lifetime_min\") seconds after sending",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -12908,7 +13136,7 @@
                     "type": "int32"
                 },
                 "edit_date": {
-                    "description": "Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages",
+                    "description": "Point in time (Unix timestamp) when the message was last edited; 0 for scheduled messages. If getOption(\"show_message_edit_date_by_default\") is true, then the date must be shown along with the message instead of the date when the message was sent",
                     "is_optional": false,
                     "type": "int32"
                 },
@@ -13031,6 +13259,11 @@
                     "description": "Reply markup for the message; may be null if none",
                     "is_optional": true,
                     "type": "ReplyMarkup"
+                },
+                "ephemeral_message_id": {
+                    "description": "Unique identifier of the ephemeral message if the message is ephemeral; for bots only",
+                    "is_optional": false,
+                    "type": "int32"
                 }
             },
             "type": "Message"
@@ -15884,6 +16117,39 @@
             },
             "type": "RichText"
         },
+        "richTextSubscript": {
+            "description": "A subscript rich text",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextSuperscript": {
+            "description": "A superscript rich text",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextMarked": {
+            "description": "A marked rich text",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "RichText"
+        },
         "richTextDateTime": {
             "description": "A date and time",
             "args": {
@@ -15947,6 +16213,22 @@
                 },
                 "cashtag": {
                     "description": "The cashtag",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextBankCardNumber": {
+            "description": "A bank card number",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "bank_card_number": {
+                    "description": "The number of the bank card",
                     "is_optional": false,
                     "type": "string"
                 }
@@ -16033,55 +16315,6 @@
             },
             "type": "RichText"
         },
-        "richTextBankCardNumber": {
-            "description": "A bank card number",
-            "args": {
-                "text": {
-                    "description": "Text",
-                    "is_optional": false,
-                    "type": "RichText"
-                },
-                "bank_card_number": {
-                    "description": "The number of the bank card",
-                    "is_optional": false,
-                    "type": "string"
-                }
-            },
-            "type": "RichText"
-        },
-        "richTextSubscript": {
-            "description": "A subscript rich text",
-            "args": {
-                "text": {
-                    "description": "Text",
-                    "is_optional": false,
-                    "type": "RichText"
-                }
-            },
-            "type": "RichText"
-        },
-        "richTextSuperscript": {
-            "description": "A superscript rich text",
-            "args": {
-                "text": {
-                    "description": "Text",
-                    "is_optional": false,
-                    "type": "RichText"
-                }
-            },
-            "type": "RichText"
-        },
-        "richTextMarked": {
-            "description": "A marked rich text",
-            "args": {
-                "text": {
-                    "description": "Text",
-                    "is_optional": false,
-                    "type": "RichText"
-                }
-            },
-            "type": "RichText"
-        },
         "richTextPhoneNumber": {
             "description": "A rich text phone number",
             "args": {
@@ -16142,6 +16375,22 @@
                     "description": "The expression in LaTeX format",
                     "is_optional": false,
                     "type": "string"
+                }
+            },
+            "type": "RichText"
+        },
+        "richTextDiff": {
+            "description": "A rich text replacing another rich text; not supported in inputRichMessage",
+            "args": {
+                "text": {
+                    "description": "Text",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "old_text": {
+                    "description": "The old text",
+                    "is_optional": false,
+                    "type": "RichText"
                 }
             },
             "type": "RichText"
@@ -16271,12 +16520,43 @@
                     "type": "int32"
                 },
                 "type": {
-                    "description": "Type of the item numbering type; must be one of \"a\" for a lowercase letters, \"A\" for an uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals, \"1\" for decimal numbers, or empty for unordered lists",
+                    "description": "Type of the item numbering type; must be one of \"a\" for lowercase letters, \"A\" for uppercase letters, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals, \"1\" for decimal numbers, or empty for unordered lists",
                     "is_optional": false,
                     "type": "string"
                 }
             },
             "type": "PageBlockListItem"
+        },
+        "inputPageBlockListItem": {
+            "description": "Describes an item of a list page block to be sent",
+            "args": {
+                "blocks": {
+                    "description": "Item blocks",
+                    "is_optional": false,
+                    "type": "vector<InputPageBlock>"
+                },
+                "has_checkbox": {
+                    "description": "True, if the item has a checkbox",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_checked": {
+                    "description": "True, if the item is checked",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "value": {
+                    "description": "Value of the item; pass 0 for unordered lists",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "type": {
+                    "description": "Type of the item numbering type; must be one of \"a\" for a lowercase letter, \"A\" for an uppercase letter, \"i\" for lowercase Roman numerals, \"I\" for uppercase Roman numerals, \"1\" for decimal numbers, or empty for unordered lists",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InputPageBlockListItem"
         },
         "pageBlockHorizontalAlignmentLeft": {
             "description": "The content must be left-aligned",
@@ -17664,6 +17944,11 @@
                 "english_name": {
                     "description": "English name of the country",
                     "is_optional": false,
+                    "type": "string"
+                },
+                "flag_emoji": {
+                    "description": "An emoji for the flag of the country; may be empty if unknown",
+                    "is_optional": true,
                     "type": "string"
                 },
                 "is_hidden": {
@@ -19977,13 +20262,13 @@
                     "is_optional": false,
                     "type": "int32"
                 },
-                "stake_toncoin_amount": {
-                    "description": "The Toncoin amount that was staked; in the smallest units of the currency",
+                "stake_gram_amount": {
+                    "description": "The TON Gram amount that was staked; in the smallest units of the currency",
                     "is_optional": false,
                     "type": "int53"
                 },
-                "prize_toncoin_amount": {
-                    "description": "The Toncoin amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet",
+                "prize_gram_amount": {
+                    "description": "The TON Gram amount that was gained from the roll; in the smallest units of the currency; -1 if the dice don't have final state yet",
                     "is_optional": false,
                     "type": "int53"
                 }
@@ -20369,6 +20654,22 @@
                     "type": "int53"
                 }
             },
+            "type": "MessageContent"
+        },
+        "messageChatAddedToCommunity": {
+            "description": "The chat was added to a community",
+            "args": {
+                "community_id": {
+                    "description": "Identifier of the community to which the chat was added",
+                    "is_optional": false,
+                    "type": "int53"
+                }
+            },
+            "type": "MessageContent"
+        },
+        "messageChatRemovedFromCommunity": {
+            "description": "The chat was removed from a community",
+            "args": {},
             "type": "MessageContent"
         },
         "messageChatUpgradeTo": {
@@ -21038,25 +21339,25 @@
             "type": "MessageContent"
         },
         "messageGiftedTon": {
-            "description": "Toncoins were gifted to a user",
+            "description": "TON Grams were gifted to a user",
             "args": {
                 "gifter_user_id": {
-                    "description": "The identifier of a user who gifted Toncoins; 0 if the gift was anonymous or is outgoing",
+                    "description": "The identifier of a user who gifted Grams; 0 if the gift was anonymous or is outgoing",
                     "is_optional": false,
                     "type": "int53"
                 },
                 "receiver_user_id": {
-                    "description": "The identifier of a user who received Toncoins; 0 if the gift is incoming",
+                    "description": "The identifier of a user who received Grams; 0 if the gift is incoming",
                     "is_optional": false,
                     "type": "int53"
                 },
-                "ton_amount": {
-                    "description": "The received Toncoin amount, in the smallest units of the cryptocurrency",
+                "gram_amount": {
+                    "description": "The received Gram amount, in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int53"
                 },
                 "transaction_id": {
-                    "description": "Identifier of the transaction for Toncoin credit; for receiver only",
+                    "description": "Identifier of the transaction for Gram credit; for receiver only",
                     "is_optional": false,
                     "type": "string"
                 },
@@ -21069,7 +21370,7 @@
             "type": "MessageContent"
         },
         "messageGiveawayPrizeStars": {
-            "description": "A Telegram Stars were received by the current user from a giveaway",
+            "description": "Telegram Stars were received by the current user from a giveaway",
             "args": {
                 "star_count": {
                     "description": "Number of Telegram Stars that were received",
@@ -21274,7 +21575,7 @@
                     "type": "int32"
                 },
                 "craft_date": {
-                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift can be in the past; only for the receiver of the gift",
+                    "description": "Point in time (Unix timestamp) when the gift can be used to craft another gift; can be in the past; only for the receiver of the gift",
                     "is_optional": false,
                     "type": "int32"
                 }
@@ -21440,7 +21741,7 @@
             "type": "MessageContent"
         },
         "messageSuggestedPostApprovalFailed": {
-            "description": "Approval of suggested post has failed, because the user which proposed the post had no enough funds",
+            "description": "Approval of suggested post has failed, because the user who proposed the post didn't have enough funds",
             "args": {
                 "suggested_post_message_id": {
                     "description": "Identifier of the message with the suggested post; may be 0 or an identifier of a deleted message",
@@ -21505,8 +21806,8 @@
                     "is_optional": false,
                     "type": "starAmount"
                 },
-                "ton_amount": {
-                    "description": "The amount of received Toncoins; in the smallest units of the cryptocurrency",
+                "gram_amount": {
+                    "description": "The amount of received TON Grams; in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int53"
                 }
@@ -22020,6 +22321,32 @@
             },
             "type": "InputPhoto"
         },
+        "inputSticker": {
+            "description": "A sticker to be sent",
+            "args": {
+                "sticker": {
+                    "description": "Sticker to be sent",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "thumbnail": {
+                    "description": "Sticker thumbnail; pass null to skip thumbnail uploading",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                },
+                "width": {
+                    "description": "Sticker width",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "height": {
+                    "description": "Sticker height",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputSticker"
+        },
         "inputVideo": {
             "description": "A video to be sent",
             "args": {
@@ -22070,6 +22397,53 @@
                 }
             },
             "type": "InputVideo"
+        },
+        "inputVideoNote": {
+            "description": "A video note to be sent",
+            "args": {
+                "video_note": {
+                    "description": "Video note file to be sent. The video is expected to be encoded to MPEG4 format with H.264 codec and have no data outside of the visible circle",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "thumbnail": {
+                    "description": "Video thumbnail; may be null if empty; pass null to skip thumbnail uploading",
+                    "is_optional": true,
+                    "type": "inputThumbnail"
+                },
+                "duration": {
+                    "description": "Duration of the video, in seconds; 0-60",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "length": {
+                    "description": "Video width and height; must be positive and not greater than 640",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputVideoNote"
+        },
+        "inputVoiceNote": {
+            "description": "A video note to be sent",
+            "args": {
+                "voice_note": {
+                    "description": "Voice note file to be sent. The voice note must be encoded with the Opus codec and stored inside an OGG container with a single audio channel, or be in MP3 or M4A format as regular audio",
+                    "is_optional": false,
+                    "type": "InputFile"
+                },
+                "duration": {
+                    "description": "Duration of the voice note, in seconds",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "waveform": {
+                    "description": "Waveform representation of the voice note in 5-bit format",
+                    "is_optional": false,
+                    "type": "bytes"
+                }
+            },
+            "type": "InputVoiceNote"
         },
         "inputPaidMediaTypePhoto": {
             "description": "The media is a photo. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20",
@@ -22351,22 +22725,7 @@
                 "sticker": {
                     "description": "Sticker to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
-                },
-                "thumbnail": {
-                    "description": "Sticker thumbnail; pass null to skip thumbnail uploading",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
-                },
-                "width": {
-                    "description": "Sticker width",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "height": {
-                    "description": "Sticker height",
-                    "is_optional": false,
-                    "type": "int32"
+                    "type": "inputSticker"
                 }
             },
             "type": "InputPollMedia"
@@ -22392,6 +22751,346 @@
                 }
             },
             "type": "InputPollMedia"
+        },
+        "inputPageBlockSectionHeading": {
+            "description": "A section heading",
+            "args": {
+                "text": {
+                    "description": "Text of the section heading",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "size": {
+                    "description": "Relative size of the text font; 1-6, 1 is the largest, 6 is the smallest",
+                    "is_optional": false,
+                    "type": "int32"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockParagraph": {
+            "description": "A text paragraph",
+            "args": {
+                "text": {
+                    "description": "Paragraph text",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockPreformatted": {
+            "description": "A preformatted text paragraph",
+            "args": {
+                "text": {
+                    "description": "Paragraph text",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "language": {
+                    "description": "Programming language for which the text needs to be formatted",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockFooter": {
+            "description": "The footer of the page",
+            "args": {
+                "footer": {
+                    "description": "Footer",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockThinking": {
+            "description": "A \"Thinking...\" placeholder; for pending rich messages only; for bots only",
+            "args": {
+                "text": {
+                    "description": "Text of the placeholder",
+                    "is_optional": false,
+                    "type": "RichText"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockDivider": {
+            "description": "An empty block separating the page",
+            "args": {},
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockMathematicalExpression": {
+            "description": "A mathematical expression",
+            "args": {
+                "expression": {
+                    "description": "The expression in LaTeX format",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockAnchor": {
+            "description": "An invisible anchor",
+            "args": {
+                "name": {
+                    "description": "Name of the anchor",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockList": {
+            "description": "A list of data blocks",
+            "args": {
+                "items": {
+                    "description": "The items of the list",
+                    "is_optional": false,
+                    "type": "vector<inputPageBlockListItem>"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockBlockQuote": {
+            "description": "A block quote",
+            "args": {
+                "blocks": {
+                    "description": "Quote blocks",
+                    "is_optional": false,
+                    "type": "vector<InputPageBlock>"
+                },
+                "credit": {
+                    "description": "Quote credit; pass null if none",
+                    "is_optional": true,
+                    "type": "RichText"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockPullQuote": {
+            "description": "A pull quote",
+            "args": {
+                "text": {
+                    "description": "Quote text",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "credit": {
+                    "description": "Quote credit; pass null if none",
+                    "is_optional": true,
+                    "type": "RichText"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockAnimation": {
+            "description": "An animation",
+            "args": {
+                "animation": {
+                    "description": "The animation to be sent",
+                    "is_optional": false,
+                    "type": "inputAnimation"
+                },
+                "caption": {
+                    "description": "Animation caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                },
+                "has_spoiler": {
+                    "description": "True, if the animation preview must be covered by a spoiler animation",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockAudio": {
+            "description": "An audio file",
+            "args": {
+                "audio": {
+                    "description": "The audio to be sent",
+                    "is_optional": false,
+                    "type": "inputAudio"
+                },
+                "caption": {
+                    "description": "Audio file caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockPhoto": {
+            "description": "A photo",
+            "args": {
+                "photo": {
+                    "description": "The photo to be sent",
+                    "is_optional": false,
+                    "type": "inputPhoto"
+                },
+                "caption": {
+                    "description": "Photo caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                },
+                "has_spoiler": {
+                    "description": "True, if the photo preview must be covered by a spoiler animation",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockVideo": {
+            "description": "A video",
+            "args": {
+                "video": {
+                    "description": "The video to be sent",
+                    "is_optional": false,
+                    "type": "inputVideo"
+                },
+                "caption": {
+                    "description": "Video caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                },
+                "has_spoiler": {
+                    "description": "True, if the video preview must be covered by a spoiler animation",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockVoiceNote": {
+            "description": "A voice note",
+            "args": {
+                "voice_note": {
+                    "description": "The voice note to be sent",
+                    "is_optional": false,
+                    "type": "inputVoiceNote"
+                },
+                "caption": {
+                    "description": "Voice note caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockCollage": {
+            "description": "A collage",
+            "args": {
+                "blocks": {
+                    "description": "Collage item contents",
+                    "is_optional": false,
+                    "type": "vector<InputPageBlock>"
+                },
+                "caption": {
+                    "description": "Block caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockSlideshow": {
+            "description": "A slideshow",
+            "args": {
+                "blocks": {
+                    "description": "Slideshow item contents",
+                    "is_optional": false,
+                    "type": "vector<InputPageBlock>"
+                },
+                "caption": {
+                    "description": "Block caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockTable": {
+            "description": "A table",
+            "args": {
+                "caption": {
+                    "description": "Table caption",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "cells": {
+                    "description": "Table cells",
+                    "is_optional": false,
+                    "type": "vector<vector<pageBlockTableCell>>"
+                },
+                "is_bordered": {
+                    "description": "True, if the table is bordered",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_striped": {
+                    "description": "True, if the table is striped",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockDetails": {
+            "description": "A collapsible block",
+            "args": {
+                "header": {
+                    "description": "Always visible heading for the block",
+                    "is_optional": false,
+                    "type": "RichText"
+                },
+                "blocks": {
+                    "description": "Block contents",
+                    "is_optional": false,
+                    "type": "vector<InputPageBlock>"
+                },
+                "is_open": {
+                    "description": "True, if the block is open by default",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "InputPageBlock"
+        },
+        "inputPageBlockMap": {
+            "description": "A map. The map's width and height must not exceed 10000 in total. Width and height ratio must be at most 20",
+            "args": {
+                "location": {
+                    "description": "Location of the map center",
+                    "is_optional": false,
+                    "type": "location"
+                },
+                "zoom": {
+                    "description": "Map zoom level; 0-24",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "width": {
+                    "description": "Map width; 0-10000",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "height": {
+                    "description": "Map height; 0-10000",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "caption": {
+                    "description": "Block caption; pass null if none",
+                    "is_optional": true,
+                    "type": "pageBlockCaption"
+                }
+            },
+            "type": "InputPageBlock"
         },
         "inputMessageText": {
             "description": "A text message",
@@ -22556,22 +23255,7 @@
                 "sticker": {
                     "description": "Sticker to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
-                },
-                "thumbnail": {
-                    "description": "Sticker thumbnail; pass null to skip thumbnail uploading",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
-                },
-                "width": {
-                    "description": "Sticker width",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "height": {
-                    "description": "Sticker height",
-                    "is_optional": false,
-                    "type": "int32"
+                    "type": "inputSticker"
                 },
                 "emoji": {
                     "description": "Emoji used to choose the sticker",
@@ -22616,24 +23300,9 @@
             "description": "A video note message",
             "args": {
                 "video_note": {
-                    "description": "Video note to be sent. The video is expected to be encoded to MPEG4 format with H.264 codec and have no data outside of the visible circle",
+                    "description": "Video note to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
-                },
-                "thumbnail": {
-                    "description": "Video thumbnail; may be null if empty; pass null to skip thumbnail uploading",
-                    "is_optional": true,
-                    "type": "inputThumbnail"
-                },
-                "duration": {
-                    "description": "Duration of the video, in seconds; 0-60",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "length": {
-                    "description": "Video width and height; must be positive and not greater than 640",
-                    "is_optional": false,
-                    "type": "int32"
+                    "type": "inputVideoNote"
                 },
                 "self_destruct_type": {
                     "description": "Video note self-destruct type; may be null if none; pass null if none; private chats only",
@@ -22647,19 +23316,9 @@
             "description": "A voice note message",
             "args": {
                 "voice_note": {
-                    "description": "Voice note to be sent. The voice note must be encoded with the Opus codec and stored inside an OGG container with a single audio channel, or be in MP3 or M4A format as regular audio",
+                    "description": "Voice note to be sent",
                     "is_optional": false,
-                    "type": "InputFile"
-                },
-                "duration": {
-                    "description": "Duration of the voice note, in seconds",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "waveform": {
-                    "description": "Waveform representation of the voice note in 5-bit format",
-                    "is_optional": false,
-                    "type": "bytes"
+                    "type": "inputVoiceNote"
                 },
                 "caption": {
                     "description": "Voice note caption; pass null to use an empty caption; 0-getOption(\"message_caption_length_max\") characters",
@@ -22910,8 +23569,8 @@
                     "is_optional": false,
                     "type": "string"
                 },
-                "stake_toncoin_amount": {
-                    "description": "The Toncoin amount that will be staked; in the smallest units of the currency. Must be in the range getOption(\"stake_dice_stake_amount_min\")-getOption(\"stake_dice_stake_amount_max\")",
+                "stake_gram_amount": {
+                    "description": "The TON Gram amount that will be staked; in the smallest units of the currency. Must be in the range getOption(\"stake_dice_stake_amount_min\")-getOption(\"stake_dice_stake_amount_max\")",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -23050,7 +23709,7 @@
                     "type": "Bool"
                 },
                 "can_be_replied": {
-                    "description": "True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage",
+                    "description": "True, if the message can be replied in the same chat and forum topic using inputMessageReplyToMessage. Ephemeral messages can be replied only by other ephemeral messages",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -23905,7 +24564,7 @@
             "type": "StoryAreaType"
         },
         "storyAreaTypeSuggestedReaction": {
-            "description": "An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the are is clicked",
+            "description": "An area pointing to a suggested reaction. App needs to show a clickable reaction on the area and call setStoryReaction when the area is clicked",
             "args": {
                 "reaction_type": {
                     "description": "Type of the reaction",
@@ -24504,7 +25163,7 @@
                     "type": "Bool"
                 },
                 "has_expired_viewers": {
-                    "description": "True, if users viewed the story can't be received, because the story has expired more than getOption(\"story_viewers_expiration_delay\") seconds ago",
+                    "description": "True, if users who viewed the story can't be received, because the story has expired more than getOption(\"story_viewers_expiration_delay\") seconds ago",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -29297,6 +29956,11 @@
             "args": {},
             "type": "PremiumFeature"
         },
+        "premiumFeatureRichMessages": {
+            "description": "The ability to send rich messages",
+            "args": {},
+            "type": "PremiumFeature"
+        },
         "businessFeatureLocation": {
             "description": "The ability to set location",
             "args": {},
@@ -32421,8 +33085,8 @@
             },
             "type": "SettingsSection"
         },
-        "settingsSectionMyToncoins": {
-            "description": "The Toncoin balance and transaction section",
+        "settingsSectionMyGrams": {
+            "description": "The TON Gram balance and transaction section",
             "args": {},
             "type": "SettingsSection"
         },
@@ -33716,7 +34380,7 @@
                     "type": "Bool"
                 },
                 "preload_stories": {
-                    "description": "True, if stories needs to be preloaded",
+                    "description": "True, if stories need to be preloaded",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -34407,7 +35071,7 @@
             },
             "type": "AddedProxies"
         },
-        "inputSticker": {
+        "newSticker": {
             "description": "A sticker to be added to a sticker set",
             "args": {
                 "sticker": {
@@ -34436,7 +35100,7 @@
                     "type": "vector<string>"
                 }
             },
-            "type": "InputSticker"
+            "type": "NewSticker"
         },
         "dateRange": {
             "description": "Represents a date range",
@@ -35035,8 +35699,8 @@
         "chatRevenueTransactions": {
             "description": "Contains a list of chat revenue transactions",
             "args": {
-                "ton_amount": {
-                    "description": "The amount of owned Toncoins; in the smallest units of the cryptocurrency",
+                "gram_amount": {
+                    "description": "The amount of owned TON Grams; in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int53"
                 },
@@ -35105,34 +35769,34 @@
             },
             "type": "StarRevenueStatistics"
         },
-        "tonRevenueStatus": {
-            "description": "Contains information about Toncoins earned by the current user",
+        "gramRevenueStatus": {
+            "description": "Contains information about TON Grams earned by the current user",
             "args": {
                 "total_amount": {
-                    "description": "Total Toncoin amount earned; in the smallest units of the cryptocurrency",
+                    "description": "Total Gram amount earned; in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int64"
                 },
                 "balance_amount": {
-                    "description": "The Toncoin amount that isn't withdrawn yet; in the smallest units of the cryptocurrency",
+                    "description": "The Gram amount that isn't withdrawn yet; in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int64"
                 },
                 "available_amount": {
-                    "description": "The Toncoin amount that is available for withdrawal; in the smallest units of the cryptocurrency",
+                    "description": "The Gram amount that is available for withdrawal; in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int64"
                 },
                 "withdrawal_enabled": {
-                    "description": "True, if Toncoins can be withdrawn",
+                    "description": "True, if Grams can be withdrawn",
                     "is_optional": false,
                     "type": "Bool"
                 }
             },
-            "type": "TonRevenueStatus"
+            "type": "GramRevenueStatus"
         },
-        "tonRevenueStatistics": {
-            "description": "A detailed statistics about Toncoins earned by the current user",
+        "gramRevenueStatistics": {
+            "description": "A detailed statistics about TON Grams earned by the current user",
             "args": {
                 "revenue_by_day_graph": {
                     "description": "A graph containing amount of revenue in a given day",
@@ -35142,15 +35806,15 @@
                 "status": {
                     "description": "Amount of earned revenue",
                     "is_optional": false,
-                    "type": "tonRevenueStatus"
+                    "type": "gramRevenueStatus"
                 },
                 "usd_rate": {
-                    "description": "Current conversion rate of nanotoncoin to USD cents",
+                    "description": "Current conversion rate of nanogram to USD cents",
                     "is_optional": false,
                     "type": "double"
                 }
             },
-            "type": "TonRevenueStatistics"
+            "type": "GramRevenueStatistics"
         },
         "point": {
             "description": "A point on a Cartesian plane",
@@ -36734,6 +37398,17 @@
             },
             "type": "Update"
         },
+        "updateCommunity": {
+            "description": "Some data of a community has changed. This update is guaranteed to come before the community identifier is returned to the application",
+            "args": {
+                "community": {
+                    "description": "New data about the community",
+                    "is_optional": false,
+                    "type": "community"
+                }
+            },
+            "type": "Update"
+        },
         "updateUserStatus": {
             "description": "The user went online or offline",
             "args": {
@@ -37241,7 +37916,7 @@
             "type": "Update"
         },
         "updateActiveGiftAuctions": {
-            "description": "The list of auctions in which participate the current user has changed",
+            "description": "The list of auctions in which the current user participates has changed",
             "args": {
                 "states": {
                     "description": "New states of the auctions",
@@ -37328,7 +38003,7 @@
             "description": "A join request from the user was completed",
             "args": {
                 "query_id": {
-                    "description": "Identifier of the join request query as received in chatJoinResultGuardBotApprovalRequired. If the corresponding Web App is stiil open, then it must be closed",
+                    "description": "Identifier of the join request query as received in chatJoinResultGuardBotApprovalRequired. If the corresponding Web App is still open, then it must be closed",
                     "is_optional": false,
                     "type": "int64"
                 },
@@ -37700,7 +38375,7 @@
             "type": "Update"
         },
         "updateAgeVerificationParameters": {
-            "description": "The parameters for age verification of the current user's account has changed",
+            "description": "The parameters for age verification of the current user's account have changed",
             "args": {
                 "parameters": {
                     "description": "Parameters for the age verification; may be null if age verification isn't needed",
@@ -37851,11 +38526,11 @@
             },
             "type": "Update"
         },
-        "updateOwnedTonCount": {
-            "description": "The number of Toncoins owned by the current user has changed",
+        "updateOwnedGramCount": {
+            "description": "The number of TON Grams owned by the current user has changed",
             "args": {
-                "ton_amount": {
-                    "description": "The new amount of owned Toncoins; in the smallest units of the cryptocurrency",
+                "gram_amount": {
+                    "description": "The new amount of owned Grams; in the smallest units of the cryptocurrency",
                     "is_optional": false,
                     "type": "int53"
                 }
@@ -37894,19 +38569,19 @@
             },
             "type": "Update"
         },
-        "updateTonRevenueStatus": {
-            "description": "The Toncoin revenue earned by the current user has changed. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions",
+        "updateGramRevenueStatus": {
+            "description": "The TON Gram revenue earned by the current user has changed. If Gram transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions",
             "args": {
                 "status": {
-                    "description": "New Toncoin revenue status",
+                    "description": "New Gram revenue status",
                     "is_optional": false,
-                    "type": "tonRevenueStatus"
+                    "type": "gramRevenueStatus"
                 }
             },
             "type": "Update"
         },
         "updateSpeechRecognitionTrial": {
-            "description": "The parameters of speech recognition without Telegram Premium subscription has changed",
+            "description": "The parameters of speech recognition without Telegram Premium subscription have changed",
             "args": {
                 "max_media_duration": {
                     "description": "The maximum allowed duration of media for speech recognition without Telegram Premium subscription, in seconds",
@@ -37986,7 +38661,7 @@
             "type": "Update"
         },
         "updateAnimationSearchParameters": {
-            "description": "The parameters of animation search through getOption(\"animation_search_bot_username\") bot has changed",
+            "description": "The parameters of animation search through getOption(\"animation_search_bot_username\") bot have changed",
             "args": {
                 "provider": {
                     "description": "Name of the animation search provider",
@@ -38029,7 +38704,7 @@
             "type": "Update"
         },
         "updateSpeedLimitNotification": {
-            "description": "Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a being downloaded or uploaded file is visible to the user. Use getOption(\"premium_download_speedup\") or getOption(\"premium_upload_speedup\") to get expected speedup after subscription to Telegram Premium",
+            "description": "Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium. The notification can be postponed until a file being downloaded or uploaded is visible to the user. Use getOption(\"premium_download_speedup\") or getOption(\"premium_upload_speedup\") to get expected speedup after subscription to Telegram Premium",
             "args": {
                 "is_upload": {
                     "description": "True, if upload speed was limited; false, if download speed was limited",
@@ -38416,6 +39091,37 @@
                     "description": "Query timeout",
                     "is_optional": false,
                     "type": "int32"
+                }
+            },
+            "type": "Update"
+        },
+        "updateUserSubscription": {
+            "description": "Subscription of a user to the bot was changed; for bots only",
+            "args": {
+                "user_id": {
+                    "description": "Identifier of the user",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "payload": {
+                    "description": "Bot-specified subscription invoice payload",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "is_canceled": {
+                    "description": "True, if the subscription was canceled",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_restored": {
+                    "description": "True, if the subscription was restored",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "is_payment_failed": {
+                    "description": "True, if the payment for the subscription has failed",
+                    "is_optional": false,
+                    "type": "Bool"
                 }
             },
             "type": "Update"
@@ -39564,7 +40270,7 @@
             "type": "File"
         },
         "getRemoteFile": {
-            "description": "Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application",
+            "description": "Returns information about a file by its remote identifier. This is an offline method. Can be used to register a URL as a file for further uploading, or sending as a message. Even if the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application",
             "args": {
                 "remote_file_id": {
                     "description": "Remote identifier of the file to get",
@@ -41253,7 +41959,7 @@
             "type": "TextCompositionStyleExample"
         },
         "addTextCompositionStyle": {
-            "description": "Adds a custom text composition style to the list of used by the user styles. May return an error with a message \"TONES_SAVED_TOO_MANY\" if the maximum number of added custom styles has been reached",
+            "description": "Adds a custom text composition style to the list of used by the user styles. May return an error with a message \"TONES_SAVED_TOO_MANY\" if the maximum number of added custom styles getOption(\"added_text_composition_style_count_max\") has been reached",
             "args": {
                 "name": {
                     "description": "Name of the style",
@@ -41295,6 +42001,27 @@
             },
             "type": "FormattedText"
         },
+        "translateRichMessage": {
+            "description": "Translates a rich message to the given language",
+            "args": {
+                "message": {
+                    "description": "Rich message to translate",
+                    "is_optional": false,
+                    "type": "inputRichMessage"
+                },
+                "to_language_code": {
+                    "description": "Language code of the language to which the message is translated. See translateText.to_language_code for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "tone": {
+                    "description": "Tone of the translation; see translateText.tone for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "RichMessage"
+        },
         "translateMessageText": {
             "description": "Extracts text or caption of the given message and translates it to the given language; must not be used in secret chats. If the current user is a Telegram Premium user, then text formatting is preserved",
             "args": {
@@ -41320,6 +42047,32 @@
                 }
             },
             "type": "FormattedText"
+        },
+        "translateMessageRichMessage": {
+            "description": "Extracts rich message of the given message and translates it to the given language",
+            "args": {
+                "chat_id": {
+                    "description": "Identifier of the chat to which the message belongs",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "message_id": {
+                    "description": "Identifier of the message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "to_language_code": {
+                    "description": "Language code of the language to which the message is translated. See translateText.to_language_code for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "tone": {
+                    "description": "Tone of the translation; see translateText.tone for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
+                }
+            },
+            "type": "RichMessage"
         },
         "summarizeMessage": {
             "description": "Summarizes content of the message with non-empty summary_language_code",
@@ -41373,6 +42126,58 @@
             },
             "type": "FormattedText"
         },
+        "composeRichMessageWithAi": {
+            "description": "Changes a rich message using an AI model. May return an error with a message \"AICOMPOSE_FLOOD_PREMIUM\" if Telegram Premium is required to send further requests",
+            "args": {
+                "message": {
+                    "description": "The original message",
+                    "is_optional": false,
+                    "type": "inputRichMessage"
+                },
+                "translate_to_language_code": {
+                    "description": "Pass a language code to which the text will be translated; pass an empty string if translation isn't needed. See translateText.to_language_code for the list of supported values",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "style_name": {
+                    "description": "Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "custom_prompt": {
+                    "description": "Custom prompt that will be used instead of style_name; 0-getOption(\"text_composition_style_prompt_length_max\") characters",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "add_emojis": {
+                    "description": "Pass true to add emoji to the text",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "RichMessage"
+        },
+        "createRichMessageWithAi": {
+            "description": "Creates a new rich message using an AI model. May return an error with a message \"AICOMPOSE_FLOOD_PREMIUM\" if Telegram Premium is required to send further requests",
+            "args": {
+                "prompt": {
+                    "description": "Prompt that will be used to create the message; 0-getOption(\"text_composition_style_prompt_length_max\") characters",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "language_code": {
+                    "description": "Pass a language code in which the text will be created",
+                    "is_optional": false,
+                    "type": "string"
+                },
+                "add_emojis": {
+                    "description": "Pass true to add emoji to the text",
+                    "is_optional": false,
+                    "type": "Bool"
+                }
+            },
+            "type": "RichMessage"
+        },
         "fixTextWithAi": {
             "description": "Fixes text using an AI model; must not be used in secret chats. May return an error with a message \"AICOMPOSE_FLOOD_PREMIUM\" if Telegram Premium is required to send further requests",
             "args": {
@@ -41383,6 +42188,17 @@
                 }
             },
             "type": "FixedText"
+        },
+        "fixRichMessageWithAi": {
+            "description": "Fixes a rich message using an AI model. May return an error with a message \"AICOMPOSE_FLOOD_PREMIUM\" if Telegram Premium is required to send further requests",
+            "args": {
+                "message": {
+                    "description": "The original message",
+                    "is_optional": false,
+                    "type": "inputRichMessage"
+                }
+            },
+            "type": "RichMessage"
         },
         "recognizeSpeech": {
             "description": "Recognizes speech in a video note or a voice note message",
@@ -41665,6 +42481,57 @@
             },
             "type": "Messages"
         },
+        "sendEphemeralMessage": {
+            "description": "Sends an ephemeral message which will be received only by one bot in a chat. Currently, only ephemeral bot commands and replies to bot ephemeral messages can be sent using the method. The message is persistent across application restarts only if the message database is used. Returns the sent message",
+            "args": {
+                "chat_id": {
+                    "description": "Target chat",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "topic_id": {
+                    "description": "Topic in which the message will be sent; pass null if none",
+                    "is_optional": true,
+                    "type": "MessageTopic"
+                },
+                "receiver_user_id": {
+                    "description": "Identifier of the user who will receive the message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "callback_query_id": {
+                    "description": "Identifier of the callback query which triggered the message; for bots only",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "reply_to": {
+                    "description": "Information about the message to be replied; pass null if none. The message can be an incoming ephemeral message",
+                    "is_optional": true,
+                    "type": "InputMessageReplyTo"
+                },
+                "sending_id": {
+                    "description": "Non-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "only_preview": {
+                    "description": "Pass true to get a fake message instead of actually sending them",
+                    "is_optional": false,
+                    "type": "Bool"
+                },
+                "reply_markup": {
+                    "description": "Markup for replying to the message; pass null if none; for bots only",
+                    "is_optional": true,
+                    "type": "ReplyMarkup"
+                },
+                "input_message_content": {
+                    "description": "The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact",
+                    "is_optional": false,
+                    "type": "InputMessageContent"
+                }
+            },
+            "type": "Message"
+        },
         "addLocalMessage": {
             "description": "Adds a local message to a chat. The message is persistent across application restarts only if the message database is used. Returns the added message",
             "args": {
@@ -41713,6 +42580,27 @@
                     "description": "Pass true to delete messages for all chat members. Always true for supergroups, channels and secret chats",
                     "is_optional": false,
                     "type": "Bool"
+                }
+            },
+            "type": "Ok"
+        },
+        "deleteEphemeralMessage": {
+            "description": "Deletes an ephemeral message; for bots only",
+            "args": {
+                "chat_id": {
+                    "description": "Chat identifier",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "receiver_user_id": {
+                    "description": "Identifier of the user who received the message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "ephemeral_message_id": {
+                    "description": "Identifiers of the message to be deleted",
+                    "is_optional": false,
+                    "type": "int32"
                 }
             },
             "type": "Ok"
@@ -41916,7 +42804,7 @@
             "type": "Message"
         },
         "editInlineMessageText": {
-            "description": "Edits the text of an inline text or game message sent via a bot; for bots only",
+            "description": "Edits the text of an inline text or game message sent via the bot; for bots only",
             "args": {
                 "inline_message_id": {
                     "description": "Inline message identifier",
@@ -41929,7 +42817,7 @@
                     "type": "ReplyMarkup"
                 },
                 "input_message_content": {
-                    "description": "New text content of the message. Must be of type inputMessageText or inputMessageRichMessage",
+                    "description": "New text content of the message. Must be of type inputMessageText or inputMessageRichMessage; file upload isn't supported",
                     "is_optional": false,
                     "type": "InputMessageContent"
                 }
@@ -42016,6 +42904,37 @@
                     "description": "The new message reply markup; pass null if none",
                     "is_optional": true,
                     "type": "ReplyMarkup"
+                }
+            },
+            "type": "Ok"
+        },
+        "editEphemeralMessage": {
+            "description": "Edits the text, caption or reply markup of an ephemeral message sent by the bot; for bots only",
+            "args": {
+                "chat_id": {
+                    "description": "The chat the message belongs to",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "receiver_user_id": {
+                    "description": "Identifier of the user who received the message",
+                    "is_optional": false,
+                    "type": "int53"
+                },
+                "ephemeral_message_id": {
+                    "description": "Identifier of the ephemeral message",
+                    "is_optional": false,
+                    "type": "int32"
+                },
+                "reply_markup": {
+                    "description": "The new message reply markup; pass null if none",
+                    "is_optional": true,
+                    "type": "ReplyMarkup"
+                },
+                "input_message_content": {
+                    "description": "New content of the message; pass null to edit only reply markup. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote",
+                    "is_optional": true,
+                    "type": "InputMessageContent"
                 }
             },
             "type": "Ok"
@@ -43555,7 +44474,7 @@
             "type": "FormattedText"
         },
         "getCountryFlagEmoji": {
-            "description": "Returns an emoji for the given country. Returns an empty string on failure. Can be called synchronously",
+            "description": "Returns an emoji for the flag of the given country. Returns an empty string on failure. Can be called synchronously",
             "args": {
                 "country_code": {
                     "description": "A two-letter ISO 3166-1 alpha-2 country code as received from getCountries",
@@ -44244,6 +45163,22 @@
             },
             "type": "WebAppUrl"
         },
+        "getGuardBotWebAppUrl": {
+            "description": "Returns an HTTPS URL of a Web App of a guard bot to open after receiving chatJoinResultGuardBotApprovalRequired",
+            "args": {
+                "query_id": {
+                    "description": "Unique identifier of the join request as received in chatJoinResultGuardBotApprovalRequired",
+                    "is_optional": false,
+                    "type": "int64"
+                },
+                "parameters": {
+                    "description": "Parameters to use to open the Web App",
+                    "is_optional": false,
+                    "type": "webAppOpenParameters"
+                }
+            },
+            "type": "WebAppUrl"
+        },
         "sendWebAppData": {
             "description": "Sends data received from a keyboardButtonTypeWebApp Web App to a bot",
             "args": {
@@ -44650,7 +45585,7 @@
                     "type": "int64"
                 },
                 "message": {
-                    "description": "Draft of the message",
+                    "description": "Draft of the message; file upload isn't supported",
                     "is_optional": false,
                     "type": "inputRichMessage"
                 }
@@ -45969,7 +46904,7 @@
             "type": "FailedToAddMembers"
         },
         "setChatMemberStatus": {
-            "description": "Changes the status of a chat member; requires can_invite_users member right to add a chat member, can_promote_members administrator right to change administrator rights of the member, and can_restrict_members administrator right to change restrictions of a user. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead. Use addChatMember or banChatMember if some additional parameters needs to be passed",
+            "description": "Changes the status of a chat member; requires can_invite_users member right to add a chat member, can_promote_members administrator right to change administrator rights of the member, and can_restrict_members administrator right to change restrictions of a user. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead. Use addChatMember or banChatMember if some additional parameters need to be passed",
             "args": {
                 "chat_id": {
                     "description": "Chat identifier",
@@ -47747,7 +48682,7 @@
                     "type": "int53"
                 },
                 "is_revoked": {
-                    "description": "Pass true if revoked links needs to be returned instead of active or expired",
+                    "description": "Pass true if revoked links need to be returned instead of active or expired",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -49376,24 +50311,9 @@
             "description": "Adds an audio file to the beginning of the profile audio files of the current user",
             "args": {
                 "audio": {
-                    "description": "The audio file to be added",
+                    "description": "The audio to add",
                     "is_optional": false,
-                    "type": "InputFile"
-                },
-                "duration": {
-                    "description": "Duration of the audio, in seconds; may be replaced by the server; ignored for already uploaded files",
-                    "is_optional": false,
-                    "type": "int32"
-                },
-                "title": {
-                    "description": "Title of the audio; 0-64 characters; may be replaced by the server; ignored for already uploaded files",
-                    "is_optional": false,
-                    "type": "string"
-                },
-                "performer": {
-                    "description": "Performer of the audio; 0-64 characters, may be replaced by the server; ignored for already uploaded files",
-                    "is_optional": false,
-                    "type": "string"
+                    "type": "inputAudio"
                 }
             },
             "type": "Ok"
@@ -50755,7 +51675,7 @@
             "type": "CheckChatUsernameResult"
         },
         "createBot": {
-            "description": "Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message \"BOT_CREATE_LIMIT_EXCEEDED\" if the user already owns the maximum allowed number of bots as per premiumLimitTypeOwnedBotCount. An internal link \"https://t.me/BotFather?start=deletebot\" can be processed to handle the error",
+            "description": "Creates a bot which will be managed by another bot. Returns the created bot. May return an error with a message \"BOT_CREATE_LIMIT_EXCEEDED\" if the user already owns the maximum allowed number of bots as per getOption(\"owned_bot_count_max\"). An internal link \"https://t.me/BotFather?start=deletebot\" can be processed to handle the error",
             "args": {
                 "manager_bot_user_id": {
                     "description": "Identifier of the bot that will manage the created bot",
@@ -51901,7 +52821,7 @@
                     "type": "Bool"
                 },
                 "star_count": {
-                    "description": "The Telegram Star amount required to pay for the upgrade. It the gift has prepaid_upgrade_star_count > 0, then pass 0, otherwise, pass gift.upgrade_star_count",
+                    "description": "The Telegram Star amount required to pay for the upgrade. If the gift has prepaid_upgrade_star_count > 0, then pass 0, otherwise, pass gift.upgrade_star_count",
                     "is_optional": false,
                     "type": "int53"
                 }
@@ -52210,7 +53130,7 @@
                     "type": "string"
                 },
                 "price": {
-                    "description": "The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(\"gift_resale_star_earnings_per_mille\") Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(\"gift_resale_ton_earnings_per_mille\") Toncoins for each 1000 Toncoins paid for the gift if the gift price is in Toncoins",
+                    "description": "The new price for the unique gift; pass null to disallow gift resale. The current user will receive getOption(\"gift_resale_star_earnings_per_mille\") Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption(\"gift_resale_ton_earnings_per_mille\") TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams",
                     "is_optional": true,
                     "type": "GiftResalePrice"
                 }
@@ -53023,7 +53943,7 @@
             "type": "ChatRevenueTransactions"
         },
         "getTonTransactions": {
-            "description": "Returns the list of Toncoin transactions of the current user",
+            "description": "Returns the list of TON blockchain transactions of the current user",
             "args": {
                 "direction": {
                     "description": "Direction of the transactions to receive; pass null to get all transactions",
@@ -53091,8 +54011,8 @@
             },
             "type": "HttpUrl"
         },
-        "getTonRevenueStatistics": {
-            "description": "Returns detailed Toncoin revenue statistics of the current user",
+        "getGramRevenueStatistics": {
+            "description": "Returns detailed TON Gram revenue statistics of the current user",
             "args": {
                 "is_dark": {
                     "description": "Pass true if a dark theme is used by the application",
@@ -53100,10 +54020,10 @@
                     "type": "Bool"
                 }
             },
-            "type": "TonRevenueStatistics"
+            "type": "GramRevenueStatistics"
         },
-        "getTonWithdrawalUrl": {
-            "description": "Returns a URL for Toncoin withdrawal from the current user's account. The user must have at least 10 toncoins to withdraw and can withdraw up to 100000 Toncoins in one transaction",
+        "getGramWithdrawalUrl": {
+            "description": "Returns a URL for TON Gram withdrawal from the current user's account. The user must have at least 10 Grams to withdraw and can withdraw up to 100000 Grams in one transaction",
             "args": {
                 "password": {
                     "description": "The 2-step verification password of the current user",
@@ -53489,7 +54409,7 @@
             "type": "Ok"
         },
         "setPassportElementErrors": {
-            "description": "Informs the user who some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed",
+            "description": "Informs the user that some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed",
             "args": {
                 "user_id": {
                     "description": "User identifier",
@@ -53630,7 +54550,7 @@
                     "type": "StickerFormat"
                 },
                 "sticker": {
-                    "description": "File file to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements",
+                    "description": "File to upload; must fit in a 512x512 square. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server-side. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements",
                     "is_optional": false,
                     "type": "InputFile"
                 }
@@ -53690,7 +54610,7 @@
                 "stickers": {
                     "description": "List of stickers to be added to the set; 1-200 stickers for custom emoji sticker sets, and 1-120 stickers otherwise. For TGS stickers, uploadStickerFile must be used before the sticker is shown",
                     "is_optional": false,
-                    "type": "vector<inputSticker>"
+                    "type": "vector<newSticker>"
                 },
                 "source": {
                     "description": "Source of the sticker set; may be empty if unknown",
@@ -53716,7 +54636,7 @@
                 "sticker": {
                     "description": "Sticker to add to the set",
                     "is_optional": false,
-                    "type": "inputSticker"
+                    "type": "newSticker"
                 }
             },
             "type": "Ok"
@@ -53742,7 +54662,7 @@
                 "new_sticker": {
                     "description": "Sticker to add to the set",
                     "is_optional": false,
-                    "type": "inputSticker"
+                    "type": "newSticker"
                 }
             },
             "type": "Ok"
@@ -54164,7 +55084,7 @@
             "description": "Returns the list of Telegram Star subscriptions for the current user",
             "args": {
                 "only_expiring": {
-                    "description": "Pass true to receive only expiring subscriptions for which there are no enough Telegram Stars to extend",
+                    "description": "Pass true to receive only expiring subscriptions for which there aren't enough Telegram Stars to extend",
                     "is_optional": false,
                     "type": "Bool"
                 },
@@ -54361,7 +55281,7 @@
             "description": "Returns affiliate programs that were connected to the given affiliate",
             "args": {
                 "affiliate": {
-                    "description": "The affiliate to which the affiliate program were connected",
+                    "description": "The affiliate to which the affiliate programs were connected",
                     "is_optional": false,
                     "type": "AffiliateType"
                 },
@@ -54390,7 +55310,7 @@
             "type": "BusinessFeatures"
         },
         "acceptTermsOfService": {
-            "description": "Accepts Telegram terms of services",
+            "description": "Accepts Telegram terms of service",
             "args": {
                 "terms_of_service_id": {
                     "description": "Terms of service identifier",
