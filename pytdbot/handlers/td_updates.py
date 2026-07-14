@@ -4262,6 +4262,65 @@ class Updates:
 
         return decorator
 
+    def on_updateCommunity(
+        self: pytdbot.Client | None = None,
+        filters: pytdbot.filters.Filter | None = None,
+        position: int | None = None,
+        timeout: float | None = None,
+    ) -> Callable:
+        r"""Some data of a community has changed\. This update is guaranteed to come before the community identifier is returned to the application
+
+        Parameters:
+            filters (:class:`pytdbot.filters.Filter`, *optional*):
+                An update filter
+
+            position (``int``, *optional*):
+                The function position in handlers list. Default is ``None`` (append)
+
+            timeout (``float``, *optional*):
+                Max execution time for the handler before it timeout. Default is ``None``
+
+        Raises:
+            :py:class:`TypeError`
+        """
+
+        def decorator(func: Callable) -> Callable:
+            if hasattr(func, "_handler"):
+                return func
+            elif isinstance(self, pytdbot.Client):
+                if iscoroutinefunction(func):
+                    self.add_handler(
+                        update_type="updateCommunity",
+                        func=func,
+                        filters=filters,
+                        position=position,
+                        inner_object=False,
+                        timeout=timeout,
+                    )
+                else:
+                    raise TypeError("Handler must be async")
+            elif isinstance(self, pytdbot.filters.Filter):
+                func._handler = Handler(
+                    func=func,
+                    update_type="updateCommunity",
+                    filter=self,
+                    position=position,
+                    inner_object=False,
+                    timeout=timeout,
+                )
+            else:
+                func._handler = Handler(
+                    func=func,
+                    update_type="updateCommunity",
+                    filter=filters,
+                    position=position,
+                    inner_object=False,
+                    timeout=timeout,
+                )
+            return func
+
+        return decorator
+
     def on_updateUserStatus(
         self: pytdbot.Client | None = None,
         filters: pytdbot.filters.Filter | None = None,
@@ -6097,7 +6156,7 @@ class Updates:
         position: int | None = None,
         timeout: float | None = None,
     ) -> Callable:
-        r"""The list of auctions in which participate the current user has changed
+        r"""The list of auctions in which the current user participates has changed
 
         Parameters:
             filters (:class:`pytdbot.filters.Filter`, *optional*):
@@ -7808,7 +7867,7 @@ class Updates:
         position: int | None = None,
         timeout: float | None = None,
     ) -> Callable:
-        r"""The parameters for age verification of the current user's account has changed
+        r"""The parameters for age verification of the current user's account have changed
 
         Parameters:
             filters (:class:`pytdbot.filters.Filter`, *optional*):
@@ -8510,13 +8569,13 @@ class Updates:
 
         return decorator
 
-    def on_updateOwnedTonCount(
+    def on_updateOwnedGramCount(
         self: pytdbot.Client | None = None,
         filters: pytdbot.filters.Filter | None = None,
         position: int | None = None,
         timeout: float | None = None,
     ) -> Callable:
-        r"""The number of Toncoins owned by the current user has changed
+        r"""The number of TON Grams owned by the current user has changed
 
         Parameters:
             filters (:class:`pytdbot.filters.Filter`, *optional*):
@@ -8538,7 +8597,7 @@ class Updates:
             elif isinstance(self, pytdbot.Client):
                 if iscoroutinefunction(func):
                     self.add_handler(
-                        update_type="updateOwnedTonCount",
+                        update_type="updateOwnedGramCount",
                         func=func,
                         filters=filters,
                         position=position,
@@ -8550,7 +8609,7 @@ class Updates:
             elif isinstance(self, pytdbot.filters.Filter):
                 func._handler = Handler(
                     func=func,
-                    update_type="updateOwnedTonCount",
+                    update_type="updateOwnedGramCount",
                     filter=self,
                     position=position,
                     inner_object=False,
@@ -8559,7 +8618,7 @@ class Updates:
             else:
                 func._handler = Handler(
                     func=func,
-                    update_type="updateOwnedTonCount",
+                    update_type="updateOwnedGramCount",
                     filter=filters,
                     position=position,
                     inner_object=False,
@@ -8687,13 +8746,13 @@ class Updates:
 
         return decorator
 
-    def on_updateTonRevenueStatus(
+    def on_updateGramRevenueStatus(
         self: pytdbot.Client | None = None,
         filters: pytdbot.filters.Filter | None = None,
         position: int | None = None,
         timeout: float | None = None,
     ) -> Callable:
-        r"""The Toncoin revenue earned by the current user has changed\. If Toncoin transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions
+        r"""The TON Gram revenue earned by the current user has changed\. If Gram transaction screen of the chat is opened, then getTonTransactions may be called to fetch new transactions
 
         Parameters:
             filters (:class:`pytdbot.filters.Filter`, *optional*):
@@ -8715,7 +8774,7 @@ class Updates:
             elif isinstance(self, pytdbot.Client):
                 if iscoroutinefunction(func):
                     self.add_handler(
-                        update_type="updateTonRevenueStatus",
+                        update_type="updateGramRevenueStatus",
                         func=func,
                         filters=filters,
                         position=position,
@@ -8727,7 +8786,7 @@ class Updates:
             elif isinstance(self, pytdbot.filters.Filter):
                 func._handler = Handler(
                     func=func,
-                    update_type="updateTonRevenueStatus",
+                    update_type="updateGramRevenueStatus",
                     filter=self,
                     position=position,
                     inner_object=False,
@@ -8736,7 +8795,7 @@ class Updates:
             else:
                 func._handler = Handler(
                     func=func,
-                    update_type="updateTonRevenueStatus",
+                    update_type="updateGramRevenueStatus",
                     filter=filters,
                     position=position,
                     inner_object=False,
@@ -8752,7 +8811,7 @@ class Updates:
         position: int | None = None,
         timeout: float | None = None,
     ) -> Callable:
-        r"""The parameters of speech recognition without Telegram Premium subscription has changed
+        r"""The parameters of speech recognition without Telegram Premium subscription have changed
 
         Parameters:
             filters (:class:`pytdbot.filters.Filter`, *optional*):
@@ -9047,7 +9106,7 @@ class Updates:
         position: int | None = None,
         timeout: float | None = None,
     ) -> Callable:
-        r"""The parameters of animation search through getOption\(\"animation\_search\_bot\_username\"\) bot has changed
+        r"""The parameters of animation search through getOption\(\"animation\_search\_bot\_username\"\) bot have changed
 
         Parameters:
             filters (:class:`pytdbot.filters.Filter`, *optional*):
@@ -9224,7 +9283,7 @@ class Updates:
         position: int | None = None,
         timeout: float | None = None,
     ) -> Callable:
-        r"""Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium\. The notification can be postponed until a being downloaded or uploaded file is visible to the user\. Use getOption\(\"premium\_download\_speedup\"\) or getOption\(\"premium\_upload\_speedup\"\) to get expected speedup after subscription to Telegram Premium
+        r"""Download or upload file speed for the user was limited, but it can be restored by subscription to Telegram Premium\. The notification can be postponed until a file being downloaded or uploaded is visible to the user\. Use getOption\(\"premium\_download\_speedup\"\) or getOption\(\"premium\_upload\_speedup\"\) to get expected speedup after subscription to Telegram Premium
 
         Parameters:
             filters (:class:`pytdbot.filters.Filter`, *optional*):
@@ -10212,6 +10271,65 @@ class Updates:
                 func._handler = Handler(
                     func=func,
                     update_type="updateNewCustomQuery",
+                    filter=filters,
+                    position=position,
+                    inner_object=False,
+                    timeout=timeout,
+                )
+            return func
+
+        return decorator
+
+    def on_updateUserSubscription(
+        self: pytdbot.Client | None = None,
+        filters: pytdbot.filters.Filter | None = None,
+        position: int | None = None,
+        timeout: float | None = None,
+    ) -> Callable:
+        r"""Subscription of a user to the bot was changed; for bots only
+
+        Parameters:
+            filters (:class:`pytdbot.filters.Filter`, *optional*):
+                An update filter
+
+            position (``int``, *optional*):
+                The function position in handlers list. Default is ``None`` (append)
+
+            timeout (``float``, *optional*):
+                Max execution time for the handler before it timeout. Default is ``None``
+
+        Raises:
+            :py:class:`TypeError`
+        """
+
+        def decorator(func: Callable) -> Callable:
+            if hasattr(func, "_handler"):
+                return func
+            elif isinstance(self, pytdbot.Client):
+                if iscoroutinefunction(func):
+                    self.add_handler(
+                        update_type="updateUserSubscription",
+                        func=func,
+                        filters=filters,
+                        position=position,
+                        inner_object=False,
+                        timeout=timeout,
+                    )
+                else:
+                    raise TypeError("Handler must be async")
+            elif isinstance(self, pytdbot.filters.Filter):
+                func._handler = Handler(
+                    func=func,
+                    update_type="updateUserSubscription",
+                    filter=self,
+                    position=position,
+                    inner_object=False,
+                    timeout=timeout,
+                )
+            else:
+                func._handler = Handler(
+                    func=func,
+                    update_type="updateUserSubscription",
                     filter=filters,
                     position=position,
                     inner_object=False,
