@@ -1478,7 +1478,7 @@ class TDLibFunctions:
         | pytdbot.types.FileTypeWallpaper
         | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.File:
-        r"""Returns information about a file by its remote identifier\. This is an offline method\. Can be used to register a URL as a file for further uploading, or sending as a message\. Even the request succeeds, the file can be used only if it is still accessible to the user\. For example, if the file is from a message, then the message must be not deleted and accessible to the user\. If the file database is disabled, then the corresponding object with the file must be preloaded by the application
+        r"""Returns information about a file by its remote identifier\. This is an offline method\. Can be used to register a URL as a file for further uploading, or sending as a message\. Even if the request succeeds, the file can be used only if it is still accessible to the user\. For example, if the file is from a message, then the message must be not deleted and accessible to the user\. If the file database is disabled, then the corresponding object with the file must be preloaded by the application
 
         Parameters:
             remote_file_id (:class:`str`):
@@ -4139,7 +4139,7 @@ class TDLibFunctions:
     async def addTextCompositionStyle(
         self, *, name: str | None = ""
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
-        r"""Adds a custom text composition style to the list of used by the user styles\. May return an error with a message \"TONES\_SAVED\_TOO\_MANY\" if the maximum number of added custom styles has been reached
+        r"""Adds a custom text composition style to the list of used by the user styles\. May return an error with a message \"TONES\_SAVED\_TOO\_MANY\" if the maximum number of added custom styles getOption\(\"added\_text\_composition\_style\_count\_max\"\) has been reached
 
         Parameters:
             name (:class:`str`):
@@ -4198,6 +4198,38 @@ class TDLibFunctions:
             }
         )
 
+    async def translateRichMessage(
+        self,
+        *,
+        message: pytdbot.types.InputRichMessage | None = None,
+        to_language_code: str | None = "",
+        tone: str | None = "",
+    ) -> pytdbot.types.Error | pytdbot.types.RichMessage:
+        r"""Translates a rich message to the given language
+
+        Parameters:
+            message (:class:`~pytdbot.types.InputRichMessage`):
+                Rich message to translate
+
+            to_language_code (:class:`str`):
+                Language code of the language to which the message is translated\. See translateText\.to\_language\_code for the list of supported values
+
+            tone (:class:`str`):
+                Tone of the translation; see translateText\.tone for the list of supported values
+
+        Returns:
+            :class:`~pytdbot.types.RichMessage`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "translateRichMessage",
+                "message": message,
+                "to_language_code": to_language_code,
+                "tone": tone,
+            }
+        )
+
     async def translateMessageText(
         self,
         *,
@@ -4228,6 +4260,43 @@ class TDLibFunctions:
         return await self.invoke(
             {
                 "@type": "translateMessageText",
+                "chat_id": chat_id,
+                "message_id": message_id,
+                "to_language_code": to_language_code,
+                "tone": tone,
+            }
+        )
+
+    async def translateMessageRichMessage(
+        self,
+        *,
+        chat_id: int | None = 0,
+        message_id: int | None = 0,
+        to_language_code: str | None = "",
+        tone: str | None = "",
+    ) -> pytdbot.types.Error | pytdbot.types.RichMessage:
+        r"""Extracts rich message of the given message and translates it to the given language
+
+        Parameters:
+            chat_id (:class:`int`):
+                Identifier of the chat to which the message belongs
+
+            message_id (:class:`int`):
+                Identifier of the message
+
+            to_language_code (:class:`str`):
+                Language code of the language to which the message is translated\. See translateText\.to\_language\_code for the list of supported values
+
+            tone (:class:`str`):
+                Tone of the translation; see translateText\.tone for the list of supported values
+
+        Returns:
+            :class:`~pytdbot.types.RichMessage`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "translateMessageRichMessage",
                 "chat_id": chat_id,
                 "message_id": message_id,
                 "to_language_code": to_language_code,
@@ -4309,6 +4378,80 @@ class TDLibFunctions:
             }
         )
 
+    async def composeRichMessageWithAi(
+        self,
+        *,
+        message: pytdbot.types.InputRichMessage | None = None,
+        translate_to_language_code: str | None = "",
+        style_name: str | None = "",
+        custom_prompt: str | None = "",
+        add_emojis: bool | None = False,
+    ) -> pytdbot.types.Error | pytdbot.types.RichMessage:
+        r"""Changes a rich message using an AI model\. May return an error with a message \"AICOMPOSE\_FLOOD\_PREMIUM\" if Telegram Premium is required to send further requests
+
+        Parameters:
+            message (:class:`~pytdbot.types.InputRichMessage`):
+                The original message
+
+            translate_to_language_code (:class:`str`):
+                Pass a language code to which the text will be translated; pass an empty string if translation isn't needed\. See translateText\.to\_language\_code for the list of supported values
+
+            style_name (:class:`str`):
+                Name of the style of the resulted text; handle updateTextCompositionStyles to get the list of supported styles; pass an empty string to keep the current style of the text or if a custom prompt is used
+
+            custom_prompt (:class:`str`):
+                Custom prompt that will be used instead of style\_name; 0\-getOption\(\"text\_composition\_style\_prompt\_length\_max\"\) characters
+
+            add_emojis (:class:`bool`):
+                Pass true to add emoji to the text
+
+        Returns:
+            :class:`~pytdbot.types.RichMessage`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "composeRichMessageWithAi",
+                "message": message,
+                "translate_to_language_code": translate_to_language_code,
+                "style_name": style_name,
+                "custom_prompt": custom_prompt,
+                "add_emojis": add_emojis,
+            }
+        )
+
+    async def createRichMessageWithAi(
+        self,
+        *,
+        prompt: str | None = "",
+        language_code: str | None = "",
+        add_emojis: bool | None = False,
+    ) -> pytdbot.types.Error | pytdbot.types.RichMessage:
+        r"""Creates a new rich message using an AI model\. May return an error with a message \"AICOMPOSE\_FLOOD\_PREMIUM\" if Telegram Premium is required to send further requests
+
+        Parameters:
+            prompt (:class:`str`):
+                Prompt that will be used to create the message; 0\-getOption\(\"text\_composition\_style\_prompt\_length\_max\"\) characters
+
+            language_code (:class:`str`):
+                Pass a language code in which the text will be created
+
+            add_emojis (:class:`bool`):
+                Pass true to add emoji to the text
+
+        Returns:
+            :class:`~pytdbot.types.RichMessage`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "createRichMessageWithAi",
+                "prompt": prompt,
+                "language_code": language_code,
+                "add_emojis": add_emojis,
+            }
+        )
+
     async def fixTextWithAi(
         self, *, text: pytdbot.types.FormattedText | None = None
     ) -> pytdbot.types.Error | pytdbot.types.FixedText:
@@ -4323,6 +4466,21 @@ class TDLibFunctions:
         """
 
         return await self.invoke({"@type": "fixTextWithAi", "text": text})
+
+    async def fixRichMessageWithAi(
+        self, *, message: pytdbot.types.InputRichMessage | None = None
+    ) -> pytdbot.types.Error | pytdbot.types.RichMessage:
+        r"""Fixes a rich message using an AI model\. May return an error with a message \"AICOMPOSE\_FLOOD\_PREMIUM\" if Telegram Premium is required to send further requests
+
+        Parameters:
+            message (:class:`~pytdbot.types.InputRichMessage`):
+                The original message
+
+        Returns:
+            :class:`~pytdbot.types.RichMessage`
+        """
+
+        return await self.invoke({"@type": "fixRichMessageWithAi", "message": message})
 
     async def recognizeSpeech(
         self, *, chat_id: int | None = 0, message_id: int | None = 0
@@ -4434,6 +4592,7 @@ class TDLibFunctions:
         reply_to: pytdbot.types.InputMessageReplyToMessage
         | pytdbot.types.InputMessageReplyToExternalMessage
         | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
         | None = None,
         options: pytdbot.types.MessageSendOptions | None = None,
         reply_markup: pytdbot.types.ReplyMarkupRemoveKeyboard
@@ -4515,6 +4674,7 @@ class TDLibFunctions:
         reply_to: pytdbot.types.InputMessageReplyToMessage
         | pytdbot.types.InputMessageReplyToExternalMessage
         | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
         | None = None,
         options: pytdbot.types.MessageSendOptions | None = None,
         input_message_contents: list[pytdbot.types.InputMessageContent] | None = None,
@@ -4596,6 +4756,7 @@ class TDLibFunctions:
         reply_to: pytdbot.types.InputMessageReplyToMessage
         | pytdbot.types.InputMessageReplyToExternalMessage
         | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
         | None = None,
         options: pytdbot.types.MessageSendOptions | None = None,
         query_id: int | None = 0,
@@ -4768,6 +4929,103 @@ class TDLibFunctions:
             }
         )
 
+    async def sendEphemeralMessage(
+        self,
+        *,
+        chat_id: int | None = 0,
+        topic_id: pytdbot.types.MessageTopicThread
+        | pytdbot.types.MessageTopicForum
+        | pytdbot.types.MessageTopicDirectMessages
+        | pytdbot.types.MessageTopicSavedMessages
+        | None = None,
+        receiver_user_id: int | None = 0,
+        callback_query_id: int | None = 0,
+        reply_to: pytdbot.types.InputMessageReplyToMessage
+        | pytdbot.types.InputMessageReplyToExternalMessage
+        | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
+        | None = None,
+        sending_id: int | None = 0,
+        only_preview: bool | None = False,
+        reply_markup: pytdbot.types.ReplyMarkupRemoveKeyboard
+        | pytdbot.types.ReplyMarkupForceReply
+        | pytdbot.types.ReplyMarkupShowKeyboard
+        | pytdbot.types.ReplyMarkupInlineKeyboard
+        | None = None,
+        input_message_content: pytdbot.types.InputMessageText
+        | pytdbot.types.InputMessageRichMessage
+        | pytdbot.types.InputMessageAnimation
+        | pytdbot.types.InputMessageAudio
+        | pytdbot.types.InputMessageDocument
+        | pytdbot.types.InputMessagePaidMedia
+        | pytdbot.types.InputMessagePhoto
+        | pytdbot.types.InputMessageSticker
+        | pytdbot.types.InputMessageVideo
+        | pytdbot.types.InputMessageVideoNote
+        | pytdbot.types.InputMessageVoiceNote
+        | pytdbot.types.InputMessageLiveLocation
+        | pytdbot.types.InputMessageLocation
+        | pytdbot.types.InputMessageVenue
+        | pytdbot.types.InputMessageContact
+        | pytdbot.types.InputMessageDice
+        | pytdbot.types.InputMessageGame
+        | pytdbot.types.InputMessageInvoice
+        | pytdbot.types.InputMessagePoll
+        | pytdbot.types.InputMessageStakeDice
+        | pytdbot.types.InputMessageStory
+        | pytdbot.types.InputMessageChecklist
+        | pytdbot.types.InputMessageForwarded
+        | None = None,
+    ) -> pytdbot.types.Error | pytdbot.types.Message:
+        r"""Sends an ephemeral message which will be received only by one bot in a chat\. Currently, only ephemeral bot commands and replies to bot ephemeral messages can be sent using the method\. The message is persistent across application restarts only if the message database is used\. Returns the sent message
+
+        Parameters:
+            chat_id (:class:`int`):
+                Target chat
+
+            topic_id (:class:`~pytdbot.types.MessageTopic`):
+                Topic in which the message will be sent; pass null if none
+
+            receiver_user_id (:class:`int`):
+                Identifier of the user who will receive the message
+
+            callback_query_id (:class:`int`):
+                Identifier of the callback query which triggered the message; for bots only
+
+            reply_to (:class:`~pytdbot.types.InputMessageReplyTo`):
+                Information about the message to be replied; pass null if none\. The message can be an incoming ephemeral message
+
+            sending_id (:class:`int`):
+                Non\-persistent identifier, which will be returned back in messageSendingStatePending object and can be used to match sent messages and corresponding updateNewMessage updates
+
+            only_preview (:class:`bool`):
+                Pass true to get a fake message instead of actually sending them
+
+            reply_markup (:class:`~pytdbot.types.ReplyMarkup`):
+                Markup for replying to the message; pass null if none; for bots only
+
+            input_message_content (:class:`~pytdbot.types.InputMessageContent`):
+                The content of the message to be sent\. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote, inputMessageLocation, inputMessageVenue, inputMessageContact
+
+        Returns:
+            :class:`~pytdbot.types.Message`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "sendEphemeralMessage",
+                "chat_id": chat_id,
+                "topic_id": topic_id,
+                "receiver_user_id": receiver_user_id,
+                "callback_query_id": callback_query_id,
+                "reply_to": reply_to,
+                "sending_id": sending_id,
+                "only_preview": only_preview,
+                "reply_markup": reply_markup,
+                "input_message_content": input_message_content,
+            }
+        )
+
     async def addLocalMessage(
         self,
         *,
@@ -4778,6 +5036,7 @@ class TDLibFunctions:
         reply_to: pytdbot.types.InputMessageReplyToMessage
         | pytdbot.types.InputMessageReplyToExternalMessage
         | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
         | None = None,
         disable_notification: bool | None = False,
         input_message_content: pytdbot.types.InputMessageText
@@ -4867,6 +5126,38 @@ class TDLibFunctions:
                 "chat_id": chat_id,
                 "message_ids": message_ids,
                 "revoke": revoke,
+            }
+        )
+
+    async def deleteEphemeralMessage(
+        self,
+        *,
+        chat_id: int | None = 0,
+        receiver_user_id: int | None = 0,
+        ephemeral_message_id: int | None = 0,
+    ) -> pytdbot.types.Error | pytdbot.types.Ok:
+        r"""Deletes an ephemeral message; for bots only
+
+        Parameters:
+            chat_id (:class:`int`):
+                Chat identifier
+
+            receiver_user_id (:class:`int`):
+                Identifier of the user who received the message
+
+            ephemeral_message_id (:class:`int`):
+                Identifiers of the message to be deleted
+
+        Returns:
+            :class:`~pytdbot.types.Ok`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "deleteEphemeralMessage",
+                "chat_id": chat_id,
+                "receiver_user_id": receiver_user_id,
+                "ephemeral_message_id": ephemeral_message_id,
             }
         )
 
@@ -5262,7 +5553,7 @@ class TDLibFunctions:
         | pytdbot.types.InputMessageForwarded
         | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
-        r"""Edits the text of an inline text or game message sent via a bot; for bots only
+        r"""Edits the text of an inline text or game message sent via the bot; for bots only
 
         Parameters:
             inline_message_id (:class:`str`):
@@ -5272,7 +5563,7 @@ class TDLibFunctions:
                 The new message reply markup; pass null if none
 
             input_message_content (:class:`~pytdbot.types.InputMessageContent`):
-                New text content of the message\. Must be of type inputMessageText or inputMessageRichMessage
+                New text content of the message\. Must be of type inputMessageText or inputMessageRichMessage; file upload isn't supported
 
         Returns:
             :class:`~pytdbot.types.Ok`
@@ -5454,6 +5745,75 @@ class TDLibFunctions:
             }
         )
 
+    async def editEphemeralMessage(
+        self,
+        *,
+        chat_id: int | None = 0,
+        receiver_user_id: int | None = 0,
+        ephemeral_message_id: int | None = 0,
+        reply_markup: pytdbot.types.ReplyMarkupRemoveKeyboard
+        | pytdbot.types.ReplyMarkupForceReply
+        | pytdbot.types.ReplyMarkupShowKeyboard
+        | pytdbot.types.ReplyMarkupInlineKeyboard
+        | None = None,
+        input_message_content: pytdbot.types.InputMessageText
+        | pytdbot.types.InputMessageRichMessage
+        | pytdbot.types.InputMessageAnimation
+        | pytdbot.types.InputMessageAudio
+        | pytdbot.types.InputMessageDocument
+        | pytdbot.types.InputMessagePaidMedia
+        | pytdbot.types.InputMessagePhoto
+        | pytdbot.types.InputMessageSticker
+        | pytdbot.types.InputMessageVideo
+        | pytdbot.types.InputMessageVideoNote
+        | pytdbot.types.InputMessageVoiceNote
+        | pytdbot.types.InputMessageLiveLocation
+        | pytdbot.types.InputMessageLocation
+        | pytdbot.types.InputMessageVenue
+        | pytdbot.types.InputMessageContact
+        | pytdbot.types.InputMessageDice
+        | pytdbot.types.InputMessageGame
+        | pytdbot.types.InputMessageInvoice
+        | pytdbot.types.InputMessagePoll
+        | pytdbot.types.InputMessageStakeDice
+        | pytdbot.types.InputMessageStory
+        | pytdbot.types.InputMessageChecklist
+        | pytdbot.types.InputMessageForwarded
+        | None = None,
+    ) -> pytdbot.types.Error | pytdbot.types.Ok:
+        r"""Edits the text, caption or reply markup of an ephemeral message sent by the bot; for bots only
+
+        Parameters:
+            chat_id (:class:`int`):
+                The chat the message belongs to
+
+            receiver_user_id (:class:`int`):
+                Identifier of the user who received the message
+
+            ephemeral_message_id (:class:`int`):
+                Identifier of the ephemeral message
+
+            reply_markup (:class:`~pytdbot.types.ReplyMarkup`):
+                The new message reply markup; pass null if none
+
+            input_message_content (:class:`~pytdbot.types.InputMessageContent`):
+                New content of the message; pass null to edit only reply markup\. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto, inputMessageSticker, inputMessageVideo, inputMessageVideoNote, inputMessageVoiceNote
+
+        Returns:
+            :class:`~pytdbot.types.Ok`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "editEphemeralMessage",
+                "chat_id": chat_id,
+                "receiver_user_id": receiver_user_id,
+                "ephemeral_message_id": ephemeral_message_id,
+                "reply_markup": reply_markup,
+                "input_message_content": input_message_content,
+            }
+        )
+
     async def editMessageSchedulingState(
         self,
         *,
@@ -5529,6 +5889,7 @@ class TDLibFunctions:
         reply_to: pytdbot.types.InputMessageReplyToMessage
         | pytdbot.types.InputMessageReplyToExternalMessage
         | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
         | None = None,
         disable_notification: bool | None = False,
         protect_content: bool | None = False,
@@ -5616,6 +5977,7 @@ class TDLibFunctions:
         reply_to: pytdbot.types.InputMessageReplyToMessage
         | pytdbot.types.InputMessageReplyToExternalMessage
         | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
         | None = None,
         disable_notification: bool | None = False,
         protect_content: bool | None = False,
@@ -7911,7 +8273,7 @@ class TDLibFunctions:
     async def getCountryFlagEmoji(
         self, *, country_code: str | None = ""
     ) -> pytdbot.types.Error | pytdbot.types.Text:
-        r"""Returns an emoji for the given country\. Returns an empty string on failure\. Can be called synchronously
+        r"""Returns an emoji for the flag of the given country\. Returns an empty string on failure\. Can be called synchronously
 
         Parameters:
             country_code (:class:`str`):
@@ -8972,6 +9334,33 @@ class TDLibFunctions:
             }
         )
 
+    async def getGuardBotWebAppUrl(
+        self,
+        *,
+        query_id: int | None = 0,
+        parameters: pytdbot.types.WebAppOpenParameters | None = None,
+    ) -> pytdbot.types.Error | pytdbot.types.WebAppUrl:
+        r"""Returns an HTTPS URL of a Web App of a guard bot to open after receiving chatJoinResultGuardBotApprovalRequired
+
+        Parameters:
+            query_id (:class:`int`):
+                Unique identifier of the join request as received in chatJoinResultGuardBotApprovalRequired
+
+            parameters (:class:`~pytdbot.types.WebAppOpenParameters`):
+                Parameters to use to open the Web App
+
+        Returns:
+            :class:`~pytdbot.types.WebAppUrl`
+        """
+
+        return await self.invoke(
+            {
+                "@type": "getGuardBotWebAppUrl",
+                "query_id": query_id,
+                "parameters": parameters,
+            }
+        )
+
     async def sendWebAppData(
         self,
         *,
@@ -9018,6 +9407,7 @@ class TDLibFunctions:
         reply_to: pytdbot.types.InputMessageReplyToMessage
         | pytdbot.types.InputMessageReplyToExternalMessage
         | pytdbot.types.InputMessageReplyToStory
+        | pytdbot.types.InputMessageReplyToEphemeralMessage
         | None = None,
         parameters: pytdbot.types.WebAppOpenParameters | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.WebAppInfo:
@@ -9597,7 +9987,7 @@ class TDLibFunctions:
                 Unique identifier of the draft
 
             message (:class:`~pytdbot.types.InputRichMessage`):
-                Draft of the message
+                Draft of the message; file upload isn't supported
 
         Returns:
             :class:`~pytdbot.types.Ok`
@@ -11651,7 +12041,7 @@ class TDLibFunctions:
         | pytdbot.types.ChatMemberStatusBanned
         | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
-        r"""Changes the status of a chat member; requires can\_invite\_users member right to add a chat member, can\_promote\_members administrator right to change administrator rights of the member, and can\_restrict\_members administrator right to change restrictions of a user\. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead\. Use addChatMember or banChatMember if some additional parameters needs to be passed
+        r"""Changes the status of a chat member; requires can\_invite\_users member right to add a chat member, can\_promote\_members administrator right to change administrator rights of the member, and can\_restrict\_members administrator right to change restrictions of a user\. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead\. Use addChatMember or banChatMember if some additional parameters need to be passed
 
         Parameters:
             chat_id (:class:`int`):
@@ -14455,7 +14845,7 @@ class TDLibFunctions:
                 User identifier of a chat administrator\. Must be an identifier of the current user for non\-owner
 
             is_revoked (:class:`bool`):
-                Pass true if revoked links needs to be returned instead of active or expired
+                Pass true if revoked links need to be returned instead of active or expired
 
             offset_date (:class:`int`):
                 Creation date of an invite link starting after which to return invite links; use 0 to get results from the beginning
@@ -16954,45 +17344,19 @@ class TDLibFunctions:
         return await self.invoke({"@type": "isProfileAudio", "file_id": file_id})
 
     async def addProfileAudio(
-        self,
-        *,
-        audio: pytdbot.types.InputFileId
-        | pytdbot.types.InputFileRemote
-        | pytdbot.types.InputFileLocal
-        | pytdbot.types.InputFileGenerated
-        | None = None,
-        duration: int | None = 0,
-        title: str | None = "",
-        performer: str | None = "",
+        self, *, audio: pytdbot.types.InputAudio | None = None
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
         r"""Adds an audio file to the beginning of the profile audio files of the current user
 
         Parameters:
-            audio (:class:`~pytdbot.types.InputFile`):
-                The audio file to be added
-
-            duration (:class:`int`):
-                Duration of the audio, in seconds; may be replaced by the server; ignored for already uploaded files
-
-            title (:class:`str`):
-                Title of the audio; 0\-64 characters; may be replaced by the server; ignored for already uploaded files
-
-            performer (:class:`str`):
-                Performer of the audio; 0\-64 characters, may be replaced by the server; ignored for already uploaded files
+            audio (:class:`~pytdbot.types.InputAudio`):
+                The audio to add
 
         Returns:
             :class:`~pytdbot.types.Ok`
         """
 
-        return await self.invoke(
-            {
-                "@type": "addProfileAudio",
-                "audio": audio,
-                "duration": duration,
-                "title": title,
-                "performer": performer,
-            }
-        )
+        return await self.invoke({"@type": "addProfileAudio", "audio": audio})
 
     async def setProfileAudioPosition(
         self, *, file_id: int | None = 0, after_file_id: int | None = 0
@@ -19229,7 +19593,7 @@ class TDLibFunctions:
         username: str | None = "",
         via_link: bool | None = False,
     ) -> pytdbot.types.Error | pytdbot.types.User:
-        r"""Creates a bot which will be managed by another bot\. Returns the created bot\. May return an error with a message \"BOT\_CREATE\_LIMIT\_EXCEEDED\" if the user already owns the maximum allowed number of bots as per premiumLimitTypeOwnedBotCount\. An internal link \"https://t\.me/BotFather?start\=deletebot\" can be processed to handle the error
+        r"""Creates a bot which will be managed by another bot\. Returns the created bot\. May return an error with a message \"BOT\_CREATE\_LIMIT\_EXCEEDED\" if the user already owns the maximum allowed number of bots as per getOption\(\"owned\_bot\_count\_max\"\)\. An internal link \"https://t\.me/BotFather?start\=deletebot\" can be processed to handle the error
 
         Parameters:
             manager_bot_user_id (:class:`int`):
@@ -21038,7 +21402,7 @@ class TDLibFunctions:
                 Pass true to keep the original gift text, sender and receiver in the upgraded gift
 
             star_count (:class:`int`):
-                The Telegram Star amount required to pay for the upgrade\. It the gift has prepaid\_upgrade\_star\_count \> 0, then pass 0, otherwise, pass gift\.upgrade\_star\_count
+                The Telegram Star amount required to pay for the upgrade\. If the gift has prepaid\_upgrade\_star\_count \> 0, then pass 0, otherwise, pass gift\.upgrade\_star\_count
 
         Returns:
             :class:`~pytdbot.types.UpgradeGiftResult`
@@ -21176,7 +21540,7 @@ class TDLibFunctions:
         | pytdbot.types.MessageSenderChat
         | None = None,
         price: pytdbot.types.GiftResalePriceStar
-        | pytdbot.types.GiftResalePriceTon
+        | pytdbot.types.GiftResalePriceGram
         | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.GiftResaleResult:
         r"""Sends an upgraded gift that is available for resale to another user or channel chat; gifts already owned by the current user must be transferred using transferGift and can't be passed to the method
@@ -21212,7 +21576,7 @@ class TDLibFunctions:
         | None = None,
         gift_name: str | None = "",
         price: pytdbot.types.GiftResalePriceStar
-        | pytdbot.types.GiftResalePriceTon
+        | pytdbot.types.GiftResalePriceGram
         | None = None,
         duration: int | None = 0,
         paid_message_star_count: int | None = 0,
@@ -21486,7 +21850,7 @@ class TDLibFunctions:
         *,
         received_gift_id: str | None = "",
         price: pytdbot.types.GiftResalePriceStar
-        | pytdbot.types.GiftResalePriceTon
+        | pytdbot.types.GiftResalePriceGram
         | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
         r"""Changes resale price of a unique gift owned by the current user
@@ -21496,7 +21860,7 @@ class TDLibFunctions:
                 Identifier of the unique gift
 
             price (:class:`~pytdbot.types.GiftResalePrice`):
-                The new price for the unique gift; pass null to disallow gift resale\. The current user will receive getOption\(\"gift\_resale\_star\_earnings\_per\_mille\"\) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption\(\"gift\_resale\_ton\_earnings\_per\_mille\"\) Toncoins for each 1000 Toncoins paid for the gift if the gift price is in Toncoins
+                The new price for the unique gift; pass null to disallow gift resale\. The current user will receive getOption\(\"gift\_resale\_star\_earnings\_per\_mille\"\) Telegram Stars for each 1000 Telegram Stars paid for the gift if the gift price is in Telegram Stars or getOption\(\"gift\_resale\_ton\_earnings\_per\_mille\"\) TON Grams for each 1000 Grams paid for the gift if the gift price is in Grams
 
         Returns:
             :class:`~pytdbot.types.Ok`
@@ -22873,7 +23237,7 @@ class TDLibFunctions:
         offset: str | None = "",
         limit: int | None = 0,
     ) -> pytdbot.types.Error | pytdbot.types.TonTransactions:
-        r"""Returns the list of Toncoin transactions of the current user
+        r"""Returns the list of TON blockchain transactions of the current user
 
         Parameters:
             direction (:class:`~pytdbot.types.TransactionDirection`):
@@ -22980,27 +23344,27 @@ class TDLibFunctions:
 
         return await self.invoke({"@type": "getStarAdAccountUrl", "owner_id": owner_id})
 
-    async def getTonRevenueStatistics(
+    async def getGramRevenueStatistics(
         self, *, is_dark: bool | None = False
-    ) -> pytdbot.types.Error | pytdbot.types.TonRevenueStatistics:
-        r"""Returns detailed Toncoin revenue statistics of the current user
+    ) -> pytdbot.types.Error | pytdbot.types.GramRevenueStatistics:
+        r"""Returns detailed TON Gram revenue statistics of the current user
 
         Parameters:
             is_dark (:class:`bool`):
                 Pass true if a dark theme is used by the application
 
         Returns:
-            :class:`~pytdbot.types.TonRevenueStatistics`
+            :class:`~pytdbot.types.GramRevenueStatistics`
         """
 
         return await self.invoke(
-            {"@type": "getTonRevenueStatistics", "is_dark": is_dark}
+            {"@type": "getGramRevenueStatistics", "is_dark": is_dark}
         )
 
-    async def getTonWithdrawalUrl(
+    async def getGramWithdrawalUrl(
         self, *, password: str | None = ""
     ) -> pytdbot.types.Error | pytdbot.types.HttpUrl:
-        r"""Returns a URL for Toncoin withdrawal from the current user's account\. The user must have at least 10 toncoins to withdraw and can withdraw up to 100000 Toncoins in one transaction
+        r"""Returns a URL for TON Gram withdrawal from the current user's account\. The user must have at least 10 Grams to withdraw and can withdraw up to 100000 Grams in one transaction
 
         Parameters:
             password (:class:`str`):
@@ -23010,7 +23374,9 @@ class TDLibFunctions:
             :class:`~pytdbot.types.HttpUrl`
         """
 
-        return await self.invoke({"@type": "getTonWithdrawalUrl", "password": password})
+        return await self.invoke(
+            {"@type": "getGramWithdrawalUrl", "password": password}
+        )
 
     async def getChatStatistics(
         self, *, chat_id: int | None = 0, is_dark: bool | None = False
@@ -23661,7 +24027,7 @@ class TDLibFunctions:
         user_id: int | None = 0,
         errors: list[pytdbot.types.InputPassportElementError] | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
-        r"""Informs the user who some of the elements in their Telegram Passport contain errors; for bots only\. The user will not be able to resend the elements, until the errors are fixed
+        r"""Informs the user that some of the elements in their Telegram Passport contain errors; for bots only\. The user will not be able to resend the elements, until the errors are fixed
 
         Parameters:
             user_id (:class:`int`):
@@ -23883,7 +24249,7 @@ class TDLibFunctions:
                 Sticker format
 
             sticker (:class:`~pytdbot.types.InputFile`):
-                File file to upload; must fit in a 512x512 square\. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server\-side\. See https://core\.telegram\.org/animated\_stickers\#technical\-requirements for technical requirements
+                File to upload; must fit in a 512x512 square\. For WEBP stickers the file must be in WEBP or PNG format, which will be converted to WEBP server\-side\. See https://core\.telegram\.org/animated\_stickers\#technical\-requirements for technical requirements
 
         Returns:
             :class:`~pytdbot.types.File`
@@ -23941,7 +24307,7 @@ class TDLibFunctions:
         | pytdbot.types.StickerTypeCustomEmoji
         | None = None,
         needs_repainting: bool | None = False,
-        stickers: list[pytdbot.types.InputSticker] | None = None,
+        stickers: list[pytdbot.types.NewSticker] | None = None,
         source: str | None = "",
     ) -> pytdbot.types.Error | pytdbot.types.StickerSet:
         r"""Creates a new sticker set\. Returns the newly created sticker set
@@ -23962,7 +24328,7 @@ class TDLibFunctions:
             needs_repainting (:class:`bool`):
                 Pass true if stickers in the sticker set must be repainted; for custom emoji sticker sets only
 
-            stickers (list[:class:`~pytdbot.types.InputSticker`]):
+            stickers (list[:class:`~pytdbot.types.NewSticker`]):
                 List of stickers to be added to the set; 1\-200 stickers for custom emoji sticker sets, and 1\-120 stickers otherwise\. For TGS stickers, uploadStickerFile must be used before the sticker is shown
 
             source (:class:`str`):
@@ -23990,7 +24356,7 @@ class TDLibFunctions:
         *,
         user_id: int | None = 0,
         name: str | None = "",
-        sticker: pytdbot.types.InputSticker | None = None,
+        sticker: pytdbot.types.NewSticker | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
         r"""Adds a new sticker to a set
 
@@ -24001,7 +24367,7 @@ class TDLibFunctions:
             name (:class:`str`):
                 Sticker set name\. The sticker set must be owned by the current user, and contain less than 200 stickers for custom emoji sticker sets and less than 120 otherwise
 
-            sticker (:class:`~pytdbot.types.InputSticker`):
+            sticker (:class:`~pytdbot.types.NewSticker`):
                 Sticker to add to the set
 
         Returns:
@@ -24027,7 +24393,7 @@ class TDLibFunctions:
         | pytdbot.types.InputFileLocal
         | pytdbot.types.InputFileGenerated
         | None = None,
-        new_sticker: pytdbot.types.InputSticker | None = None,
+        new_sticker: pytdbot.types.NewSticker | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
         r"""Replaces existing sticker in a set\. The function is equivalent to removeStickerFromSet, then addStickerToSet, then setStickerPositionInSet
 
@@ -24041,7 +24407,7 @@ class TDLibFunctions:
             old_sticker (:class:`~pytdbot.types.InputFile`):
                 Sticker to remove from the set
 
-            new_sticker (:class:`~pytdbot.types.InputSticker`):
+            new_sticker (:class:`~pytdbot.types.NewSticker`):
                 Sticker to add to the set
 
         Returns:
@@ -24494,6 +24860,7 @@ class TDLibFunctions:
         | pytdbot.types.PremiumFeaturePaidMessages
         | pytdbot.types.PremiumFeatureProtectPrivateChatContent
         | pytdbot.types.PremiumFeatureTextComposition
+        | pytdbot.types.PremiumFeatureRichMessages
         | None = None,
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
         r"""Informs TDLib that the user viewed detailed information about a Premium feature on the Premium features screen
@@ -24795,7 +25162,7 @@ class TDLibFunctions:
 
         Parameters:
             only_expiring (:class:`bool`):
-                Pass true to receive only expiring subscriptions for which there are no enough Telegram Stars to extend
+                Pass true to receive only expiring subscriptions for which there aren't enough Telegram Stars to extend
 
             offset (:class:`str`):
                 Offset of the first subscription to return as received from the previous request; use empty string to get the first chunk of results
@@ -25139,7 +25506,7 @@ class TDLibFunctions:
 
         Parameters:
             affiliate (:class:`~pytdbot.types.AffiliateType`):
-                The affiliate to which the affiliate program were connected
+                The affiliate to which the affiliate programs were connected
 
             offset (:class:`str`):
                 Offset of the first affiliate program to return as received from the previous request; use empty string to get the first chunk of results
@@ -25191,7 +25558,7 @@ class TDLibFunctions:
     async def acceptTermsOfService(
         self, *, terms_of_service_id: str | None = ""
     ) -> pytdbot.types.Error | pytdbot.types.Ok:
-        r"""Accepts Telegram terms of services
+        r"""Accepts Telegram terms of service
 
         Parameters:
             terms_of_service_id (:class:`str`):
