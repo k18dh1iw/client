@@ -216,6 +216,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -277,6 +279,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -315,6 +323,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -334,6 +344,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -383,6 +395,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -418,6 +436,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -441,6 +461,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -505,6 +527,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -548,6 +576,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -569,6 +599,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -627,6 +659,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -669,6 +707,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -688,6 +728,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -740,6 +782,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -779,6 +827,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -901,6 +951,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -965,6 +1017,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -1008,6 +1066,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -1033,6 +1093,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -1103,6 +1165,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -1148,6 +1216,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -1165,6 +1235,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -1211,6 +1283,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -1238,6 +1316,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -1257,6 +1337,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -1309,6 +1391,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -1346,6 +1434,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -1364,6 +1454,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -1413,6 +1505,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -1440,6 +1538,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -1460,6 +1560,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -1515,6 +1617,12 @@ class Methods(TDLibFunctions):
             reply_to_message_id (``int``, *optional*):
                 Identifier of the message to reply. Ignored if ``reply_to`` is specified
 
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
+
+            callback_query_id (``int``, *optional*):
+                Identifier of the callback query which triggered the message; for Ephemeral messages only
+
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
@@ -1551,6 +1659,8 @@ class Methods(TDLibFunctions):
             quote=quote,
             reply_to=reply_to,
             reply_to_message_id=reply_to_message_id,
+            receiver_user_id=receiver_user_id,
+            callback_query_id=callback_query_id,
             reply_markup=reply_markup,
         )
 
@@ -1601,9 +1711,12 @@ class Methods(TDLibFunctions):
 
     async def editTextMessage(
         self,
+        *,
         chat_id: int,
-        message_id: int,
         text: str,
+        message_id: int = 0,
+        ephemeral_message_id: int = 0,
+        receiver_user_id: int = 0,
         parse_mode: str = None,
         entities: list = None,
         disable_web_page_preview: bool = False,
@@ -1619,11 +1732,17 @@ class Methods(TDLibFunctions):
             chat_id (``int``):
                 Chat identifier
 
-            message_id (``int``):
-                Message identifier in the chat specified in chat_id
-
             text (``str``):
                 New text of the message
+
+            message_id (``int``):
+                Message identifier in the chat
+
+            ephemeral_message_id (``int``, *optional*):
+                Identifier of the message to be deleted; for Ephemeral messages only
+
+            receiver_user_id (``int``, *optional*):
+                Identifier of the user who will receive the message; for Ephemeral messages only
 
             parse_mode (``str``, *optional*):
                 Mode for parsing entities in the message text
@@ -1649,7 +1768,6 @@ class Methods(TDLibFunctions):
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
-
         Returns:
             :class:`~pytdbot.types.Message`
         """
@@ -1669,6 +1787,24 @@ class Methods(TDLibFunctions):
             text = parse
         else:
             text = FormattedText(text=text)
+
+        if ephemeral_message_id:
+            return await self.editEphemeralMessage(
+                chat_id=chat_id,
+                receiver_user_id=receiver_user_id,
+                ephemeral_message_id=ephemeral_message_id,
+                reply_markup=reply_markup,
+                input_message_content=InputMessageText(
+                    text=text,
+                    link_preview_options=LinkPreviewOptions(
+                        is_disabled=disable_web_page_preview,
+                        url=url,
+                        force_small_media=force_small_media,
+                        force_large_media=force_large_media,
+                        show_above_text=show_above_text,
+                    ),
+                ),
+            )
 
         return await self.editMessageText(
             chat_id=chat_id,
@@ -1699,6 +1835,8 @@ class Methods(TDLibFunctions):
         quote: InputTextQuote = None,
         reply_to: InputMessageReplyTo = None,
         reply_to_message_id: int = 0,
+        receiver_user_id: int = 0,
+        callback_query_id: int = 0,
         reply_markup: (
             ReplyMarkupInlineKeyboard
             | ReplyMarkupShowKeyboard
@@ -1716,20 +1854,32 @@ class Methods(TDLibFunctions):
         ):
             await self.getMessage(chat_id=chat_id, message_id=reply_to.message_id)
 
-        res = await self.sendMessage(
-            chat_id=chat_id,
-            topic_id=topic_id,
-            reply_to=reply_to,
-            options=MessageSendOptions(
-                disable_notification=disable_notification,
-                protect_content=protect_content,
-                allow_paid_broadcast=allow_paid_broadcast,
-            ),
-            reply_markup=reply_markup
-            if isinstance(reply_markup, ReplyMarkup)
-            else None,
-            input_message_content=content,
-        )
+        if not receiver_user_id or callback_query_id:
+            res = await self.sendMessage(
+                chat_id=chat_id,
+                topic_id=topic_id,
+                reply_to=reply_to,
+                options=MessageSendOptions(
+                    disable_notification=disable_notification,
+                    protect_content=protect_content,
+                    allow_paid_broadcast=allow_paid_broadcast,
+                ),
+                reply_markup=reply_markup
+                if isinstance(reply_markup, ReplyMarkup)
+                else None,
+                input_message_content=content,
+            )
+        else:
+            res = await self.sendEphemeralMessage(
+                chat_id=chat_id,
+                topic_id=topic_id,
+                receiver_user_id=receiver_user_id,
+                callback_query_id=callback_query_id,
+                reply_to=reply_to,
+                reply_markup=reply_markup,
+                input_message_content=content,
+            )
+
         if isinstance(res, Error):
             return res
 

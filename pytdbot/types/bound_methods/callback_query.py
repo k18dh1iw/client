@@ -76,9 +76,19 @@ class CallbackQueryBoundMethods:
     ) -> pytdbot.types.Error | pytdbot.types.Message:
         r"""Edit callback query message text. Shortcut for :meth:`~pytdbot.Client.editTextMessage`"""
 
+        ephemeral_message_id = 0
+        receiver_user_id = 0
+
+        message = await self.getMessage()
+        if message:
+            ephemeral_message_id = message.ephemeral_message_id
+            receiver_user_id = pytdbot.utils.get_message_sender_id(message.receiver_id)
+
         return await self._client.editTextMessage(
             chat_id=self.chat_id,
             message_id=self.message_id,
+            ephemeral_message_id=ephemeral_message_id,
+            receiver_user_id=receiver_user_id,
             text=text,
             parse_mode=parse_mode,
             entities=entities,
