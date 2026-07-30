@@ -1,5 +1,6 @@
 __all__ = [
     "MediaAlbumFuture",
+    "get_message_sender_id",
     "escape_html",
     "escape_markdown",
     "JSON_ENCODER",
@@ -75,6 +76,7 @@ __all__ = [
 
 
 from .albums import MediaAlbumFuture
+from .common import get_message_sender_id
 from .escape import escape_html, escape_markdown
 from .json_utils import (
     JSON_ENCODER,
