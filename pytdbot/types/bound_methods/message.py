@@ -399,6 +399,15 @@ class MessageBoundMethods:
                 Pass true to delete messages for all chat members. Always true for supergroups, channels and secret chats
         """
 
+        if self.ephemeral_message_id:
+            return await self._client.deleteEphemeralMessage(
+                chat_id=self.chat_id,
+                receiver_user_id=pytdbot.utils.get_message_sender_id(
+                    sender=self.receiver_id
+                ),
+                ephemeral_message_id=self.ephemeral_message_id,
+            )
+
         return await self._client.deleteMessages(
             chat_id=self.chat_id, message_ids=[self.id], revoke=revoke
         )
@@ -572,6 +581,7 @@ class MessageBoundMethods:
         topic_id: pytdbot.types.MessageTopic = None,
         quote: pytdbot.types.InputTextQuote = None,
         no_reply: bool = False,
+        ephemeral: bool = False,
     ):
         r"""Reply to the message with media album. Shortcut for :meth:`~pytdbot.Client.sendAlbum`."""
 
@@ -584,6 +594,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
         )
 
     async def reply_text(
@@ -603,6 +614,7 @@ class MessageBoundMethods:
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
         no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -628,6 +640,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -645,6 +658,7 @@ class MessageBoundMethods:
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
         no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -666,6 +680,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -687,6 +702,7 @@ class MessageBoundMethods:
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
         no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -710,6 +726,7 @@ class MessageBoundMethods:
             protect_content=protect_content,
             allow_paid_broadcast=allow_paid_broadcast,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             has_spoiler=has_spoiler,
             topic_id=topic_id,
             quote=quote,
@@ -732,6 +749,7 @@ class MessageBoundMethods:
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
         no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -756,6 +774,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -773,6 +792,7 @@ class MessageBoundMethods:
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
         no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -795,6 +815,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -812,7 +833,7 @@ class MessageBoundMethods:
         photo_height: int = 0,
         recurring_payment_terms_of_service_url: str = "",
         terms_of_service_url: str = "",
-        no_reply: bool = None,
+        no_reply: bool = False,
     ) -> pytdbot.types.Error | pytdbot.types.Message:
         r"""Reply to the message with a Telegram Stars invoice. Shortcut for :meth:`~pytdbot.Client.sendInvoice`."""
 
@@ -850,7 +871,8 @@ class MessageBoundMethods:
         has_spoiler: bool = False,
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
-        no_reply: bool = None,
+        no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -877,6 +899,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -899,7 +922,8 @@ class MessageBoundMethods:
         has_spoiler: bool = False,
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
-        no_reply: bool = None,
+        no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -928,6 +952,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -942,7 +967,8 @@ class MessageBoundMethods:
         allow_paid_broadcast: bool = False,
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
-        no_reply: bool = None,
+        no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -963,6 +989,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -979,7 +1006,8 @@ class MessageBoundMethods:
         allow_paid_broadcast: bool = False,
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
-        no_reply: bool = None,
+        no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -1002,6 +1030,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
@@ -1017,7 +1046,8 @@ class MessageBoundMethods:
         allow_paid_broadcast: bool = False,
         topic_id: pytdbot.types.MessageTopic | None = None,
         quote: pytdbot.types.InputTextQuote | None = None,
-        no_reply: bool = None,
+        no_reply: bool = False,
+        ephemeral: bool = False,
         reply_markup: pytdbot.types.ReplyMarkupInlineKeyboard
         | pytdbot.types.ReplyMarkupShowKeyboard
         | pytdbot.types.ReplyMarkupForceReply
@@ -1039,6 +1069,7 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
+            receiver_user_id=self.from_id if ephemeral else 0,
             reply_markup=reply_markup,
         )
 
