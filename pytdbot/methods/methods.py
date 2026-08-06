@@ -1,4 +1,4 @@
-from pytdbot.types.td_types import InputVideoNote, InputVoiceNote
+from pytdbot.types.td_types import InputSticker, InputVideoNote, InputVoiceNote
 
 from ..types import (
     ChatTypeSupergroup,
@@ -1530,10 +1530,12 @@ class Methods(TDLibFunctions):
         return await self.sendMessageWithContent(
             chat_id=chat_id,
             content=InputMessageSticker(
-                sticker=sticker,
-                thumbnail=thumbnail,
-                width=width,
-                height=height,
+                sticker=InputSticker(
+                    sticker=sticker,
+                    thumbnail=thumbnail,
+                    width=width,
+                    height=height,
+                ),
                 emoji=emoji,
             ),
             disable_notification=disable_notification,
