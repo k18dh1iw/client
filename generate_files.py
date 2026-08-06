@@ -413,7 +413,7 @@ def generate_updates(f, updates):
 
 
 if __name__ == "__main__":
-    with open("td_api.json", encoding="utf-8") as f:
+    with open("pytdbot/td_api.json", encoding="utf-8") as f:
         tl_json = json.loads(f.read())
 
     with open("pytdbot/types/td_types.py", "w", encoding="utf-8") as types_file:

@@ -38,7 +38,7 @@ def main():
     end_param_regex = re.compile(r"(?P<name>\w+):(?P<type>[<\w>]+)")
     end_regex = re.compile(r"^(?P<name>.*?)\s(?P<params>.*)=\s(?P<type>\w+);$")
 
-    tl = Path("td_api.tl").read_text().replace("\n//-", " ")
+    tl = Path("td_api.tl").read_text(encoding="utf-8").replace("\n//-", " ")
 
     for line in tl.splitlines():
         if "--functions--" in line:
@@ -95,16 +95,18 @@ def main():
                 params = {}
                 description = ""
 
-    with open("td_api.json", "w", encoding="utf-8") as f:
-        f.write(json.dumps(data, indent=4))
-        print(
-            "Classes: {}\nTypes: {}\nFunctions: {}\nUpdates: {}".format(
-                len(data["classes"]),
-                len(data["types"]),
-                len(data["functions"]),
-                len(data["updates"]),
-            )
+    out = Path("pytdbot/td_api.json")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(data, indent=4), encoding="utf-8")
+    print(
+        "Classes: {}\nTypes: {}\nFunctions: {}\nUpdates: {}".format(
+            len(data["classes"]),
+            len(data["types"]),
+            len(data["functions"]),
+            len(data["updates"]),
         )
+    )
+    print(f"Wrote {out}")
 
 
 if __name__ == "__main__":

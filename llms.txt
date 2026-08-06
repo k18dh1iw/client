@@ -1,0 +1,7 @@
+# Pytdbot
+
+Pytdbot is an asynchronous [**TDLib**](https://github.com/tdlib/td) wrapper for **Telegram** users/bots written in **Python**.
+
+- [README](README.md)
+- Guide: `pytdbot/ai/SKILL.md`
+- [Examples](examples/)
