@@ -1,3 +1,5 @@
+from pytdbot.types.td_types import InputVideoNote, InputVoiceNote
+
 from ..types import (
     ChatTypeSupergroup,
     Error,
@@ -1292,7 +1294,6 @@ class Methods(TDLibFunctions):
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
-
         Returns:
             :class:`~pytdbot.types.Message`
 
@@ -1304,10 +1305,12 @@ class Methods(TDLibFunctions):
         return await self.sendMessageWithContent(
             chat_id=chat_id,
             content=InputMessageVideoNote(
-                video_note=video_note,
-                thumbnail=thumbnail,
-                duration=duration,
-                length=length,
+                video_note=InputVideoNote(
+                    video_note=video_note,
+                    thumbnail=thumbnail,
+                    duration=duration,
+                    length=length,
+                ),
             ),
             disable_notification=disable_notification,
             protect_content=protect_content,
@@ -1422,9 +1425,11 @@ class Methods(TDLibFunctions):
         return await self.sendMessageWithContent(
             chat_id=chat_id,
             content=InputMessageVoiceNote(
-                voice_note=voice,
-                waveform=waveform,
-                duration=duration,
+                voice_note=InputVoiceNote(
+                    voice_note=voice,
+                    duration=duration,
+                    waveform=waveform,
+                ),
                 caption=caption,
             ),
             disable_notification=disable_notification,
