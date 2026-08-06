@@ -106,9 +106,9 @@ async def commands(c: Client, message: types.Message):
 async def callback_query(c: Client, message: types.UpdateNewCallbackQuery):
     if message.payload.data:
         await c.editTextMessage(
-            message.chat_id,
-            message.message_id,
-            f"You pressed {message.payload.data.decode()}",
+            chat_id=message.chat_id,
+            message_id=message.message_id,
+            text=f"You pressed {message.payload.data.decode()}",
             reply_markup=types.ReplyMarkupInlineKeyboard(
                 rows=[
                     [
