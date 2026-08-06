@@ -1,5 +1,5 @@
 [analysis]
-allowed-unresolved-imports = ["orjson", "ujson", "nats", "qrcode"]
+allowed-unresolved-imports = ["tdjson", "orjson", "ujson", "nats", "qrcode"]
 
 [rules]
 all = "ignore"
