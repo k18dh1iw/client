@@ -1,0 +1,22 @@
+[analysis]
+allowed-unresolved-imports = ["orjson", "ujson", "nats"]
+
+[rules]
+all = "ignore"
+unknown-argument = "error"
+missing-argument = "error"
+too-many-positional-arguments = "error"
+parameter-already-assigned = "error"
+positional-only-parameter-as-kwarg = "error"
+call-non-callable = "error"
+
+invalid-context-manager = "error"
+invalid-raise = "error"
+invalid-exception-caught = "error"
+
+unresolved-reference = "error"
+unresolved-import = "error"
+
+index-out-of-bounds = "error"
+invalid-key = "error"
+missing-typed-dict-key = "error"

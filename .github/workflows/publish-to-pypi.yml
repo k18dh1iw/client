@@ -19,11 +19,18 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Build pytdbot
+      - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.10"
-      - run: |
+
+      - name: Type check with ty
+        run: |
+          python -m pip install --upgrade pip ty
+          ty check
+
+      - name: Build pytdbot
+        run: |
           python -m pip install --upgrade build
           python -m build
 
