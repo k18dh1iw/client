@@ -3,6 +3,19 @@ from ..types import (
     DateTimeFormattingTypeRelative,
     DateTimePartPrecisionLong,
     DateTimePartPrecisionShort,
+    InputAnimation,
+    InputAudio,
+    InputFileId,
+    InputFileRemote,
+    InputMessageAnimation,
+    InputMessageAudio,
+    InputMessagePhoto,
+    InputMessageVideo,
+    InputMessageVoiceNote,
+    InputPhoto,
+    InputRichMessageMedia,
+    InputVideo,
+    InputVoiceNote,
     PageBlockAnchor,
     PageBlockAnimation,
     PageBlockAudio,
@@ -95,6 +108,7 @@ from .rich_messages import (
     unordered_list,
     video,
 )
+from .strings import create_extra_id
 from .text_format import (
     bold,
     code,
@@ -158,38 +172,122 @@ def _datetime_format(ft):
     return ""
 
 
-def _get_file_url(media_obj, file_url_func):
+def _media_id():
+    return create_extra_id()
+
+
+def _input_file(file_obj):
+    if not file_obj:
+        return None
+
+    if file_obj.remote and file_obj.remote.id:
+        return InputFileRemote(id=file_obj.remote.id)
+
+    if file_obj.id:
+        return InputFileId(id=file_obj.id)
+
+    return None
+
+
+def _input_message(media_obj, has_spoiler=False):
     if not media_obj:
-        return ""
+        return None
 
     t = media_obj.getType()
+
+    if t == "photo":
+        if not media_obj.sizes:
+            return None
+        size = media_obj.sizes[-1]
+        inp = _input_file(size.photo)
+        if not inp:
+            return None
+        return InputMessagePhoto(
+            photo=InputPhoto(photo=inp, width=size.width or 0, height=size.height or 0),
+            has_spoiler=has_spoiler,
+        )
+
     if t == "video":
-        file_obj = media_obj.video
-    elif t == "audio":
-        file_obj = media_obj.audio
-    elif t == "voiceNote":
-        file_obj = media_obj.voice
-    elif t == "animation":
-        file_obj = media_obj.animation
-    elif t == "photo":
-        file_obj = media_obj.sizes[-1].photo
-    else:
-        return ""
+        inp = _input_file(media_obj.video)
+        if not inp:
+            return None
+        return InputMessageVideo(
+            video=InputVideo(
+                video=inp,
+                duration=media_obj.duration or 0,
+                width=media_obj.width or 0,
+                height=media_obj.height or 0,
+                supports_streaming=media_obj.supports_streaming or False,
+            ),
+            has_spoiler=has_spoiler,
+        )
 
-    if file_url_func:
-        return file_url_func(media_obj)
+    if t == "audio":
+        inp = _input_file(media_obj.audio)
+        if not inp:
+            return None
+        return InputMessageAudio(
+            audio=InputAudio(
+                audio=inp,
+                duration=media_obj.duration or 0,
+                title=media_obj.title or "",
+                performer=media_obj.performer or "",
+            )
+        )
 
-    return file_obj.remote.id or ""
+    if t == "voiceNote":
+        inp = _input_file(media_obj.voice)
+        if not inp:
+            return None
+        return InputMessageVoiceNote(
+            voice_note=InputVoiceNote(
+                voice_note=inp,
+                duration=media_obj.duration or 0,
+                waveform=media_obj.waveform or b"",
+            )
+        )
+
+    if t == "animation":
+        inp = _input_file(media_obj.animation)
+        if not inp:
+            return None
+        return InputMessageAnimation(
+            animation=InputAnimation(
+                animation=inp,
+                duration=media_obj.duration or 0,
+                width=media_obj.width or 0,
+                height=media_obj.height or 0,
+            ),
+            has_spoiler=has_spoiler,
+        )
+
+    return None
 
 
-def _rt(rt, f):
+class _MediaCollector:
+    __slots__ = ("items",)
+
+    def __init__(self):
+        self.items = []
+
+    def add(self, kind, media_obj, has_spoiler=False):
+        content = _input_message(media_obj, has_spoiler=has_spoiler)
+        if not content:
+            return ""
+
+        media_id = _media_id()
+        self.items.append(InputRichMessageMedia(id=media_id, media=content))
+        return f"tg://{kind}?id={media_id}"
+
+
+def _rt(rt, ctx):
     if rt is None:
         return ""
 
     t = rt.getType()
     h = _RT_HANDLERS.get(t)
 
-    return h(rt, f) if h else ""
+    return h(rt, ctx) if h else ""
 
 
 def _rt_plain(rt, _):
@@ -197,58 +295,58 @@ def _rt_plain(rt, _):
 
 
 def _rt_child(fn):
-    def h(rt, f):
-        return fn(_rt(rt.text, f))
+    def h(rt, ctx):
+        return fn(_rt(rt.text, ctx))
 
     return h
 
 
 def _rt_child_escaped(fn):
-    def h(rt, f):
-        return fn(_rt(rt.text, f), html=True, escape=False)
+    def h(rt, ctx):
+        return fn(_rt(rt.text, ctx), html=True, escape=False)
 
     return h
 
 
-def _rt_passthrough(rt, f):
-    return _rt(rt.text, f)
+def _rt_passthrough(rt, ctx):
+    return _rt(rt.text, ctx)
 
 
-def _rt_url(rt, f):
-    return hyperlink(_rt(rt.text, f), rt.url or "", html=True, escape=False)
+def _rt_url(rt, ctx):
+    return hyperlink(_rt(rt.text, ctx), rt.url or "", html=True, escape=False)
 
 
-def _rt_email(rt, f):
-    return email_link(rt.email_address or "", _rt(rt.text, f))
+def _rt_email(rt, ctx):
+    return email_link(rt.email_address or "", _rt(rt.text, ctx))
 
 
-def _rt_phone(rt, f):
-    return phone(rt.phone_number or "", _rt(rt.text, f))
+def _rt_phone(rt, ctx):
+    return phone(rt.phone_number or "", _rt(rt.text, ctx))
 
 
 def _rt_anchor(rt, _):
     return anchor(rt.name or "")
 
 
-def _rt_anchor_link(rt, f):
-    return in_doc_link(rt.anchor_name or "", _rt(rt.text, f))
+def _rt_anchor_link(rt, ctx):
+    return in_doc_link(rt.anchor_name or "", _rt(rt.text, ctx))
 
 
-def _rt_ref_link(rt, f):
-    return tag("a", _rt(rt.text, f), href=rt.url or "")
+def _rt_ref_link(rt, ctx):
+    return tag("a", _rt(rt.text, ctx), href=rt.url or "")
 
 
-def _rt_reference(rt, f):
-    return tg_reference(rt.name or "", _rt(rt.text, f))
+def _rt_reference(rt, ctx):
+    return tg_reference(rt.name or "", _rt(rt.text, ctx))
 
 
 def _rt_emoji(rt, _):
     return custom_emoji(rt.alternative_text or "", rt.custom_emoji_id, html=True)
 
 
-def _rt_time(rt, f):
+def _rt_time(rt, ctx):
     return tg_time(
-        rt.unix_time or 0, _datetime_format(rt.formatting_type), _rt(rt.text, f)
+        rt.unix_time or 0, _datetime_format(rt.formatting_type), _rt(rt.text, ctx)
     )
 
 
@@ -256,12 +354,12 @@ def _rt_math(rt, _):
     return tg_math(rt.expression or "")
 
 
-def _rt_mention_name(rt, f):
-    return mention(_rt(rt.text, f), rt.user_id, html=True, escape=False)
+def _rt_mention_name(rt, ctx):
+    return mention(_rt(rt.text, ctx), rt.user_id, html=True, escape=False)
 
 
-def _rt_texts(rt, f):
-    return "".join(_rt(x, f) for x in (rt.texts or []))
+def _rt_texts(rt, ctx):
+    return "".join(_rt(x, ctx) for x in (rt.texts or []))
 
 
 _RT_HANDLERS = {
@@ -295,45 +393,38 @@ _RT_HANDLERS = {
 }
 
 
-def _caption_html(cap, f):
+def _caption_html(cap, ctx):
     if cap is None:
         return ""
 
     if isinstance(cap, PageBlockCaption):
-        text = _rt(cap.text, f)
+        text = _rt(cap.text, ctx)
         credit = cap.credit
 
         if credit:
-            text += tag("cite", _rt(credit, f))
+            text += tag("cite", _rt(credit, ctx))
         return text
 
-    return _rt(cap, f)
+    return _rt(cap, ctx)
 
 
-def _photo_url(photo, f):
-    if not photo:
-        return ""
-
-    return _get_file_url(photo, f)
-
-
-def _media_fig(media_tag, cap, f):
-    cap_html = _caption_html(cap, f)
+def _media_fig(media_tag, cap, ctx):
+    cap_html = _caption_html(cap, ctx)
     if cap_html:
         return figure(media_tag, figcaption(cap_html))
 
     return figure(media_tag)
 
 
-def _list_item(item, f):
-    inner = _blocks(item.blocks, f)
+def _list_item(item, ctx):
+    inner = _blocks(item.blocks, ctx)
     if item.has_checkbox:
         return list_item(inner, checked=item.is_checked)
 
     return list_item(inner)
 
 
-def _table_cell_html(cell, f):
+def _table_cell_html(cell, ctx):
     cs = cell.colspan
     rs = cell.rowspan
 
@@ -342,7 +433,7 @@ def _table_cell_html(cell, f):
 
     fn = table_header_cell if cell.is_header else table_cell
     return fn(
-        _rt(cell.text, f),
+        _rt(cell.text, ctx),
         colspan=cs if cs != 1 else None,
         rowspan=rs if rs != 1 else None,
         align=align,
@@ -350,34 +441,34 @@ def _table_cell_html(cell, f):
     )
 
 
-def _blocks(blocks, f):
+def _blocks(blocks, ctx):
     if not blocks:
         return ""
 
-    return "".join(_block(b, f) for b in blocks)
+    return "".join(_block(b, ctx) for b in blocks)
 
 
-def _block(b, f):
+def _block(b, ctx):
     t = b.getType()
     h = _BLOCK_HANDLERS.get(t)
-    return h(b, f) if h else ""
+    return h(b, ctx) if h else ""
 
 
-def _bk_paragraph(b, f):
-    return paragraph(_rt(b.text, f))
+def _bk_paragraph(b, ctx):
+    return paragraph(_rt(b.text, ctx))
 
 
-def _bk_heading(b, f):
-    return heading(b.size or 1, _rt(b.text, f))
+def _bk_heading(b, ctx):
+    return heading(b.size or 1, _rt(b.text, ctx))
 
 
 def _bk_anchor(b, _):
     return anchor(b.name or "")
 
 
-def _bk_preformatted(b, f):
+def _bk_preformatted(b, ctx):
     lang = b.language or ""
-    text = _rt(b.text, f)
+    text = _rt(b.text, ctx)
 
     if lang:
         return tag("pre", tag("code", text, **{"class": f"language-{lang}"}))
@@ -385,102 +476,103 @@ def _bk_preformatted(b, f):
     return tag("pre", text)
 
 
-def _bk_footer(b, f):
-    return footer(_rt(b.footer, f))
+def _bk_footer(b, ctx):
+    return footer(_rt(b.footer, ctx))
 
 
 def _bk_divider(_, __):
     return horizontal_rule()
 
 
-def _bk_list(b, f):
+def _bk_list(b, ctx):
     items = b.items or []
     if any(it.has_checkbox for it in items):
-        return tag("ul", *(_list_item(it, f) for it in items))
+        return tag("ul", *(_list_item(it, ctx) for it in items))
 
     first = items[0] if items else None
     first_type = first.type if first else ""
     if first_type:
         return ordered_list(
-            *(_list_item(it, f) for it in items),
+            *(_list_item(it, ctx) for it in items),
             start=first.value or 1,
             type=first_type,
         )
 
-    return unordered_list(*(_list_item(it, f) for it in items))
+    return unordered_list(*(_list_item(it, ctx) for it in items))
 
 
-def _bk_blockquote(b, f):
-    inner = _blocks(b.blocks, f)
+def _bk_blockquote(b, ctx):
+    inner = _blocks(b.blocks, ctx)
     credit = b.credit
 
-    return blockquote(inner, cite=_rt(credit, f) if credit else None)
+    return blockquote(inner, cite=_rt(credit, ctx) if credit else None)
 
 
-def _bk_pullquote(b, f):
+def _bk_pullquote(b, ctx):
     credit = b.credit
 
-    return aside(_rt(b.text, f), cite=_rt(credit, f) if credit else None)
+    return aside(_rt(b.text, ctx), cite=_rt(credit, ctx) if credit else None)
 
 
-def _bk_photo(b, f):
-    return _media_fig(
-        image(_photo_url(b.photo, f), spoiler=b.has_spoiler), b.caption, f
-    )
+def _bk_photo(b, ctx):
+    src = ctx.add("photo", b.photo, has_spoiler=b.has_spoiler)
+    return _media_fig(image(src, spoiler=b.has_spoiler), b.caption, ctx)
 
 
-def _bk_video(b, f):
-    return _media_fig(
-        video(_get_file_url(b.video, f), spoiler=b.has_spoiler), b.caption, f
-    )
+def _bk_video(b, ctx):
+    src = ctx.add("video", b.video, has_spoiler=b.has_spoiler)
+    return _media_fig(video(src, spoiler=b.has_spoiler), b.caption, ctx)
 
 
-def _bk_audio(b, f):
-    return _media_fig(audio(_get_file_url(b.audio, f)), b.caption, f)
+def _bk_audio(b, ctx):
+    src = ctx.add("audio", b.audio)
+    return _media_fig(audio(src), b.caption, ctx)
 
 
-def _bk_voice(b, f):
-    return _media_fig(audio(_get_file_url(b.voice_note, f)), b.caption, f)
+def _bk_voice(b, ctx):
+    src = ctx.add("audio", b.voice_note)
+    return _media_fig(audio(src), b.caption, ctx)
 
 
-def _bk_animation(b, f):
-    return _media_fig(
-        video(_get_file_url(b.animation, f), spoiler=b.has_spoiler), b.caption, f
-    )
+def _bk_animation(b, ctx):
+    src = ctx.add("animation", b.animation, has_spoiler=b.has_spoiler)
+    return _media_fig(video(src, spoiler=b.has_spoiler), b.caption, ctx)
 
 
-def _bk_map(b, f):
+def _bk_map(b, ctx):
     loc = b.location
 
     return _media_fig(
-        tg_map(loc.latitude or 0, loc.longitude or 0, b.zoom or 14), b.caption, f
+        tg_map(loc.latitude or 0, loc.longitude or 0, b.zoom or 14), b.caption, ctx
     )
 
 
-def _bk_collage(b, f):
-    return tg_collage(_blocks(b.blocks, f), caption=_caption_html(b.caption, f) or None)
+def _bk_collage(b, ctx):
+    return tg_collage(
+        _blocks(b.blocks, ctx), caption=_caption_html(b.caption, ctx) or None
+    )
 
 
-def _bk_slideshow(b, f):
+def _bk_slideshow(b, ctx):
     return tg_slideshow(
-        _blocks(b.blocks, f), caption=_caption_html(b.caption, f) or None
+        _blocks(b.blocks, ctx), caption=_caption_html(b.caption, ctx) or None
     )
 
 
-def _bk_table(b, f):
+def _bk_table(b, ctx):
     cells = b.cells or []
-    rows = [table_row(*(_table_cell_html(c, f) for c in row)) for row in cells]
+    rows = [table_row(*(_table_cell_html(c, ctx) for c in row)) for row in cells]
 
     return table(
         *rows,
         bordered=b.is_bordered,
         striped=b.is_striped,
-        caption=_caption_html(b.caption, f) or None,
+        caption=_caption_html(b.caption, ctx) or None,
     )
 
 
-def _bk_details(b, f):
-    return details(_blocks(b.blocks, f), summary=_rt(b.header, f), open=b.is_open)
+def _bk_details(b, ctx):
+    return details(_blocks(b.blocks, ctx), summary=_rt(b.header, ctx), open=b.is_open)
 
 
 def _bk_math(b, _):
@@ -511,20 +603,26 @@ _BLOCK_HANDLERS = {
 }
 
 
-def rich_message_to_html(message: RichMessage, file_url_func=None):
+def rich_message_to_html(message: RichMessage):
     r"""Convert a TDLib rich message object to HTML
+
+    Media uses ``tg://photo|video|audio|animation?id=<id>`` sources. Matching
+    :class:`~pytdbot.types.InputRichMessageMedia` entries are returned for
+    :meth:`~pytdbot.Client.sendRichMessage`
 
     Parameters:
         message (:class:`pytdbot.types.RichMessage`):
             The rich message object containing rich blocks
 
-        file_url_func (``callable``, *optional*):
-            A function that receives the full media object (:class:`pytdbot.types.Photo`, :class:`pytdbot.types.Video`, :class:`pytdbot.types.Audio`,
-            :class:`pytdbot.types.VoiceNote`, or :class:`pytdbot.types.Animation`) and returns an HTTP/HTTPS URL string.
-            If ``None``, file IDs are used as ``src`` values. (file_id media send is not supported by Telegram)
-
     Returns:
-        :py:class:`str`: The rendered HTML string
+        (:py:class:`str`, list[:class:`~pytdbot.types.InputRichMessageMedia`]):
+            HTML string and media list
+
+            .. code-block:: python
+
+                html, media = rich_message_to_html(message)
+                await client.sendRichMessage(chat_id, html=html, media=media)
     """
 
-    return _blocks(message.blocks, file_url_func)
+    ctx = _MediaCollector()
+    return _blocks(message.blocks, ctx), ctx.items
