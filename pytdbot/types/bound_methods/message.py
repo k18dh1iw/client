@@ -581,7 +581,6 @@ class MessageBoundMethods:
         topic_id: pytdbot.types.MessageTopic = None,
         quote: pytdbot.types.InputTextQuote = None,
         no_reply: bool = False,
-        ephemeral: bool = False,
     ):
         r"""Reply to the message with media album. Shortcut for :meth:`~pytdbot.Client.sendAlbum`."""
 
@@ -594,7 +593,6 @@ class MessageBoundMethods:
             topic_id=topic_id,
             quote=quote,
             reply_to_message_id=self.id if not no_reply else None,
-            receiver_user_id=self.from_id if ephemeral else 0,
         )
 
     async def reply_text(
