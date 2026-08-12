@@ -1,3 +1,5 @@
+from pytdbot.types.td_types import InputSticker, InputVideoNote, InputVoiceNote
+
 from ..types import (
     ChatTypeSupergroup,
     Error,
@@ -25,6 +27,7 @@ from ..types import (
     InputMessageVoiceNote,
     InputPhoto,
     InputRichMessage,
+    InputRichMessageMedia,
     InputTextQuote,
     InputThumbnail,
     InputVideo,
@@ -334,6 +337,7 @@ class Methods(TDLibFunctions):
         *,
         markdown: str = None,
         html: str = None,
+        media: list[InputRichMessageMedia] = None,
         is_rtl: bool = False,
         detect_automatic_blocks: bool = False,
         clear_draft: bool = False,
@@ -364,6 +368,9 @@ class Methods(TDLibFunctions):
 
             html (``str``, *optional*):
                 HTML-formatted text of the message
+
+            media (list[:class:`~pytdbot.types.InputRichMessageMedia`], *optional*):
+                Media used in the message
 
             is_rtl (``bool``, *optional*):
                 Pass true if the message must be shown from right to left. Default is ``False``
@@ -415,9 +422,9 @@ class Methods(TDLibFunctions):
             raise ValueError("Only one of markdown or html can be provided")
 
         if markdown:
-            source = RichMessageSourceMarkdown(text=markdown)
+            source = RichMessageSourceMarkdown(text=markdown, media=media)
         else:
-            source = RichMessageSourceHtml(text=html)
+            source = RichMessageSourceHtml(text=html, media=media)
 
         return await self.sendMessageWithContent(
             chat_id=chat_id,
@@ -1292,7 +1299,6 @@ class Methods(TDLibFunctions):
             reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):
                 The message reply markup
 
-
         Returns:
             :class:`~pytdbot.types.Message`
 
@@ -1304,10 +1310,12 @@ class Methods(TDLibFunctions):
         return await self.sendMessageWithContent(
             chat_id=chat_id,
             content=InputMessageVideoNote(
-                video_note=video_note,
-                thumbnail=thumbnail,
-                duration=duration,
-                length=length,
+                video_note=InputVideoNote(
+                    video_note=video_note,
+                    thumbnail=thumbnail,
+                    duration=duration,
+                    length=length,
+                ),
             ),
             disable_notification=disable_notification,
             protect_content=protect_content,
@@ -1422,9 +1430,11 @@ class Methods(TDLibFunctions):
         return await self.sendMessageWithContent(
             chat_id=chat_id,
             content=InputMessageVoiceNote(
-                voice_note=voice,
-                waveform=waveform,
-                duration=duration,
+                voice_note=InputVoiceNote(
+                    voice_note=voice,
+                    duration=duration,
+                    waveform=waveform,
+                ),
                 caption=caption,
             ),
             disable_notification=disable_notification,
@@ -1525,10 +1535,12 @@ class Methods(TDLibFunctions):
         return await self.sendMessageWithContent(
             chat_id=chat_id,
             content=InputMessageSticker(
-                sticker=sticker,
-                thumbnail=thumbnail,
-                width=width,
-                height=height,
+                sticker=InputSticker(
+                    sticker=sticker,
+                    thumbnail=thumbnail,
+                    width=width,
+                    height=height,
+                ),
                 emoji=emoji,
             ),
             disable_notification=disable_notification,

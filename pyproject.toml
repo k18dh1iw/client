@@ -45,11 +45,18 @@ Tracker = "https://github.com/pytdbot/client/issues"
 tdjson = ["tdjson"]
 nats = ["nats-py"]
 
+[project.scripts]
+pytdbot-docs = "pytdbot.docs:main"
+
 [tool.setuptools.packages.find]
 exclude = ["examples"]
 
 [tool.setuptools.package-data]
-pytdbot = ["td_api.*"]
+pytdbot = [
+    "td_api.*",
+    "ai/SKILL.md",
+    "ai/helpers.json",
+]
 
 [tool.setuptools.dynamic]
 version = { attr = "pytdbot.__version__" }

@@ -104,6 +104,18 @@ asyncio.run(client.run())
 
 For more examples, check the [examples](https://github.com/pytdbot/client/tree/main/examples) folder.
 
+### Using AI agents
+
+Pytdbot includes a skill and a local docs CLI so coding agents can use the library correctly (bound methods, helpers, TDLib types, and so on)
+
+1. Install [Pytdbot](#installation)
+2. Point your agent at the skill file:
+    - In this repo: [`pytdbot/ai/SKILL.md`](pytdbot/ai/SKILL.md)
+    - or using `curl -O "https://raw.githubusercontent.com/pytdbot/client/refs/heads/main/pytdbot/ai/SKILL.md"`
+3. Register it the way your tool expects (project skill, agent rule, or “read this file first”)
+
+The skill explains how Pytdbot is meant to be used; the CLI returns live signatures from your installed version.
+
 # Thanks to
 
 - You for viewing or using this project.

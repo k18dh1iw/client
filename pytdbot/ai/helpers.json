@@ -1,0 +1,5271 @@
+[
+  {
+    "name": "delete",
+    "kind": "bound_method",
+    "on": "File",
+    "async": true,
+    "args": [],
+    "description": "Deletes a file from the TDLib file cache. Shortcut for :meth:`~pytdbot.Client.deleteFile`",
+    "doc": "Deletes a file from the TDLib file cache. Shortcut for :meth:`~pytdbot.Client.deleteFile`",
+    "source": "pytdbot/types/bound_methods/file.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok | None"
+  },
+  {
+    "name": "download",
+    "kind": "bound_method",
+    "on": "File",
+    "async": true,
+    "args": [
+      {
+        "name": "priority",
+        "type": "int",
+        "optional": true,
+        "default": "1"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "synchronous",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Downloads a file. Shortcut for :meth:`~pytdbot.Client.downloadFile`",
+    "doc": "Downloads a file. Shortcut for :meth:`~pytdbot.Client.downloadFile`",
+    "source": "pytdbot/types/bound_methods/file.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.File | None"
+  },
+  {
+    "name": "action",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": false,
+    "args": [
+      {
+        "name": "action",
+        "type": "Literal['typing', 'upload_photo', 'record_video', 'upload_video', 'record_voice', 'upload_voice', 'upload_document', 'choose_sticker', 'find_location', 'record_video_note', 'upload_video_note', 'cancel']"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Sends a chat action to a specific chat. Supporting context manager (``with`` statement)",
+    "doc": "Sends a chat action to a specific chat. Supporting context manager (``with`` statement)\n\n\\Example:\n\n\n    .. code-block:: python\n\n        async with update.action(\"record_video\") as action:\n            ## Any blocking operation\n            await asyncio.sleep(10)\n            action.setAction(\"upload_video\") # change the action to uploading a video\n\nOr\n\n\n    .. code-block:: python\n\n        await update.action(\"typing\")\n        ## Any blocking operation\n        await asyncio.sleep(2)\n        await update.reply_text(\"Hello?\")\n\n\\Parameters:\n    action (``str``):\n        Type of action to broadcast. Choose one, depending on what the user is about to receive: ``typing`` for text messages, ``upload_photo`` for photos, ``record_video`` or ``upload_video`` for videos, ``record_voice`` or ``upload_voice`` for voice notes, ``upload_document`` for general files, ``choose_sticker`` for stickers, ``find_location` for location data, ``record_video_note`` or ``upload_video_note`` for video notes\n\n    topic_id (:class:`pytdbot.types.MessageTopic`, *optional*):\n        Identifier of the topic in which the action is performed. Default is ``None``",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "ChatActions"
+  },
+  {
+    "name": "ban",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "banned_until_date",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      }
+    ],
+    "description": "Ban the message sender",
+    "doc": "Ban the message sender\n\nParameters:\n\n    banned_until_date (``int``):\n        Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Always 0 in basic groups",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "copy",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "in_game_share",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "replace_caption",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "new_caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "new_caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Copy message to chat. Shortcut for :meth:`~pytdbot.Client.sendCopy`.",
+    "doc": "Copy message to chat. Shortcut for :meth:`~pytdbot.Client.sendCopy`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "delete",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "revoke",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Delete the received message",
+    "doc": "Delete the received message\n\nParameters:\n    revoke (``bool``, *optional*):\n        Pass true to delete messages for all chat members. Always true for supergroups, channels and secret chats",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "download",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "priority",
+        "type": "int",
+        "optional": true,
+        "default": "1"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "synchronous",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Download the media file and returns ``LocalFile`` object. Shortcut for :meth:`~pytdbot.Client.downloadFile`.",
+    "doc": "Download the media file and returns ``LocalFile`` object. Shortcut for :meth:`~pytdbot.Client.downloadFile`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.LocalFile"
+  },
+  {
+    "name": "edit_text",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_web_page_preview",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_small_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_large_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "show_above_text",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkup | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Edit text message. Shortcut for :meth:`~pytdbot.Client.editTextMessage`.",
+    "doc": "Edit text message. Shortcut for :meth:`~pytdbot.Client.editTextMessage`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "forward",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "in_game_share",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Forward message to chat. Shortcut for :meth:`~pytdbot.Client.forwardMessage`.",
+    "doc": "Forward message to chat. Shortcut for :meth:`~pytdbot.Client.forwardMessage`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "getChat",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Get chat info",
+    "doc": "Get chat info",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Chat"
+  },
+  {
+    "name": "getChatMember",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Get member info in the current chat",
+    "doc": "Get member info in the current chat",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.ChatMember"
+  },
+  {
+    "name": "getMessageLink",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "media_timestamp",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "for_album",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "in_message_thread",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Get message link",
+    "doc": "Get message link\n\nParameters:\n    media_timestamp (:class:`int`):\n        If not 0, timestamp from which the video/audio/video note/voice note/story playing must start, in seconds\\. The media can be in the message content or in its link preview\n\n    for_album (:class:`bool`):\n        Pass true to create a link for the whole media album\n\n    in_message_thread (:class:`bool`):\n        Pass true to create a link to the message as a channel post comment, in a message thread, or a forum topic",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.MessageLink"
+  },
+  {
+    "name": "getMessageProperties",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Get the message properties",
+    "doc": "Get the message properties",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.MessageProperties"
+  },
+  {
+    "name": "getRepliedMessage",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Get the replied message",
+    "doc": "Get the replied message",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "getUser",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Get user info",
+    "doc": "Get user info",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.User"
+  },
+  {
+    "name": "kick",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Kick the message sender",
+    "doc": "Kick the message sender",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "leaveChat",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Leave the current chat",
+    "doc": "Leave the current chat",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "mention",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "'html'"
+      }
+    ],
+    "description": "Get the text_mention of the message sender",
+    "doc": "Get the text_mention of the message sender\n\nParameters:\n    parse_mode (``str``, *optional*):\n        The parse mode of the mention. Default is ``html``",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "str | None"
+  },
+  {
+    "name": "pin",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "only_for_self",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Pin the message",
+    "doc": "Pin the message\n\nParameters:\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message\n\n    only_for_self (``bool``, *optional*):\n        True, if the message needs to be pinned for one side only; private chats only",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "react",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "emoji",
+        "type": "str",
+        "optional": true,
+        "default": "'👍'"
+      },
+      {
+        "name": "is_big",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "React to the current message",
+    "doc": "React to the current message\n\nParameters:\n    emoji (``str``, *optional*):\n        Text representation of the reaction; pass ``None`` to remove the current reaction. Default is ``👍``\n\n    is_big (``bool``, *optional*):\n        Pass true if the reactions are added with a big animation. Default is ``False``",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "reply_album",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "contents",
+        "type": "list[pytdbot.types.InputMessageAnimation | pytdbot.types.InputMessageAudio | pytdbot.types.InputMessageDocument | pytdbot.types.InputMessagePhoto | pytdbot.types.InputMessageVideo]"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Reply to the message with media album. Shortcut for :meth:`~pytdbot.Client.sendAlbum`.",
+    "doc": "Reply to the message with media album. Shortcut for :meth:`~pytdbot.Client.sendAlbum`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": null
+  },
+  {
+    "name": "reply_animation",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "animation",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "pytdbot.types.InputThumbnail | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "added_sticker_file_ids",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "has_spoiler",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with animation. Shortcut for :meth:`~pytdbot.Client.sendAnimation`.",
+    "doc": "Reply to the message with animation. Shortcut for :meth:`~pytdbot.Client.sendAnimation`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_audio",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "audio",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "album_cover_thumbnail",
+        "type": "pytdbot.types.InputThumbnail | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "title",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "performer",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with audio. Shortcut for :meth:`~pytdbot.Client.sendAudio`.",
+    "doc": "Reply to the message with audio. Shortcut for :meth:`~pytdbot.Client.sendAudio`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_document",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "document",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "pytdbot.types.InputThumbnail | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_content_type_detection",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with a document. Shortcut for :meth:`~pytdbot.Client.sendDocument`.",
+    "doc": "Reply to the message with a document. Shortcut for :meth:`~pytdbot.Client.sendDocument`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_invoice",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "title",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "int"
+      },
+      {
+        "name": "payload",
+        "type": "bytes"
+      },
+      {
+        "name": "description",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "subscription_period",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "start_parameter",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "photo_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "photo_size",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "photo_width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "photo_height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "recurring_payment_terms_of_service_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "terms_of_service_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Reply to the message with a Telegram Stars invoice. Shortcut for :meth:`~pytdbot.Client.sendInvoice`.",
+    "doc": "Reply to the message with a Telegram Stars invoice. Shortcut for :meth:`~pytdbot.Client.sendInvoice`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_photo",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "photo",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "pytdbot.types.InputThumbnail | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "added_sticker_file_ids",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "self_destruct_type",
+        "type": "pytdbot.types.MessageSelfDestructType | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "has_spoiler",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with a photo. Shortcut for :meth:`~pytdbot.Client.sendPhoto`.",
+    "doc": "Reply to the message with a photo. Shortcut for :meth:`~pytdbot.Client.sendPhoto`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_rich_message",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "markdown",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "html",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "is_rtl",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "detect_automatic_blocks",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "clear_draft",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with Rich message. Shortcut for :meth:`~pytdbot.Client.sendRichMessage`.",
+    "doc": "Reply to the message with Rich message. Shortcut for :meth:`~pytdbot.Client.sendRichMessage`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_sticker",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "sticker",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "emoji",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "thumbnail",
+        "type": "pytdbot.types.InputThumbnail | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with a sticker. Shortcut for :meth:`~pytdbot.Client.sendSticker`.",
+    "doc": "Reply to the message with a sticker. Shortcut for :meth:`~pytdbot.Client.sendSticker`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_text",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "entities",
+        "type": "list[pytdbot.types.TextEntity]",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_web_page_preview",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_small_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_large_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "show_above_text",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "clear_draft",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with text. Shortcut for :meth:`~pytdbot.Client.sendTextMessage`.",
+    "doc": "Reply to the message with text. Shortcut for :meth:`~pytdbot.Client.sendTextMessage`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_video",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "video",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "pytdbot.types.InputThumbnail | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "added_sticker_file_ids",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "supports_streaming",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "self_destruct_type",
+        "type": "pytdbot.types.MessageSelfDestructType | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "has_spoiler",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with a video. Shortcut for :meth:`~pytdbot.Client.sendVideo`.",
+    "doc": "Reply to the message with a video. Shortcut for :meth:`~pytdbot.Client.sendVideo`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_video_note",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "video_note",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "pytdbot.types.InputThumbnail | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "length",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with a video note. Shortcut for :meth:`~pytdbot.Client.sendVideoNote`.",
+    "doc": "Reply to the message with a video note. Shortcut for :meth:`~pytdbot.Client.sendVideoNote`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "reply_voice",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "voice",
+        "type": "pytdbot.types.InputFile | str"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "waveform",
+        "type": "bytes",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "pytdbot.types.MessageTopic | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "pytdbot.types.InputTextQuote | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "no_reply",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "ephemeral",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Reply to the message with a voice note. Shortcut for :meth:`~pytdbot.Client.sendVoice`.",
+    "doc": "Reply to the message with a voice note. Shortcut for :meth:`~pytdbot.Client.sendVoice`.",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "restrict",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "permissions",
+        "type": "pytdbot.types.ChatPermissions"
+      },
+      {
+        "name": "restricted_until_date",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      }
+    ],
+    "description": "Restrict the message sender",
+    "doc": "Restrict the message sender\n\nParameters:\n    permissions (:class:`pytdbot.types.ChatPermissions`):\n        New user permissions\n\n    restricted_until_date (``int``, *optional*):\n        Point in time (Unix timestamp) when restrictions will be lifted for the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever. Always 0 in basic groups",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "setChatMemberStatus",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [
+      {
+        "name": "status",
+        "type": "pytdbot.types.ChatMemberStatus"
+      }
+    ],
+    "description": "Set chat member status",
+    "doc": "Set chat member status",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "unpin",
+    "kind": "bound_method",
+    "on": "Message",
+    "async": true,
+    "args": [],
+    "description": "Unpin the message",
+    "doc": "Unpin the message",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "answer",
+    "kind": "bound_method",
+    "on": "UpdateNewCallbackQuery",
+    "async": true,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "show_alert",
+        "type": "bool | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "url",
+        "type": "str | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "cache_time",
+        "type": "int | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Answer to callback query. Shortcut for :meth:`~pytdbot.Client.answerCallbackQuery`",
+    "doc": "Answer to callback query. Shortcut for :meth:`~pytdbot.Client.answerCallbackQuery`",
+    "source": "pytdbot/types/bound_methods/callback_query.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "edit_message_caption",
+    "kind": "bound_method",
+    "on": "UpdateNewCallbackQuery",
+    "async": true,
+    "args": [
+      {
+        "name": "caption",
+        "type": "str"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list[pytdbot.types.TextEntity] | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "show_caption_above_media",
+        "type": "bool | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkup | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Edit message caption",
+    "doc": "Edit message caption",
+    "source": "pytdbot/types/bound_methods/callback_query.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "edit_message_reply_markup",
+    "kind": "bound_method",
+    "on": "UpdateNewCallbackQuery",
+    "async": true,
+    "args": [
+      {
+        "name": "reply_markup",
+        "type": "'pytdbot.types.ReplyMarkup'"
+      }
+    ],
+    "description": "Edit message reply markup. Shortcut for :meth:`~pytdbot.Client.editMessageReplyMarkup`",
+    "doc": "Edit message reply markup. Shortcut for :meth:`~pytdbot.Client.editMessageReplyMarkup`",
+    "source": "pytdbot/types/bound_methods/callback_query.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "edit_message_text",
+    "kind": "bound_method",
+    "on": "UpdateNewCallbackQuery",
+    "async": true,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "entities",
+        "type": "list | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_web_page_preview",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "url",
+        "type": "str | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_small_media",
+        "type": "bool | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_large_media",
+        "type": "bool | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "show_above_text",
+        "type": "bool | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkup | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Edit callback query message text. Shortcut for :meth:`~pytdbot.Client.editTextMessage`",
+    "doc": "Edit callback query message text. Shortcut for :meth:`~pytdbot.Client.editTextMessage`",
+    "source": "pytdbot/types/bound_methods/callback_query.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message"
+  },
+  {
+    "name": "getMessage",
+    "kind": "bound_method",
+    "on": "UpdateNewCallbackQuery",
+    "async": true,
+    "args": [],
+    "description": "Get callback query message",
+    "doc": "Get callback query message",
+    "source": "pytdbot/types/bound_methods/callback_query.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Message | None"
+  },
+  {
+    "name": "edit_message_text",
+    "kind": "bound_method",
+    "on": "UpdateNewChosenInlineResult",
+    "async": true,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "parse_mode",
+        "type": "Literal['HTML', 'Markdownv2'] | None",
+        "optional": true,
+        "default": "'html'"
+      },
+      {
+        "name": "reply_markup",
+        "type": "pytdbot.types.ReplyMarkupInlineKeyboard | pytdbot.types.ReplyMarkupShowKeyboard | pytdbot.types.ReplyMarkupForceReply | pytdbot.types.ReplyMarkupRemoveKeyboard | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Edit message text. Shortcut for :meth:`~pytdbot.Client.editInlineMessageText`",
+    "doc": "Edit message text. Shortcut for :meth:`~pytdbot.Client.editInlineMessageText`",
+    "source": "pytdbot/types/bound_methods/inline_query.py",
+    "returns": null
+  },
+  {
+    "name": "answer",
+    "kind": "bound_method",
+    "on": "UpdateNewInlineQuery",
+    "async": true,
+    "args": [
+      {
+        "name": "results",
+        "type": "list[pytdbot.types.InputInlineQueryResult]"
+      },
+      {
+        "name": "is_personal",
+        "type": "bool | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "cache_time",
+        "type": "int | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "next_offset",
+        "type": "str | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "button",
+        "type": "list[pytdbot.types.InlineQueryResultsButton] | None",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Answer to inline query. Shortcut for :meth:`~pytdbot.Client.answerInlineQuery`",
+    "doc": "Answer to inline query. Shortcut for :meth:`~pytdbot.Client.answerInlineQuery`",
+    "source": "pytdbot/types/bound_methods/inline_query.py",
+    "returns": "pytdbot.types.Error | pytdbot.types.Ok"
+  },
+  {
+    "name": "sendAction",
+    "kind": "chat_action",
+    "on": "ChatActions",
+    "async": true,
+    "args": [],
+    "description": "",
+    "doc": "",
+    "source": "pytdbot/types/bound_methods/chatActions.py",
+    "returns": null
+  },
+  {
+    "name": "setAction",
+    "kind": "chat_action",
+    "on": "ChatActions",
+    "async": false,
+    "args": [
+      {
+        "name": "action",
+        "type": "Literal['typing', 'upload_photo', 'record_video', 'upload_video', 'record_voice', 'upload_voice', 'upload_document', 'choose_sticker', 'find_location', 'record_video_note', 'upload_video_note', 'cancel']"
+      }
+    ],
+    "description": "",
+    "doc": "",
+    "source": "pytdbot/types/bound_methods/chatActions.py",
+    "returns": null
+  },
+  {
+    "name": "stop",
+    "kind": "chat_action",
+    "on": "ChatActions",
+    "async": true,
+    "args": [],
+    "description": "",
+    "doc": "",
+    "source": "pytdbot/types/bound_methods/chatActions.py",
+    "returns": null
+  },
+  {
+    "name": "createStarsInvoice",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "title",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "int"
+      },
+      {
+        "name": "payload",
+        "type": "bytes"
+      },
+      {
+        "name": "description",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "subscription_period",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "start_parameter",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "photo_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "photo_size",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "photo_width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "photo_height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "recurring_payment_terms_of_service_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "terms_of_service_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "description": "Create an invoice link for Telegram Stars",
+    "doc": "Create an invoice link for Telegram Stars\n\nParameters:\n    title (``str``):\n        Product title; 1-32 characters\n\n    amount (``int``):\n        Amount of Telegram Stars to be paid\n\n    payload (``bytes``):\n        The invoice payload\n\n    description (``str``, *optional*):\n        Product description; 0-255 characters\n\n    subscription_period (``int``, *optional*):\n        The number of seconds between consecutive Telegram Star debiting for subscription invoices; 0 if the invoice doesn't create subscription\n\n    start_parameter (``str``, *optional*):\n        Unique invoice bot deep link parameter for the generation of this invoice. If empty, it would be possible to pay directly from forwards of the invoice message\n\n    photo_url (``str``, *optional*):\n        Product photo URL; optional\n\n    photo_size (``int``, *optional*):\n        Product photo size\n\n    photo_width (``int``, *optional*):\n        Product photo width\n\n    photo_height (``int``, *optional*):\n        Product photo height\n\n    recurring_payment_terms_of_service_url (``str``, *optional*):\n        An HTTP URL with terms of service for recurring payments. If non-empty, the invoice payment will result in recurring payments and the user must accept the terms of service before allowed to pay\n\n    terms_of_service_url (``str``, *optional*):\n        An HTTP URL with terms of service for non-recurring payments. If non-empty, then the user must accept the terms of service before allowed to pay\n\nReturns:\n    :class:`~pytdbot.types.HttpUrl`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | HttpUrl"
+  },
+  {
+    "name": "editTextMessage",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "ephemeral_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_web_page_preview",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_small_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_large_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "show_above_text",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkup",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Edit text message",
+    "doc": "Edit text message\n\nParameters:\n    chat_id (``int``):\n        Chat identifier\n\n    text (``str``):\n        New text of the message\n\n    message_id (``int``):\n        Message identifier in the chat\n\n    ephemeral_message_id (``int``, *optional*):\n        Identifier of the message to be deleted; for Ephemeral messages only\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities in the message text\n\n    entities (``list``, *optional*):\n        List of ``MessageEntity`` objects representing entities that may appear in the message text\n\n    disable_web_page_preview (``bool``, *optional*):\n        Disables link previews for links in this message. Default is ``False``\n\n    url (``str``, *optional*):\n        URL to use for link preview. If empty, then the first URL found in the message text will be used. Default is ``None``\n\n    force_small_media (``bool``, *optional*):\n        True, if shown media preview must be small; ignored in secret chats or if the URL isn't explicitly specified. Default is ``None``\n\n    force_large_media (``bool``, *optional*):\n        True, if shown media preview must be large; ignored in secret chats or if the URL isn't explicitly specified. Default is ``None``\n\n    show_above_text (``bool``, *optional*):\n        True, if link preview must be shown above message text; otherwise, the link preview will be shown below the message text; ignored in secret chats. Default is ``None``\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "forwardMessage",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "from_chat_id",
+        "type": "int"
+      },
+      {
+        "name": "message_id",
+        "type": "int"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "in_game_share",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Forward message to chat",
+    "doc": "Forward message to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    from_chat_id (``int``):\n        Identifier for the chat this forwarded message came from\n\n    message_id (``int``):\n        Identifier of the message to forward\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    in_game_share (``bool``, *optional*):\n        True, if a game message is being shared from a launched game; applies only to game messages\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": null
+  },
+  {
+    "name": "getSupergroupId",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      }
+    ],
+    "description": "Get supergroup id from chat id",
+    "doc": "Get supergroup id from chat id\n\nParameters:\n    chat_id (``int``):\n        Chat identifier\n\nReturns:\n    ``int``",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | int | None"
+  },
+  {
+    "name": "parseText",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "'html'"
+      }
+    ],
+    "description": "Parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text",
+    "doc": "Parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text\n\nParameters:\n    text (``str``):\n        The text to parse\n\n    parse_mode (``str``):\n        Text parse mode. Currently supported: markdown, markdownv2 and html. Default is \"html\"\n\nReturns:\n    :class:`~pytdbot.types.FormattedText`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | FormattedText"
+  },
+  {
+    "name": "sendAlbum",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "contents",
+        "type": "list[InputMessageAnimation | InputMessageAudio | InputMessageDocument | InputMessagePhoto | InputMessageVideo]"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      }
+    ],
+    "description": "Sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages",
+    "doc": "Sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    contents (:class:`~pytdbot.types.InputMessageAnimation` | :class:`~pytdbot.types.InputMessageAudio` | :class:`~pytdbot.types.InputMessageDocument` | :class:`~pytdbot.types.InputMessagePhoto` | :class:`~pytdbot.types.InputMessageVideo`, *optional*):\n        Contents of messages to be sent. At most 10 messages can be added to an album. All messages must have the same value of show_caption_above_media\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``None``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\nReturns:\n    :class:`~pytdbot.types.Messages`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Messages"
+  },
+  {
+    "name": "sendAnimation",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "animation",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "InputThumbnail",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "added_sticker_file_ids",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "has_spoiler",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send animation to chat",
+    "doc": "Send animation to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    animation (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Animation to send\n\n    thumbnail (:class:`~pytdbot.types.InputThumbnail`, *optional*):\n        Thumbnail of the animation to send\n\n    caption (``str``, *optional*):\n        Animation caption\n\n    caption_entities (``list``, *optional*):\n        List of ``MessageEntity`` objects to parse in the caption. If you want to send a caption with formatting, use ``parse_mode`` instead\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities. Default is ``markdown``\n\n    added_sticker_file_ids (``list``, *optional*):\n        File identifiers of the stickers added to the animation, if applicable\n\n    duration (``int``, *optional*):\n        Duration of the animation, in seconds\n\n    width (``int``, *optional*):\n        Width of the animation\n\n    height (``int``, *optional*):\n        Height of the animation\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    has_spoiler (``bool``, *optional*):\n        True, if the photo preview must be covered by a spoiler animation; not supported in secret chats\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendAudio",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "audio",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "album_cover_thumbnail",
+        "type": "InputThumbnail",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "title",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "performer",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send audio to chat",
+    "doc": "Send audio to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    audio (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Audio to send\n\n    album_cover_thumbnail (:class:`~pytdbot.types.InputThumbnail`, *optional*):\n        Thumbnail of the album cover to be set\n\n    caption (``str``, *optional*):\n        Audio caption\n\n    caption_entities (``list``, *optional*):\n        List of ``MessageEntity`` objects to parse in the caption. If you want to send a caption with formatting, use ``parse_mode`` instead\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities. Default is ``markdown``\n\n    title (``str``, *optional*):\n        Title of the audio\n\n    performer (``str``, *optional*):\n        Performer of the audio\n\n    duration (``int``, *optional*):\n        Duration of the audio, in seconds\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendCopy",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "from_chat_id",
+        "type": "int"
+      },
+      {
+        "name": "message_id",
+        "type": "int"
+      },
+      {
+        "name": "in_game_share",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "replace_caption",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "new_caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "new_caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Copy message to chat",
+    "doc": "Copy message to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    from_chat_id (``int``):\n        Identifier for the chat this forwarded message came from\n\n    message_id (``int``):\n        Identifier of the message to forward\n\n    in_game_share (``bool``, *optional*):\n        True, if a game message is being shared from a launched game; applies only to game messages\n\n    replace_caption (``bool``, *optional*):\n        True, if media caption of the message copy needs to be replaced\n\n    new_caption (``str``, *optional*):\n        New caption of the message copy\n\n    new_caption_entities (``list``, *optional*):\n        List of ``MessageEntity`` objects representing entities in the new caption\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities in the new caption\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendDocument",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "document",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "InputThumbnail",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_content_type_detection",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send document to chat",
+    "doc": "Send document to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    document (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Document to send\n\n    thumbnail (:class:`~pytdbot.types.InputThumbnail`, *optional*):\n        Thumbnail of the document to be set\n\n    caption (``str``, *optional*):\n        Document caption\n\n    caption_entities (``list``, *optional*):\n        List of ``MessageEntity`` objects to parse in the caption. If you want to send a caption with formatting, use ``parse_mode`` instead\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities. Default is ``markdown``\n\n    disable_content_type_detection (``bool``, *optional*):\n        If true, automatic file type detection will be disabled and the document will be always sent as file. Always true for files sent to secret chats\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendInvoice",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "title",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "int"
+      },
+      {
+        "name": "payload",
+        "type": "bytes"
+      },
+      {
+        "name": "description",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "subscription_period",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "start_parameter",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "photo_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "photo_size",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "photo_width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "photo_height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "recurring_payment_terms_of_service_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "terms_of_service_url",
+        "type": "str",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      }
+    ],
+    "description": "Send invoice to chat",
+    "doc": "Send invoice to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    title (``str``):\n        Product title; 1-32 characters\n\n    amount (``int``):\n        Amount of Telegram Stars to be paid\n\n    payload (``bytes``):\n        The invoice payload\n\n    description (``str``, *optional*):\n        Product description; 0-255 characters\n\n    subscription_period (``int``, *optional*):\n        The number of seconds between consecutive Telegram Star debiting for subscription invoices; 0 if the invoice doesn't create subscription\n\n    start_parameter (``str``, *optional*):\n        Unique invoice bot deep link parameter for the generation of this invoice. If empty, it would be possible to pay directly from forwards of the invoice message\n\n    photo_url (``str``, *optional*):\n        Product photo URL; optional\n\n    photo_size (``int``, *optional*):\n        Product photo size\n\n    photo_width (``int``, *optional*):\n        Product photo width\n\n    photo_height (``int``, *optional*):\n        Product photo height\n\n    recurring_payment_terms_of_service_url (``str``, *optional*):\n        An HTTP URL with terms of service for recurring payments. If non-empty, the invoice payment will result in recurring payments and the user must accept the terms of service before allowed to pay\n\n    terms_of_service_url (``str``, *optional*):\n        An HTTP URL with terms of service for non-recurring payments. If non-empty, then the user must accept the terms of service before allowed to pay\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendMessageWithContent",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "content",
+        "type": "InputMessageContent"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "",
+    "doc": "",
+    "source": "pytdbot/methods/methods.py",
+    "returns": null
+  },
+  {
+    "name": "sendPhoto",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "photo",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "InputThumbnail",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "added_sticker_file_ids",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "self_destruct_type",
+        "type": "MessageSelfDestructType",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "has_spoiler",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send photo to chat",
+    "doc": "Send photo to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    photo (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Photo to send\n\n    thumbnail (:class:`~pytdbot.types.InputThumbnail`, *optional*):\n        Thumbnail of the photo to be set\n\n    caption (``str``, *optional*):\n        Photo caption\n\n    caption_entities (``list``, *optional*):\n        List of ``MessageEntity`` objects to parse in the caption. If you want to send a caption with formatting, use ``parse_mode`` instead\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities. Default is ``markdown``\n\n    added_sticker_file_ids (``list``, *optional*):\n        List of file identifiers of added stickers\n\n    width (``int``, *optional*):\n        Photo width\n\n    height (``int``, *optional*):\n        Photo height\n\n    self_destruct_type (:class:`~pytdbot.types.MessageSelfDestructType`, *optional*):\n        Photo self-destruct type; pass null if none; private chats only\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    has_spoiler (``bool``, *optional*):\n        True, if the photo preview must be covered by a spoiler animation; not supported in secret chats\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendRichMessage",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "markdown",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "html",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "is_rtl",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "detect_automatic_blocks",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "clear_draft",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send rich message to chat; either markdown or html must be provided",
+    "doc": "Send rich message to chat; either markdown or html must be provided\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    markdown (``str``, *optional*):\n        Markdown-formatted text of the message\n\n    html (``str``, *optional*):\n        HTML-formatted text of the message\n\n    is_rtl (``bool``, *optional*):\n        Pass true if the message must be shown from right to left. Default is ``False``\n\n    detect_automatic_blocks (``bool``, *optional*):\n        Pass true to enable detection of URLs, email addresses and other automatic blocks. Default is ``False``\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``None``\n\n    clear_draft (``bool``, *optional*):\n        True, if a chat message draft must be deleted. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendSticker",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "sticker",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "emoji",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "thumbnail",
+        "type": "InputThumbnail",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send sticker to chat",
+    "doc": "Send sticker to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    sticker (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Sticker to send\n\n    emoji (``str``, *optional*):\n        Emoji associated with the sticker\n\n    thumbnail (:class:`~pytdbot.types.InputThumbnail`, *optional*):\n        Sticker thumbnail\n\n    width (``int``, *optional*):\n        Sticker width\n\n    height (``int``, *optional*):\n        Sticker height\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendTextMessage",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "entities",
+        "type": "list[TextEntity] | None",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_web_page_preview",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_small_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "force_large_media",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "show_above_text",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "clear_draft",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send text message to chat",
+    "doc": "Send text message to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    text (``str``):\n        Text to send\n\n    entities (``list``, *optional*):\n        List of ``TextEntity`` objects to parse in the text. If you want to send a text with formatting, use ```parse_mode``` instead\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities. Default is ``markdown``\n\n    disable_web_page_preview (``bool``, *optional*):\n        Disables link previews for links in this message. Default is ``False``\n\n    url (``str``, *optional*):\n        URL to use for link preview. If empty, then the first URL found in the message text will be used. Default is ``None``\n\n    force_small_media (``bool``, *optional*):\n        True, if shown media preview must be small; ignored in secret chats or if the URL isn't explicitly specified. Default is ``None``\n\n    force_large_media (``bool``, *optional*):\n        True, if shown media preview must be large; ignored in secret chats or if the URL isn't explicitly specified. Default is ``None``\n\n    show_above_text (``bool``, *optional*):\n        True, if link preview must be shown above message text; otherwise, the link preview will be shown below the message text; ignored in secret chats. Default is ``None``\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``None``\n\n    clear_draft (``bool``, *optional*):\n        True, if a chat message draft must be deleted. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendVideo",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "video",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "InputThumbnail",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "added_sticker_file_ids",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "supports_streaming",
+        "type": "bool",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "width",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "height",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "self_destruct_type",
+        "type": "MessageSelfDestructType",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "has_spoiler",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send video to chat",
+    "doc": "Send video to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    video (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Video to send\n\n    thumbnail (:class:`~pytdbot.types.InputThumbnail`, *optional*):\n        Thumbnail of the video to be set\n\n    caption (``str``, *optional*):\n        Video caption\n\n    caption_entities (``list``, *optional*):\n        List of ``MessageEntity`` objects to parse in the caption. If you want to send a caption with formatting, use ``parse_mode`` instead\n\n    parse_mode (``str``, *optional*):\n        Mode for parsing entities. Default is ``markdown``\n\n    added_sticker_file_ids (``list``, *optional*):\n        List of file identifiers of added stickers\n\n    supports_streaming (``bool``, *optional*):\n        True, if the video should be tried to be streamed\n\n    duration (``int``, *optional*):\n        Duration of sent video in seconds\n\n    width (``int``, *optional*):\n        Video width\n\n    height (``int``, *optional*):\n        Video height\n\n    self_destruct_type (:class:`~pytdbot.types.MessageSelfDestructType`, *optional*):\n        Video self-destruct type; pass null if none; private chats only\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    has_spoiler (``bool``, *optional*):\n        True, if the photo preview must be covered by a spoiler animation; not supported in secret chats\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendVideoNote",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "video_note",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "thumbnail",
+        "type": "InputThumbnail",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "length",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send video note to chat",
+    "doc": "Send video note to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    video_note (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Video note to send\n\n    thumbnail (:class:`~pytdbot.types.InputThumbnail`, *optional*):\n        Thumbnail of the video note to be set\n\n    duration (``int``, *optional*):\n        Duration of sent video note in seconds\n\n    length (``int``, *optional*):\n        Video width and height\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "sendVoice",
+    "kind": "client_method",
+    "on": "Client",
+    "async": true,
+    "args": [
+      {
+        "name": "chat_id",
+        "type": "int"
+      },
+      {
+        "name": "voice",
+        "type": "InputFile | str"
+      },
+      {
+        "name": "caption",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "caption_entities",
+        "type": "list",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "parse_mode",
+        "type": "str",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "waveform",
+        "type": "bytes",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "disable_notification",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "protect_content",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "allow_paid_broadcast",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "topic_id",
+        "type": "MessageTopic",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "quote",
+        "type": "InputTextQuote",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to",
+        "type": "InputMessageReplyTo",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reply_to_message_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "receiver_user_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "callback_query_id",
+        "type": "int",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "reply_markup",
+        "type": "ReplyMarkupInlineKeyboard | ReplyMarkupShowKeyboard | ReplyMarkupForceReply | ReplyMarkupRemoveKeyboard",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Send voice to chat",
+    "doc": "Send voice to chat\n\nParameters:\n    chat_id (``int``):\n        Target chat\n\n    voice (:class:`~pytdbot.types.InputFileRemote` | :class:`~pytdbot.types.InputFileLocal` | ``str``):\n        Voice to send\n\n    caption (``str``, *optional*):\n        Voice caption\n\n    caption_entities (``list``, *optional*):\n        List of ``MessageEntity`` objects to parse in the caption. If you want to send a caption without parsing entities, use ``parse_mode`` instead\n\n    parse_mode (``str``, *optional*):\n        Parse mode for the caption. Default is None\n\n    duration (``int``, *optional*):\n        Duration of sent voice in seconds\n\n    waveform (`bytes`, *optional*):\n        Waveform representation of the voice note, in 5-bit format\n\n    disable_notification (``bool``, *optional*):\n        If True, disable notification for the message. Default is ``False``\n\n    protect_content (``bool``, *optional*):\n        If True, the content of the message must be protected from forwarding and saving\n\n    allow_paid_broadcast (``bool``, *optional*):\n        Pass true to allow the message to ignore regular broadcast limits for a small fee; for bots only. Default is ``False``\n\n    topic_id (:class:`~pytdbot.types.MessageTopic`, *optional*):\n        Topic in which the message will be sent; pass null if none\n\n    quote (:class:`~pytdbot.types.InputTextQuote`, *optional*):\n        Chosen quote from the replied message; may be null if none\n\n    reply_to (:class:`~pytdbot.types.InputMessageReplyTo`, *optional*):\n        Information about the message or the story this message is replying to; may be null if none\n\n    reply_to_message_id (``int``, *optional*):\n        Identifier of the message to reply. Ignored if ``reply_to`` is specified\n\n    receiver_user_id (``int``, *optional*):\n        Identifier of the user who will receive the message; for Ephemeral messages only\n\n    callback_query_id (``int``, *optional*):\n        Identifier of the callback query which triggered the message; for Ephemeral messages only\n\n    reply_markup (:class:`~pytdbot.types.ReplyMarkupInlineKeyboard` | :class:`~pytdbot.types.ReplyMarkupShowKeyboard` | :class:`~pytdbot.types.ReplyMarkupForceReply` | :class:`~pytdbot.types.ReplyMarkupRemoveKeyboard`, *optional*):\n        The message reply markup\n\n\nReturns:\n    :class:`~pytdbot.types.Message`",
+    "source": "pytdbot/methods/methods.py",
+    "returns": "Error | Message"
+  },
+  {
+    "name": "caption",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Caption of the received media",
+    "doc": "Caption of the received media",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "str | None"
+  },
+  {
+    "name": "caption_entities",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Caption entities of the received media",
+    "doc": "Caption entities of the received media",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "list[pytdbot.types.TextEntity] | None"
+  },
+  {
+    "name": "entities",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Entities of the message",
+    "doc": "Entities of the message",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "list[pytdbot.types.TextEntity] | None"
+  },
+  {
+    "name": "from_id",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Message Sender ID",
+    "doc": "Message Sender ID",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "int | None"
+  },
+  {
+    "name": "remote_duration",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Remote media file duration in seconds as defined by the sender; 0 if unknown",
+    "doc": "Remote media file duration in seconds as defined by the sender; 0 if unknown",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "int"
+  },
+  {
+    "name": "remote_file_id",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Remote file id",
+    "doc": "Remote file id",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "str | None"
+  },
+  {
+    "name": "remote_file_size",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Remote file size in bytes; 0 if unknown",
+    "doc": "Remote file size in bytes; 0 if unknown",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "int"
+  },
+  {
+    "name": "remote_unique_file_id",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Remote unique file id",
+    "doc": "Remote unique file id",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "str | None"
+  },
+  {
+    "name": "reply_to_message_id",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Replied message ID",
+    "doc": "Replied message ID",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "int"
+  },
+  {
+    "name": "rich_media",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Returns all media attachments available in the Rich message",
+    "doc": "Returns all media attachments available in the Rich message",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "list[pytdbot.types.Photo | pytdbot.types.Video | pytdbot.types.Audio | pytdbot.types.VoiceNote | pytdbot.types.Animation] | None"
+  },
+  {
+    "name": "text",
+    "kind": "property",
+    "on": "Message",
+    "async": false,
+    "args": [],
+    "description": "Text of the message",
+    "doc": "Text of the message",
+    "source": "pytdbot/types/bound_methods/message.py",
+    "returns": "str"
+  },
+  {
+    "name": "from_id",
+    "kind": "property",
+    "on": "MessageSender",
+    "async": false,
+    "args": [],
+    "description": "Returns the message sender's ID. ``None`` if not found",
+    "doc": "Returns the message sender's ID. ``None`` if not found",
+    "source": "pytdbot/types/bound_methods/sender_id.py",
+    "returns": "int | None"
+  },
+  {
+    "name": "is_chat",
+    "kind": "property",
+    "on": "MessageSender",
+    "async": false,
+    "args": [],
+    "description": "Returns ``True`` if the message sender is a chat",
+    "doc": "Returns ``True`` if the message sender is a chat",
+    "source": "pytdbot/types/bound_methods/sender_id.py",
+    "returns": "bool"
+  },
+  {
+    "name": "is_user",
+    "kind": "property",
+    "on": "MessageSender",
+    "async": false,
+    "args": [],
+    "description": "Returns ``True`` if the message sender is a user",
+    "doc": "Returns ``True`` if the message sender is a user",
+    "source": "pytdbot/types/bound_methods/sender_id.py",
+    "returns": "bool"
+  },
+  {
+    "name": "callback_data",
+    "kind": "property",
+    "on": "UpdateNewCallbackQuery",
+    "async": false,
+    "args": [],
+    "description": "Callback data that was set by :func:`~pytdbot.utils.callback_data`",
+    "doc": "Callback data that was set by :func:`~pytdbot.utils.callback_data`\n\nArgs:\n    action (``Any``):\n        Action name\n\n    data (``Any``, *optional*):\n        Callback data",
+    "source": "pytdbot/types/bound_methods/callback_query.py",
+    "returns": "pytdbot.utils.CallbackData"
+  },
+  {
+    "name": "text",
+    "kind": "property",
+    "on": "UpdateNewCallbackQuery",
+    "async": false,
+    "args": [],
+    "description": "Callback data decoded as str",
+    "doc": "Callback data decoded as str",
+    "source": "pytdbot/types/bound_methods/callback_query.py",
+    "returns": "str"
+  },
+  {
+    "name": "anchor",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "name"
+      }
+    ],
+    "description": "Create an empty anchor that can be linked to with :py:func:`in_doc_link`",
+    "doc": "Create an empty anchor that can be linked to with :py:func:`in_doc_link`\n\nParameters:\n    name (``str``):\n        The anchor name\n\nReturns:\n    :py:class:`str`: The anchor tag",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "aside",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "cite",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a pull quote",
+    "doc": "Create a pull quote\n\nParameters:\n    \\*children:\n        Child elements\n\n    cite (``str``, *optional*):\n        Citation source. Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "audio",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "src"
+      }
+    ],
+    "description": "Create an audio block",
+    "doc": "Create an audio block\n\nParameters:\n    src (``str``):\n        Audio URL\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "blockquote",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "cite",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a block quotation",
+    "doc": "Create a block quotation\n\nParameters:\n    \\*children:\n        Child elements\n\n    cite (``str``, *optional*):\n        Citation source. Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "bold",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to bold format",
+    "doc": "Convert the given text to bold format\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "callback_data",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "action",
+        "type": "Any"
+      },
+      {
+        "name": "data",
+        "type": "Any",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Create callback data for inline buttons",
+    "doc": "Create callback data for inline buttons\n\nParameters:\n    action (``Any``):\n        Action name, can be any type, but must be JSON serializable\n\n    data (``Any``, *optional*):\n        Callback data, can be any type, but must be JSON serializable\n\nReturns:\n    ``bytes``: Callback data encoded as bytes",
+    "source": "pytdbot/utils/json_utils.py",
+    "returns": "bytes"
+  },
+  {
+    "name": "code",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to code format",
+    "doc": "Convert the given text to code format\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "create_webapp_secret_key",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "bot_token",
+        "type": "str"
+      }
+    ],
+    "description": "Create a secret key for Web App data validation",
+    "doc": "Create a secret key for Web App data validation\n\n\\Parameters:\n    bot_token (``str``):\n        Bot token",
+    "source": "pytdbot/utils/webapps.py",
+    "returns": "bytes"
+  },
+  {
+    "name": "custom_emoji",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "emoji",
+        "type": "str"
+      },
+      {
+        "name": "custom_emoji_id",
+        "type": "int"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given emoji to custom emoji format",
+    "doc": "Convert the given emoji to custom emoji format\n\nParameters:\n    emoji (``str``):\n        The emoji of the custom emoji\n\n    custom_emoji_id (``int``):\n        Identifier of the custom emoji\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "details",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "summary"
+      },
+      {
+        "name": "open",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a collapsible details block",
+    "doc": "Create a collapsible details block\n\nParameters:\n    \\*children:\n        Content shown when expanded\n\n    summary (``str``):\n        Summary text displayed when collapsed\n\n    open (``bool``, *optional*):\n        Whether the block is expanded by default. Default is ``False``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "email_link",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "address"
+      },
+      {
+        "name": "text"
+      }
+    ],
+    "description": "Create an inline e-mail link",
+    "doc": "Create an inline e-mail link\n\nParameters:\n    address (``str``):\n        The e-mail address\n\n    text (``str``):\n        The display text\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "escape_html",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "quote",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Escape HTML characters in the given text",
+    "doc": "Escape HTML characters in the given text\n\nParameters:\n    text (``str``):\n        The text to escape\n\n    quote (``bool``, *optional*):\n        Whether to escape double quotes. Default is ``True``\n\nReturns:\n    :py:class:`str`: The escaped text",
+    "source": "pytdbot/utils/escape.py",
+    "returns": "str"
+  },
+  {
+    "name": "escape_markdown",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "version",
+        "type": "int",
+        "optional": true,
+        "default": "2"
+      }
+    ],
+    "description": "Escape Markdown characters in the given text",
+    "doc": "Escape Markdown characters in the given text\n\nParameters:\n    text (``str``):\n        The text to escape\n\n    version (``int``, *optional*):\n        The Markdown version to escape. Default is ``2``\n\nReturns:\n    :py:class:`str`: The escaped text\n\nRaises:\n    :py:class:`ValueError`: If the given markdown version is not supported",
+    "source": "pytdbot/utils/escape.py",
+    "returns": "str"
+  },
+  {
+    "name": "figcaption",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a figure caption",
+    "doc": "Create a figure caption\n\nParameters:\n    \\*children:\n        Child elements\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "figure",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a figure block",
+    "doc": "Create a figure block\n\nParameters:\n    \\*children:\n        Child elements (e.g. :py:func:`image`, :py:func:`video`, :py:func:`audio`, :py:func:`figcaption`)\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "footer",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a footer block",
+    "doc": "Create a footer block\n\nParameters:\n    \\*children:\n        Child elements\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "get_bot_id_from_token",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "token",
+        "type": "str"
+      }
+    ],
+    "description": "",
+    "doc": "",
+    "source": "pytdbot/utils/strings.py",
+    "returns": "str"
+  },
+  {
+    "name": "get_message_sender_id",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "sender",
+        "type": "pytdbot.types.MessageSenderChat | pytdbot.types.MessageSenderUser"
+      }
+    ],
+    "description": "Get the ID from :class:`pytdbot.types.MessageSenderUser` or :class:`pytdbot.types.MessageSenderChat`",
+    "doc": "Get the ID from :class:`pytdbot.types.MessageSenderUser` or :class:`pytdbot.types.MessageSenderChat`",
+    "source": "pytdbot/utils/common.py",
+    "returns": "int"
+  },
+  {
+    "name": "get_retry_after_time",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "error_message",
+        "type": "str"
+      }
+    ],
+    "description": "Get the retry after time from flood wait error message",
+    "doc": "Get the retry after time from flood wait error message\n\nParameters:\n    error_message (``str``):\n        The returned error message from TDLib\n\nReturns:\n    py:class:`int`",
+    "source": "pytdbot/utils/strings.py",
+    "returns": "int"
+  },
+  {
+    "name": "heading",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "level"
+      },
+      {
+        "name": "text"
+      },
+      {
+        "name": "name",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Create a heading with an optional anchor",
+    "doc": "Create a heading with an optional anchor\n\nParameters:\n    level (``int``):\n        Heading level from 1 to 6\n\n    text (``str``):\n        The heading text\n\n    name (``str``, *optional*):\n        Anchor name for in-document linking. Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "horizontal_rule",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [],
+    "description": "Create a horizontal rule",
+    "doc": "Create a horizontal rule\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "hyperlink",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "url",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to hyperlink format",
+    "doc": "Convert the given text to hyperlink format\n\nParameters:\n    text (``str``):\n        The hyperlink text\n\n    url (``str``):\n        The hyperlink url\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "image",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "src"
+      },
+      {
+        "name": "alt",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "spoiler",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Create an image block",
+    "doc": "Create an image block\n\nParameters:\n    src (``str``):\n        Image URL\n\n    alt (``str``, *optional*):\n        Alternative text. Default is ``None``\n\n    spoiler (``bool``, *optional*):\n        Whether the image is a spoiler. Default is ``False``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "in_doc_link",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "anchor"
+      },
+      {
+        "name": "text"
+      }
+    ],
+    "description": "Create an in-document link to an anchor created with :py:func:`anchor`",
+    "doc": "Create an in-document link to an anchor created with :py:func:`anchor`\n\nParameters:\n    anchor (``str``):\n        The anchor name to link to\n\n    text (``str``):\n        The display text\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "italic",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to italic format",
+    "doc": "Convert the given text to italic format\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "list_item",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "value",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "checked",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "type",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a list item",
+    "doc": "Create a list item\n\nParameters:\n    \\*children:\n        Child elements\n\n    value (``int``, *optional*):\n        Explicit item number for ordered lists. Default is ``None``\n\n    checked (``bool``, *optional*):\n        Checkbox state. ``True`` for checked, ``False`` for unchecked.\n        Default is ``None`` (no checkbox)\n\n    type (``str``, *optional*):\n        List item type marker (e.g. ``\"i\"``, ``\"a\"``). Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "load_callback_data",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "description": "loads already created callback data by :func:`~pytdbot.utils.callback_data`. Returns empty CallbackData on error",
+    "doc": "loads already created callback data by :func:`~pytdbot.utils.callback_data`. Returns empty CallbackData on error",
+    "source": "pytdbot/utils/json_utils.py",
+    "returns": "CallbackData"
+  },
+  {
+    "name": "ltr",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      }
+    ],
+    "description": "Add LTR (Left-to-Right) mark to the given text",
+    "doc": "Add LTR (Left-to-Right) mark to the given text\n\nParameters:\n    text (``str``):\n        The text to convert\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "marked",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text"
+      }
+    ],
+    "description": "Wrap text in marked (highlighted) format",
+    "doc": "Wrap text in marked (highlighted) format\n\nParameters:\n    text (``str``):\n        The text to convert\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "mention",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "user_id",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to inline mention format",
+    "doc": "Convert the given text to inline mention format\n\nParameters:\n    text (``str``):\n        The text of inline mention\n\n    user_id (``str``):\n        The inline user id to mention\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "newline",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "count",
+        "type": "int",
+        "optional": true,
+        "default": "1"
+      }
+    ],
+    "description": "Create one or more HTML line breaks.",
+    "doc": "Create one or more HTML line breaks.\n\nParameters:\n    count (``int``):\n        Number of ``<br>`` tags to generate\n\nReturns:\n    :py:class:`str`:\n        A string containing ``<br>`` HTML line break tags",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "ordered_list",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "start",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "type",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "reversed",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "*items",
+        "optional": true
+      }
+    ],
+    "description": "Create an ordered list",
+    "doc": "Create an ordered list\n\nParameters:\n    \\*items:\n        List items. Plain strings are automatically wrapped in ``<li>``\n\n    start (``int``, *optional*):\n        Starting number. Default is ``None``\n\n    type (``str``, *optional*):\n        List marker type (e.g. ``\"a\"``, ``\"i\"``). Default is ``None``\n\n    reversed (``bool``, *optional*):\n        Whether the list is reversed. Default is ``False``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "paragraph",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a paragraph block",
+    "doc": "Create a paragraph block\n\nParameters:\n    \\*children:\n        Child elements\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "parse_webapp_data",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "secret_key",
+        "type": "bytes"
+      },
+      {
+        "name": "init_data",
+        "type": "str"
+      },
+      {
+        "name": "max_data_age",
+        "type": "int",
+        "optional": true,
+        "default": "60"
+      }
+    ],
+    "description": "Parse and validate init data received from Web App",
+    "doc": "Parse and validate init data received from Web App\n\n\\Parameters:\n    secret_key (``bytes``):\n        Secret key for Web App data validation; can be created using :func:`pytdbot.utils.create_webapp_secret_key`\n\n    init_data (``str``):\n        Init data received from Web App\n\n    max_data_age (``int``, *optional*):\n        Maximum age of init data in seconds. Default is ``60`` seconds\n\nReturns:\n    ``dict``: Parsed data\n\nRaises:\n    :class:`pytdbot.exception.WebAppDataInvalid`\n    :class:`pytdbot.exception.WebAppDataOutdated`\n    :class:`pytdbot.exception.WebAppDataMismatch`",
+    "source": "pytdbot/utils/webapps.py",
+    "returns": "dict"
+  },
+  {
+    "name": "phone",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "number"
+      },
+      {
+        "name": "text"
+      }
+    ],
+    "description": "Create an inline phone number link",
+    "doc": "Create an inline phone number link\n\nParameters:\n    number (``str``):\n        The phone number\n\n    text (``str``):\n        The display text\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "pre",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to pre format",
+    "doc": "Convert the given text to pre format\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "pre_code",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "language",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to pre-formatted fixed-width code block",
+    "doc": "Convert the given text to pre-formatted fixed-width code block\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    language (``str``):\n        The name of the programming language written in the given code block\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "quote",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "expandable",
+        "type": "bool",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to quote block",
+    "doc": "Convert the given text to quote block\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    expandable (``bool``, *optional*):\n        Wether the quote is expandable or not. Default is ``False``\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": null
+  },
+  {
+    "name": "rich_message_to_html",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "message",
+        "type": "RichMessage"
+      },
+      {
+        "name": "file_url_func",
+        "optional": true,
+        "default": "None"
+      }
+    ],
+    "description": "Convert a TDLib rich message object to HTML",
+    "doc": "Convert a TDLib rich message object to HTML\n\nParameters:\n    message (:class:`pytdbot.types.RichMessage`):\n        The rich message object containing rich blocks\n\n    file_url_func (``callable``, *optional*):\n        A function that receives the full media object (:class:`pytdbot.types.Photo`, :class:`pytdbot.types.Video`, :class:`pytdbot.types.Audio`,\n        :class:`pytdbot.types.VoiceNote`, or :class:`pytdbot.types.Animation`) and returns an HTTP/HTTPS URL string.\n        If ``None``, file IDs are used as ``src`` values. (file_id media send is not supported by Telegram)\n\nReturns:\n    :py:class:`str`: The rendered HTML string",
+    "source": "pytdbot/utils/rich_converter.py",
+    "returns": null
+  },
+  {
+    "name": "rtl",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      }
+    ],
+    "description": "Add RTL (Right-to-Left) mark to the given text",
+    "doc": "Add RTL (Right-to-Left) mark to the given text\n\nParameters:\n    text (``str``):\n        The text to convert\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "spoiler",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to spoiler format",
+    "doc": "Convert the given text to spoiler format\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "strikethrough",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to strikethrough format",
+    "doc": "Convert the given text to strikethrough format\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "subscript",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text"
+      }
+    ],
+    "description": "Wrap text in subscript format",
+    "doc": "Wrap text in subscript format\n\nParameters:\n    text (``str``):\n        The text to convert\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "superscript",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text"
+      }
+    ],
+    "description": "Wrap text in superscript format",
+    "doc": "Wrap text in superscript format\n\nParameters:\n    text (``str``):\n        The text to convert\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "table",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "bordered",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "striped",
+        "optional": true,
+        "default": "False"
+      },
+      {
+        "name": "caption",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*rows",
+        "optional": true
+      }
+    ],
+    "description": "Create a table",
+    "doc": "Create a table\n\nParameters:\n    \\*rows:\n        Table rows\n\n    bordered (``bool``, *optional*):\n        Whether the table has borders. Default is ``False``\n\n    striped (``bool``, *optional*):\n        Whether the table has striped rows. Default is ``False``\n\n    caption (``str``, *optional*):\n        Table caption. Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "table_cell",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "colspan",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "rowspan",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "align",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "valign",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a table data cell",
+    "doc": "Create a table data cell\n\nParameters:\n    \\*children:\n        Cell content\n\n    colspan (``int``, *optional*):\n        Number of columns to span. Default is ``None``\n\n    rowspan (``int``, *optional*):\n        Number of rows to span. Default is ``None``\n\n    align (``str``, *optional*):\n        Horizontal alignment (``\"left\"``, ``\"center\"``, ``\"right\"``). Default is ``None``\n\n    valign (``str``, *optional*):\n        Vertical alignment (``\"top\"``, ``\"middle\"``, ``\"bottom\"``). Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "table_header",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "*cells",
+        "optional": true
+      }
+    ],
+    "description": "Create a table header row with ``<th>`` cells",
+    "doc": "Create a table header row with ``<th>`` cells\n\nParameters:\n    \\*cells:\n        Header cell values\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "table_header_cell",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "colspan",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "rowspan",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "align",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "valign",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a table header cell",
+    "doc": "Create a table header cell\n\nParameters:\n    \\*children:\n        Cell content\n\n    colspan (``int``, *optional*):\n        Number of columns to span. Default is ``None``\n\n    rowspan (``int``, *optional*):\n        Number of rows to span. Default is ``None``\n\n    align (``str``, *optional*):\n        Horizontal alignment (``\"left\"``, ``\"center\"``, ``\"right\"``). Default is ``None``\n\n    valign (``str``, *optional*):\n        Vertical alignment (``\"top\"``, ``\"middle\"``, ``\"bottom\"``). Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "table_row",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "*cells",
+        "optional": true
+      }
+    ],
+    "description": "Create a table row",
+    "doc": "Create a table row\n\nParameters:\n    \\*cells:\n        Cell elements\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tag",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "tag_name"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      },
+      {
+        "name": "**attrs",
+        "optional": true
+      }
+    ],
+    "description": "Build an HTML tag string",
+    "doc": "Build an HTML tag string\n\nParameters:\n    tag_name (``str``):\n        The HTML tag name\n\n    \\*children:\n        Child elements to place inside the tag\n\n    \\*attrs:\n        HTML attributes. Use ``True`` for boolean attributes.\n        Use ``None`` or ``False`` to skip an attribute.\n\nReturns:\n    :py:class:`str`: The rendered HTML tag",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tg_collage",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "caption",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a media collage",
+    "doc": "Create a media collage\n\nParameters:\n    \\*children:\n        Media elements (e.g. :py:func:`image`, :py:func:`video`)\n\n    caption (``str``, *optional*):\n        Collage caption. Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tg_map",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "lat"
+      },
+      {
+        "name": "long"
+      },
+      {
+        "name": "zoom"
+      }
+    ],
+    "description": "Create a map block",
+    "doc": "Create a map block\n\nParameters:\n    lat (``float``):\n        Latitude\n\n    long (``float``):\n        Longitude\n\n    zoom (``int``):\n        Zoom level\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tg_math",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "source"
+      }
+    ],
+    "description": "Wrap text in inline math formula",
+    "doc": "Wrap text in inline math formula\n\nParameters:\n    source (``str``):\n        LaTeX formula source\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tg_math_block",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "source"
+      }
+    ],
+    "description": "Wrap text in a block math formula",
+    "doc": "Wrap text in a block math formula\n\nParameters:\n    source (``str``):\n        LaTeX formula source\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tg_reference",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "name"
+      },
+      {
+        "name": "text"
+      }
+    ],
+    "description": "Define referenced text that can be linked to with :py:func:`in_doc_link`",
+    "doc": "Define referenced text that can be linked to with :py:func:`in_doc_link`\n\nParameters:\n    name (``str``):\n        The reference name\n\n    text (``str``):\n        The referenced text\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tg_slideshow",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "caption",
+        "optional": true,
+        "default": "None"
+      },
+      {
+        "name": "*children",
+        "optional": true
+      }
+    ],
+    "description": "Create a media slideshow",
+    "doc": "Create a media slideshow\n\nParameters:\n    \\*children:\n        Media elements (e.g. :py:func:`image`, :py:func:`video`)\n\n    caption (``str``, *optional*):\n        Slideshow caption. Default is ``None``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "tg_time",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "unix"
+      },
+      {
+        "name": "format"
+      },
+      {
+        "name": "text",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "description": "Create a date-time entity",
+    "doc": "Create a date-time entity\n\nParameters:\n    unix (``int``):\n        Unix timestamp\n\n    format (``str``):\n        Date-time format string\n\n    text (``str``, *optional*):\n        Fallback text. Default is ``\"\"``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "thinking",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "thought",
+        "type": "str"
+      }
+    ],
+    "description": "Create a Telegram thinking",
+    "doc": "Create a Telegram thinking\n\nParameters:\n    thought (``str``):\n        The text to include in the thinking block.\n\nReturns:\n    :py:class:`str`",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "underline",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "html",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      },
+      {
+        "name": "escape",
+        "type": "bool",
+        "optional": true,
+        "default": "True"
+      }
+    ],
+    "description": "Convert the given text to underline format",
+    "doc": "Convert the given text to underline format\n\nParameters:\n    text (``str``):\n        The text to convert\n\n    html (``bool``, *optional*):\n        If ``True``, returns HTML format, if ``False`` returns MarkdownV2. Default is ``True``\n\n    escape (``bool``, *optional*):\n        Whether escape special characters to the given text or not. Default is ``True``\n\nReturns:\n    :py:class:`str`: The formated text",
+    "source": "pytdbot/utils/text_format.py",
+    "returns": "str"
+  },
+  {
+    "name": "unordered_list",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "*items",
+        "optional": true
+      }
+    ],
+    "description": "Create an unordered list",
+    "doc": "Create an unordered list\n\nParameters:\n    \\*items:\n        List items. Plain strings are automatically wrapped in ``<li>``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  },
+  {
+    "name": "video",
+    "kind": "util",
+    "on": "utils",
+    "async": false,
+    "args": [
+      {
+        "name": "src"
+      },
+      {
+        "name": "spoiler",
+        "optional": true,
+        "default": "False"
+      }
+    ],
+    "description": "Create a video block",
+    "doc": "Create a video block\n\nParameters:\n    src (``str``):\n        Video URL\n\n    spoiler (``bool``, *optional*):\n        Whether the video is a spoiler. Default is ``False``\n\nReturns:\n    :py:class:`str`: The formatted text",
+    "source": "pytdbot/utils/rich_messages.py",
+    "returns": null
+  }
+]

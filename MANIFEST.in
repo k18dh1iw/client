@@ -1,3 +1,4 @@
-include README.md LICENSE requirements.txt pytdbot/td_api.*
+include README.md LICENSE requirements.txt llms.txt pytdbot/td_api.*
 recursive-include pytdbot *.py
+include pytdbot/ai/SKILL.md pytdbot/ai/helpers.json
 exclude examples/
