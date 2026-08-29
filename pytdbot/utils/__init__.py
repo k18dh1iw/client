@@ -10,6 +10,7 @@ __all__ = [
     "json_dumps",
     "json_loads",
     "load_callback_data",
+    "deepdiff",
     "dict_to_obj",
     "obj_to_dict",
     "obj_to_json",
@@ -47,7 +48,10 @@ __all__ = [
     "table_row",
     "tag",
     "thinking",
+    "tg_button",
+    "tg_button_row",
     "tg_collage",
+    "tg_document",
     "tg_map",
     "tg_math",
     "tg_math_block",
@@ -59,6 +63,7 @@ __all__ = [
     "bold",
     "code",
     "custom_emoji",
+    "get_formatted_text",
     "hyperlink",
     "italic",
     "ltr",
@@ -77,6 +82,7 @@ __all__ = [
 
 from .albums import MediaAlbumFuture
 from .common import get_message_sender_id
+from .diff import deepdiff
 from .escape import escape_html, escape_markdown
 from .json_utils import (
     JSON_ENCODER,
@@ -119,7 +125,10 @@ from .rich_messages import (
     table_header_cell,
     table_row,
     tag,
+    tg_button,
+    tg_button_row,
     tg_collage,
+    tg_document,
     tg_map,
     tg_math,
     tg_math_block,
@@ -141,6 +150,7 @@ from .text_format import (
     bold,
     code,
     custom_emoji,
+    get_formatted_text,
     hyperlink,
     italic,
     ltr,
